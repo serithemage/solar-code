@@ -2,16 +2,7 @@
 
 [![Solar Code CI](https://github.com/serithemage/solar-code/actions/workflows/ci.yml/badge.svg)](https://github.com/serithemage/solar-code/actions/workflows/ci.yml)
 
-```
-  ********   *******   **           **     *******           ******    *******   *******   ********
- **//////   **/////** /**          ****   /**////**         **////**  **/////** /**////** /**///// 
-/**        **     //**/**         **//**  /**   /**        **    //  **     //**/**    /**/**      
-/*********/**      /**/**        **  //** /*******   *****/**       /**      /**/**    /**/******* 
-////////**/**      /**/**       **********/**///**  ///// /**       /**      /**/**    /**/**////  
-       /**//**     ** /**      /**//////**/**  //**       //**    **//**     ** /**    ** /**      
- ********  //*******  /********/**     /**/**   //**       //******  //*******  /*******  /********
-////////    ///////   //////// //      // //     //         //////    ///////   ///////   //////// 
-```
+![ScreenShot](solar-code/assets/soalr-code-screenshop.png)
 
 **🚀 새로운 시작!** Solar Code는 [QwenLM의 qwen-code](https://github.com/QwenLM/qwen-code)에서 영감을 받아 [Gemini CLI](https://github.com/google-gemini/gemini-cli)를 기반으로 제작되고 있는 프로젝트입니다. [Upstage Solar Pro2](https://www.upstage.ai/blog/ko/solar-pro-2-preview-introduction) 모델을 사용하는 명령줄 AI 워크플로우 도구로 개발 중입니다.
 
