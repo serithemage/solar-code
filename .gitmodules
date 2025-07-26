@@ -1,0 +1,3 @@
+[submodule "solar-code/qwen-code-reference"]
+	path = solar-code/qwen-code-reference
+	url = https://github.com/QwenLM/qwen-code.git
