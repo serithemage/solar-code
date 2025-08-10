@@ -1,128 +1,129 @@
-# Gemini CLI
+# Solar Code
 
-[![Gemini CLI CI](https://github.com/google-gemini/gemini-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/google-gemini/gemini-cli/actions/workflows/ci.yml)
+[![Solar Code CI](https://github.com/solar-code/solar-code/actions/workflows/ci.yml/badge.svg)](https://github.com/solar-code/solar-code/actions/workflows/ci.yml)
 
-![Gemini CLI Screenshot](./docs/assets/gemini-screenshot.png)
+![Solar Code Screenshot](./solar-code/assets/soalr-code-screenshop.png)
 
-This repository contains the Gemini CLI, a command-line AI workflow tool that connects to your
-tools, understands your code and accelerates your workflows.
+This repository contains Solar Code, a command-line AI workflow tool powered by **Upstage Solar Pro2** that connects to your tools, understands your code and accelerates your workflows.
 
-With the Gemini CLI you can:
+Solar Code is based on the excellent Gemini CLI architecture, enhanced to work with Upstage's Solar Pro2 model for Korean developers and organizations.
 
-- Query and edit large codebases in and beyond Gemini's 1M token context window.
-- Generate new apps from PDFs or sketches, using Gemini's multimodal capabilities.
-- Automate operational tasks, like querying pull requests or handling complex rebases.
-- Integrate with GitHub: Use the [Gemini CLI GitHub Action](https://github.com/google-github-actions/run-gemini-cli) for automated PR reviews, issue triage, and on-demand AI assistance directly in your repositories.
-- Use tools and MCP servers to connect new capabilities, including [media generation with Imagen,
-  Veo or Lyria](https://github.com/GoogleCloudPlatform/vertex-ai-creative-studio/tree/main/experiments/mcp-genmedia)
-- Ground your queries with the [Google Search](https://ai.google.dev/gemini-api/docs/grounding)
-  tool, built into Gemini.
+With Solar Code you can:
+
+- Query and edit large codebases with Solar Pro2's advanced language understanding.
+- Generate new applications and code with Korean-optimized AI assistance.
+- Automate operational tasks like querying pull requests and handling complex rebases.
+- Integrate with development workflows using Solar Pro2's powerful code analysis capabilities.
+- Use tools and MCP servers to connect new capabilities and extend functionality.
+- Leverage Solar Pro2's multilingual support for Korean and English development contexts.
 
 ## Quickstart
 
-You have two options to install Gemini CLI.
+Solar Code can be installed from source or as a packaged distribution.
 
-### With Node
+### With Node (Development)
 
 1. **Prerequisites:** Ensure you have [Node.js version 20](https://nodejs.org/en/download) or higher installed.
-2. **Run the CLI:** Execute the following command in your terminal:
+2. **Clone and install:** Execute the following commands in your terminal:
 
    ```bash
-   npx https://github.com/google-gemini/gemini-cli
+   git clone https://github.com/solar-code/solar-code
+   cd solar-code
+   npm install
+   npm run build
    ```
 
-   Or install it with:
+3. **Run the CLI:**
 
    ```bash
-   npm install -g @google/gemini-cli
+   npm start
    ```
 
-   Then, run the CLI from anywhere:
+   Or use the development script:
 
    ```bash
-   gemini
+   ./scripts/start.js
    ```
 
-### With Homebrew
+### Distribution Package (Coming Soon)
 
-1. **Prerequisites:** Ensure you have [Homebrew](https://brew.sh/) installed.
-2. **Install the CLI:** Execute the following command in your terminal:
+Solar Code distribution packages will be available soon for easier installation.
+
+### Authentication Setup
+
+1. **Get Solar Pro2 API Key:** Obtain your API key from [Upstage Console](https://console.upstage.ai/).
+2. **Set Environment Variable:** Configure your Solar Pro2 API key:
 
    ```bash
-   brew install gemini-cli
+   export SOLAR_API_KEY="your_solar_pro2_api_key_here"
    ```
 
-   Then, run the CLI from anywhere:
+3. **Optional Configuration:** Set additional environment variables if needed:
 
    ```bash
-   gemini
+   export SOLAR_MODEL="solar-pro2"
+   export SOLAR_BASE_URL="https://api.upstage.ai/v1"
    ```
 
-### Common Configuration steps
+4. **Pick a Color Theme:** Choose from available themes including the new Solar themes.
 
-3. **Pick a color theme**
-4. **Authenticate:** When prompted, sign in with your personal Google account. This will grant you up to 60 model requests per minute and 1,000 model requests per day using Gemini.
+You are now ready to use Solar Code!
 
-You are now ready to use the Gemini CLI!
+### Solar Pro2 API Configuration
 
-### Use a Gemini API key:
+Solar Code uses Upstage's Solar Pro2 API for AI-powered code assistance:
 
-The Gemini API provides a free tier with [100 requests per day](https://ai.google.dev/gemini-api/docs/rate-limits#free-tier) using Gemini 2.5 Pro, control over which model you use, and access to higher rate limits (with a paid plan):
-
-1. Generate a key from [Google AI Studio](https://aistudio.google.com/apikey).
-2. Set it as an environment variable in your terminal. Replace `YOUR_API_KEY` with your generated key.
+1. **Create an Upstage Account:** Sign up at [Upstage Console](https://console.upstage.ai/)
+2. **Generate API Key:** Create a new API key in your Upstage dashboard
+3. **Set Environment Variables:** Configure your API credentials:
 
    ```bash
-   export GEMINI_API_KEY="YOUR_API_KEY"
+   export SOLAR_API_KEY="your_solar_pro2_api_key"
+   export SOLAR_MODEL="solar-pro2"  # Optional: default model
+   export SOLAR_BASE_URL="https://api.upstage.ai/v1"  # Optional: custom endpoint
    ```
 
-3. (Optionally) Upgrade your Gemini API project to a paid plan on the API key page (will automatically unlock [Tier 1 rate limits](https://ai.google.dev/gemini-api/docs/rate-limits#tier-1))
+4. **Verify Configuration:** Test your setup by running Solar Code
 
-### Use a Vertex AI API key:
-
-The Vertex AI API provides a [free tier](https://cloud.google.com/vertex-ai/generative-ai/docs/start/express-mode/overview) using express mode for Gemini 2.5 Pro, control over which model you use, and access to higher rate limits with a billing account:
-
-1. Generate a key from [Google Cloud](https://cloud.google.com/vertex-ai/generative-ai/docs/start/api-keys).
-2. Set it as an environment variable in your terminal. Replace `YOUR_API_KEY` with your generated key and set GOOGLE_GENAI_USE_VERTEXAI to true
-
-   ```bash
-   export GOOGLE_API_KEY="YOUR_API_KEY"
-   export GOOGLE_GENAI_USE_VERTEXAI=true
-   ```
-
-3. (Optionally) Add a billing account on your project to get access to [higher usage limits](https://cloud.google.com/vertex-ai/generative-ai/docs/quotas)
-
-For other authentication methods, including Google Workspace accounts, see the [authentication](./docs/cli/authentication.md) guide.
+For troubleshooting and advanced configuration, see the [authentication guide](./docs/cli/authentication.md).
 
 ## Examples
 
-Once the CLI is running, you can start interacting with Gemini from your shell.
+Once Solar Code is running, you can start interacting with Solar Pro2 from your shell.
 
 You can start a project from a new directory:
 
 ```sh
 cd new-project/
-gemini
-> Write me a Gemini Discord bot that answers questions using a FAQ.md file I will provide
+npm start  # or your Solar Code launcher
+> Write me a Discord bot that answers questions using a FAQ.md file I will provide
 ```
 
 Or work with an existing project:
 
 ```sh
-git clone https://github.com/google-gemini/gemini-cli
-cd gemini-cli
-gemini
+git clone https://github.com/your-org/your-project
+cd your-project
+npm start  # Launch Solar Code
 > Give me a summary of all of the changes that went in yesterday
+```
+
+You can also ask in Korean:
+
+```sh
+> 이 코드베이스의 주요 아키텍처를 설명해주세요
+> 성능 최적화할 수 있는 부분을 찾아주세요
 ```
 
 ### Next steps
 
-- Learn how to [contribute to or build from the source](./CONTRIBUTING.md).
+- Learn how to [contribute to Solar Code development](./CONTRIBUTING.md).
+- Review the **[Development Tasks](./solar-code/DEVELOPMENT_TASKS.md)** for implementation details.
 - Explore the available **[CLI Commands](./docs/cli/commands.md)**.
 - If you encounter any issues, review the **[troubleshooting guide](./docs/troubleshooting.md)**.
-- For more comprehensive documentation, see the [full documentation](./docs/index.md).
+- For comprehensive documentation, see the [full documentation](./docs/index.md).
 - Take a look at some [popular tasks](#popular-tasks) for more inspiration.
-- Check out our **[Official Roadmap](./ROADMAP.md)**
+- Check out the **[Solar Code PRD](./solar-code/PRD.md)** for project details.
 
 ### Troubleshooting
 
@@ -131,63 +132,66 @@ having issues.
 
 ## GitHub Integration
 
-Integrate Gemini CLI directly into your GitHub workflows with the [**Gemini CLI GitHub Action**](https://github.com/google-github-actions/run-gemini-cli). Key features include:
+Solar Code is designed to integrate with GitHub workflows, with GitHub Actions support planned for future releases:
 
-- **Pull Request Reviews**: Automatically review pull requests when they're opened.
-- **Issue Triage**: Automatically triage and label GitHub issues.
-- **On-demand Collaboration**: Mention `@gemini-cli` in issues and pull requests for assistance and task delegation.
-- **Custom Workflows**: Set up your own scheduled tasks and event-driven automations.
+- **Pull Request Reviews**: AI-powered code review with Solar Pro2's advanced analysis.
+- **Issue Triage**: Automated issue labeling and categorization.
+- **Korean Language Support**: Native Korean language support for Korean development teams.
+- **Custom Workflows**: Extensible workflow automation with Solar Pro2 intelligence.
+
+*GitHub Actions integration is coming soon. Stay tuned for updates!*
 
 ## Popular tasks
 
 ### Explore a new codebase
 
-Start by `cd`ing into an existing or newly-cloned repository and running `gemini`.
+Start by `cd`ing into an existing or newly-cloned repository and running Solar Code.
 
 ```text
 > Describe the main pieces of this system's architecture.
+> 이 시스템의 주요 아키텍처 구성 요소를 설명해주세요.
 ```
 
 ```text
 > What security mechanisms are in place?
+> 어떤 보안 메커니즘이 적용되어 있나요?
 ```
 
 ```text
 > Provide a step-by-step dev onboarding doc for developers new to the codebase.
+> 새로운 개발자를 위한 단계별 온보딩 문서를 작성해주세요.
 ```
 
 ```text
 > Summarize this codebase and highlight the most interesting patterns or techniques I could learn from.
+> 이 코드베이스를 요약하고 배울 수 있는 흥미로운 패턴이나 기법을 강조해주세요.
 ```
 
 ```text
-> Identify potential areas for improvement or refactoring in this codebase, highlighting parts that appear fragile, complex, or hard to maintain.
+> Identify potential areas for improvement or refactoring in this codebase.
+> 이 코드베이스에서 개선이나 리팩토링이 필요한 잠재적 영역을 식별해주세요.
 ```
 
 ```text
 > Which parts of this codebase might be challenging to scale or debug?
+> 이 코드베이스에서 확장성이나 디버깅이 어려울 수 있는 부분은 어디인가요?
 ```
 
 ```text
 > Generate a README section for the [module name] module explaining what it does and how to use it.
-```
-
-```text
-> What kind of error handling and logging strategies does the project use?
-```
-
-```text
-> Which tools, libraries, and dependencies are used in this project?
+> [모듈명] 모듈이 무엇을 하는지와 사용 방법을 설명하는 README 섹션을 생성해주세요.
 ```
 
 ### Work with your existing code
 
 ```text
 > Implement a first draft for GitHub issue #123.
+> GitHub 이슈 #123에 대한 초기 구현을 작성해주세요.
 ```
 
 ```text
 > Help me migrate this codebase to the latest version of Java. Start with a plan.
+> 이 코드베이스를 최신 Java 버전으로 마이그레이션하는 것을 도와주세요. 계획부터 세워주세요.
 ```
 
 ### Automate your workflows
@@ -216,10 +220,27 @@ Use MCP servers to integrate your local system tools with your enterprise collab
 
 Head over to the [Uninstall](docs/Uninstall.md) guide for uninstallation instructions.
 
-## Terms of Service and Privacy Notice
+## Development Status
 
-For details on the terms of service and privacy notice applicable to your use of Gemini CLI, see the [Terms of Service and Privacy Notice](./docs/tos-privacy.md).
+Solar Code is currently in active development. This project is based on the Gemini CLI architecture and is being adapted to work with Upstage's Solar Pro2 model.
 
-## Security Disclosures
+### Current Status
+- ✅ Architecture analysis complete
+- ✅ Development roadmap defined  
+- 🔄 Phase 1: Model integration in progress
+- ⏳ Phase 2-5: Coming soon
 
-Please see our [security disclosure process](SECURITY.md). All [security advisories](https://github.com/google-gemini/gemini-cli/security/advisories) are managed on Github.
+For detailed development progress, see [Development Tasks](./solar-code/DEVELOPMENT_TASKS.md).
+
+## Contributing
+
+We welcome contributions to Solar Code! Please see our [Contributing Guide](./CONTRIBUTING.md) for details on:
+
+- Setting up the development environment
+- Understanding the codebase architecture  
+- Submitting pull requests
+- Development workflow and testing
+
+## Security
+
+Please see our [security disclosure process](SECURITY.md) for reporting security issues.
