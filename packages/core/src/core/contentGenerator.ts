@@ -14,7 +14,7 @@ import {
   GoogleGenAI,
 } from '@google/genai';
 import { createCodeAssistContentGenerator } from '../code_assist/codeAssist.js';
-import { DEFAULT_GEMINI_MODEL } from '../config/models.js';
+import { DEFAULT_GEMINI_MODEL, DEFAULT_SOLAR_MODEL } from '../config/models.js';
 import { Config } from '../config/config.js';
 import { getEffectiveModel } from './modelCheck.js';
 import { UserTierId } from '../code_assist/types.js';
@@ -46,6 +46,7 @@ export enum AuthType {
   USE_GEMINI = 'gemini-api-key',
   USE_VERTEX_AI = 'vertex-ai',
   CLOUD_SHELL = 'cloud-shell',
+  USE_SOLAR = 'solar-api-key', // Added Solar Pro2 support
 }
 
 export type ContentGeneratorConfig = {
@@ -64,9 +65,14 @@ export function createContentGeneratorConfig(
   const googleApiKey = process.env.GOOGLE_API_KEY || undefined;
   const googleCloudProject = process.env.GOOGLE_CLOUD_PROJECT || undefined;
   const googleCloudLocation = process.env.GOOGLE_CLOUD_LOCATION || undefined;
+  const upstageApiKey = process.env.UPSTAGE_API_KEY || undefined; // Solar API key
 
   // Use runtime model from config if available; otherwise, fall back to parameter or default
-  const effectiveModel = config.getModel() || DEFAULT_GEMINI_MODEL;
+  let defaultModel = DEFAULT_GEMINI_MODEL;
+  if (authType === AuthType.USE_SOLAR) {
+    defaultModel = DEFAULT_SOLAR_MODEL;
+  }
+  const effectiveModel = config.getModel() || defaultModel;
 
   const contentGeneratorConfig: ContentGeneratorConfig = {
     model: effectiveModel,
@@ -101,6 +107,14 @@ export function createContentGeneratorConfig(
     contentGeneratorConfig.apiKey = googleApiKey;
     contentGeneratorConfig.vertexai = true;
 
+    return contentGeneratorConfig;
+  }
+
+  if (authType === AuthType.USE_SOLAR && upstageApiKey) {
+    contentGeneratorConfig.apiKey = upstageApiKey;
+    contentGeneratorConfig.vertexai = false;
+    // Note: Solar Pro2 model validation will be handled in Phase 1.2
+    
     return contentGeneratorConfig;
   }
 

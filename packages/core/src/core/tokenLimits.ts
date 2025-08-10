@@ -11,8 +11,17 @@ export const DEFAULT_TOKEN_LIMIT = 1_048_576;
 
 export function tokenLimit(model: Model): TokenCount {
   // Add other models as they become relevant or if specified by config
-  // Pulled from https://ai.google.dev/gemini-api/docs/models
+  // Gemini models pulled from https://ai.google.dev/gemini-api/docs/models
+  // Solar models from https://console.upstage.ai/docs/getting-started
   switch (model) {
+    // Solar Pro2 Models
+    case 'solar-pro2':
+      return 4_096; // Solar Pro2 token limit
+    case 'solar-mini':
+    case 'solar-1-mini':
+      return 4_096; // Solar mini models token limit
+      
+    // Gemini Models (legacy support)
     case 'gemini-1.5-pro':
       return 2_097_152;
     case 'gemini-1.5-flash':
