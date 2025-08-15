@@ -1,6 +1,6 @@
 # Solar Code
 
-[![Solar Code CI](https://github.com/solar-code/solar-code/actions/workflows/ci.yml/badge.svg)](https://github.com/solar-code/solar-code/actions/workflows/ci.yml)
+[![Solar Code CI](https://github.com/solar-code/solar-code/actions/workflows/ci.yml/badge.svg)](https://github.com/solar-code/solar-code/actions/workflows/ci.yml)  [![Mentioned in Awesome Gemini CLI](https://awesome.re/mentioned-badge.svg)](https://github.com/Piebald-AI/awesome-gemini-cli)
 
 ![Solar Code Screenshot](./solar-code/assets/soalr-code-screenshop.png)
 
