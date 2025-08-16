@@ -40,3 +40,6 @@ packages/vscode-ide-companion/*.vsix
 
 # YoYo AI version control directory
 .yoyo/
+
+# Git hooks cache directory
+.git/.cache/
