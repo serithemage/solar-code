@@ -14,11 +14,17 @@ import {
   GoogleGenAI,
 } from '@google/genai';
 import { createCodeAssistContentGenerator } from '../code_assist/codeAssist.js';
-import { DEFAULT_GEMINI_MODEL } from '../config/models.js';
+import { DEFAULT_SOLAR_MODEL } from '../config/models.js';
 import { Config } from '../config/config.js';
 import { getEffectiveModel } from './modelCheck.js';
 import { UserTierId } from '../code_assist/types.js';
 import { LoggingContentGenerator } from './loggingContentGenerator.js';
+import { SolarContentGenerator } from './solarContentGenerator.js';
+import { SolarConfig } from '../types/solarTypes.js';
+import {
+  validateUpstageConfig,
+  UpstageConfigError,
+} from '../config/upstageConfig.js';
 
 /**
  * Interface abstracting the core functionalities for generating content and counting tokens.
@@ -46,6 +52,7 @@ export enum AuthType {
   USE_GEMINI = 'gemini-api-key',
   USE_VERTEX_AI = 'vertex-ai',
   CLOUD_SHELL = 'cloud-shell',
+  USE_SOLAR = 'solar-api-key', // Added Solar Pro2 support
 }
 
 export type ContentGeneratorConfig = {
@@ -64,9 +71,15 @@ export function createContentGeneratorConfig(
   const googleApiKey = process.env.GOOGLE_API_KEY || undefined;
   const googleCloudProject = process.env.GOOGLE_CLOUD_PROJECT || undefined;
   const googleCloudLocation = process.env.GOOGLE_CLOUD_LOCATION || undefined;
+  const upstageApiKey = process.env.UPSTAGE_API_KEY || undefined; // Solar API key
 
   // Use runtime model from config if available; otherwise, fall back to parameter or default
-  const effectiveModel = config.getModel() || DEFAULT_GEMINI_MODEL;
+  // For Solar auth type, always use Solar models
+  const defaultModel = DEFAULT_SOLAR_MODEL;
+  const effectiveModel =
+    authType === AuthType.USE_SOLAR
+      ? defaultModel
+      : config.getModel() || defaultModel;
 
   const contentGeneratorConfig: ContentGeneratorConfig = {
     model: effectiveModel,
@@ -100,6 +113,14 @@ export function createContentGeneratorConfig(
   ) {
     contentGeneratorConfig.apiKey = googleApiKey;
     contentGeneratorConfig.vertexai = true;
+
+    return contentGeneratorConfig;
+  }
+
+  if (authType === AuthType.USE_SOLAR && upstageApiKey) {
+    contentGeneratorConfig.apiKey = upstageApiKey;
+    contentGeneratorConfig.vertexai = false;
+    // Note: Solar Pro2 model validation will be handled in Phase 1.2
 
     return contentGeneratorConfig;
   }
@@ -144,6 +165,36 @@ export async function createContentGenerator(
     });
     return new LoggingContentGenerator(googleGenAI.models, gcConfig);
   }
+
+  if (config.authType === AuthType.USE_SOLAR) {
+    try {
+      const upstageConfig = validateUpstageConfig();
+      const solarConfig: SolarConfig = {
+        apiKey: upstageConfig.apiKey,
+        model: upstageConfig.model, // Use the validated Solar model from upstageConfig
+        baseUrl: upstageConfig.baseUrl,
+        maxTokens: upstageConfig.maxTokens,
+        timeout: upstageConfig.timeout,
+        retryCount: upstageConfig.retryCount,
+      };
+      return new LoggingContentGenerator(
+        new SolarContentGenerator(solarConfig),
+        gcConfig,
+      );
+    } catch (error) {
+      if (error instanceof UpstageConfigError) {
+        throw new Error(
+          `Solar Pro2 configuration error: ${error.message}\n\n` +
+            `To configure Solar Pro2:\n` +
+            `1. Get your API key from: https://console.upstage.ai/\n` +
+            `2. Set: export UPSTAGE_API_KEY="your_key_here"\n` +
+            `3. Run: solar --solar-setup for detailed setup guide`,
+        );
+      }
+      throw error;
+    }
+  }
+
   throw new Error(
     `Error creating contentGenerator: Unsupported authType: ${config.authType}`,
   );

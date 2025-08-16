@@ -27,6 +27,10 @@ import {
   EditTool,
   WriteFileTool,
   MCPServerConfig,
+  UpstageConfigError,
+  printUpstageSetupGuide,
+  // AuthType,
+  DEFAULT_SOLAR_MODEL,
 } from '@google/gemini-cli-core';
 import { Settings } from './settings.js';
 
@@ -70,6 +74,9 @@ export interface CliArgs {
   ideModeFeature: boolean | undefined;
   proxy: string | undefined;
   includeDirectories: string[] | undefined;
+  // Upstage Solar Code specific options
+  solarSetup: boolean | undefined;
+  authType: string | undefined;
 }
 
 export async function parseArguments(): Promise<CliArgs> {
@@ -83,8 +90,8 @@ export async function parseArguments(): Promise<CliArgs> {
         .option('model', {
           alias: 'm',
           type: 'string',
-          description: `Model`,
-          default: process.env.GEMINI_MODEL,
+          description: `Model to use (Gemini: gemini-2.0-flash, Solar: solar-pro2)`,
+          default: process.env.GEMINI_MODEL || process.env.UPSTAGE_MODEL,
         })
         .option('prompt', {
           alias: 'p',
@@ -218,6 +225,21 @@ export async function parseArguments(): Promise<CliArgs> {
             // Handle comma-separated values
             dirs.flatMap((dir) => dir.split(',').map((d) => d.trim())),
         })
+        .option('solar-setup', {
+          type: 'boolean',
+          description: 'Show Solar Pro2 API setup guide and exit',
+        })
+        .option('auth-type', {
+          type: 'string',
+          choices: [
+            'oauth-personal',
+            'gemini-api-key',
+            'vertex-ai',
+            'cloud-shell',
+            'solar-api-key',
+          ],
+          description: 'Authentication method to use (defaults to auto-detect)',
+        })
         .check((argv) => {
           if (argv.prompt && argv.promptInteractive) {
             throw new Error(
@@ -243,6 +265,12 @@ export async function parseArguments(): Promise<CliArgs> {
   // and not return to main CLI logic
   if (result._.length > 0 && result._[0] === 'mcp') {
     // MCP commands handle their own execution and process exit
+    process.exit(0);
+  }
+
+  // Handle --solar-setup flag
+  if (result.solarSetup) {
+    printUpstageSetupGuide();
     process.exit(0);
   }
 
@@ -298,6 +326,33 @@ export async function loadCliConfig(
   sessionId: string,
   argv: CliArgs,
 ): Promise<Config> {
+  // Early validation for Upstage configuration if needed
+  const requestedModel = argv.model || settings.model;
+  const isSolarModel =
+    requestedModel &&
+    ['solar-pro2', 'solar-mini', 'solar-1-mini'].includes(requestedModel);
+  const explicitAuthType = argv.authType;
+  const isSolarAuth = explicitAuthType === 'solar-api-key';
+
+  // If user explicitly requests solar model or auth, validate Upstage config
+  if (isSolarModel || isSolarAuth) {
+    try {
+      const _upstageConfig = await import('@google/gemini-cli-core').then((m) =>
+        m.validateUpstageConfig(),
+      );
+      logger.debug('Upstage configuration validated successfully');
+    } catch (error) {
+      if (error instanceof UpstageConfigError) {
+        console.error('\n🚨 Solar Pro2 Configuration Error:\n');
+        console.error(error.message);
+        console.error('\n💡 Quick setup:');
+        console.error('   Run: solar --solar-setup');
+        console.error('   Or: export UPSTAGE_API_KEY="your_key_here"');
+        process.exit(1);
+      }
+      throw error; // Re-throw unexpected errors
+    }
+  }
   const debugMode =
     argv.debug ||
     [process.env.DEBUG, process.env.DEBUG_MODE].some(
@@ -464,7 +519,12 @@ export async function loadCliConfig(
     cwd: process.cwd(),
     fileDiscoveryService: fileService,
     bugCommand: settings.bugCommand,
-    model: argv.model || settings.model || DEFAULT_GEMINI_MODEL,
+    model:
+      argv.model ||
+      settings.model ||
+      (isSolarModel || isSolarAuth
+        ? DEFAULT_SOLAR_MODEL
+        : DEFAULT_GEMINI_MODEL),
     extensionContextFilePaths,
     maxSessionTurns: settings.maxSessionTurns ?? -1,
     experimentalAcp: argv.experimentalAcp || false,

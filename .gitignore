@@ -2,11 +2,9 @@
 .env
 .env~
 
-# gemini-cli settings
-.gemini/
-!gemini/config.yaml
-
-# Note: .gemini-clipboard/ is NOT in gitignore so Gemini can access pasted images
+# solar-cli settings
+.solar/
+!solar/config.yaml
 
 # Dependency directory
 node_modules

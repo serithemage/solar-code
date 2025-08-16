@@ -23,7 +23,8 @@ export const aboutCommand: SlashCommand = {
         process.env.SEATBELT_PROFILE || 'unknown'
       })`;
     }
-    const modelVersion = context.services.config?.getModel() || 'Unknown';
+    const modelVersion =
+      context.services.config?.getEffectiveModel() || 'Unknown';
     const cliVersion = await getCliVersion();
     const selectedAuthType =
       context.services.settings.merged.selectedAuthType || '';

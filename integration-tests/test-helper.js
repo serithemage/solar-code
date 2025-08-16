@@ -103,7 +103,7 @@ export function validateModelOutput(
 
 export class TestRig {
   constructor() {
-    this.bundlePath = join(__dirname, '..', 'bundle/gemini.js');
+    this.bundlePath = join(__dirname, '..', 'bundle/solar.js');
     this.testDir = null;
   }
 

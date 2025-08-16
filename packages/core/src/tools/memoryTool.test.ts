@@ -21,7 +21,7 @@ import { ToolConfirmationOutcome } from './tools.js';
 vi.mock('fs/promises');
 vi.mock('os');
 
-const MEMORY_SECTION_HEADER = '## Gemini Added Memories';
+const MEMORY_SECTION_HEADER = '## Solar Added Memories';
 
 // Define a type for our fsAdapter to ensure consistency
 interface FsAdapter {
@@ -91,7 +91,7 @@ describe('MemoryTool', () => {
     beforeEach(() => {
       testFilePath = path.join(
         os.homedir(),
-        '.gemini',
+        '.solar',
         DEFAULT_CONTEXT_FILENAME,
       );
     });
@@ -212,7 +212,7 @@ describe('MemoryTool', () => {
       // Use getCurrentGeminiMdFilename for the default expectation before any setGeminiMdFilename calls in a test
       const expectedFilePath = path.join(
         os.homedir(),
-        '.gemini',
+        '.solar',
         getCurrentGeminiMdFilename(), // This will be DEFAULT_CONTEXT_FILENAME unless changed by a test
       );
 
@@ -290,15 +290,15 @@ describe('MemoryTool', () => {
       expect(result).not.toBe(false);
 
       if (result && result.type === 'edit') {
-        const expectedPath = path.join('~', '.gemini', 'GEMINI.md');
+        const expectedPath = path.join('~', '.solar', 'SOLAR.md');
         expect(result.title).toBe(`Confirm Memory Save: ${expectedPath}`);
-        expect(result.fileName).toContain(path.join('mock', 'home', '.gemini'));
-        expect(result.fileName).toContain('GEMINI.md');
-        expect(result.fileDiff).toContain('Index: GEMINI.md');
-        expect(result.fileDiff).toContain('+## Gemini Added Memories');
+        expect(result.fileName).toContain(path.join('mock', 'home', '.solar'));
+        expect(result.fileName).toContain('SOLAR.md');
+        expect(result.fileDiff).toContain('Index: SOLAR.md');
+        expect(result.fileDiff).toContain('+## Solar Added Memories');
         expect(result.fileDiff).toContain('+- Test fact');
         expect(result.originalContent).toBe('');
-        expect(result.newContent).toContain('## Gemini Added Memories');
+        expect(result.newContent).toContain('## Solar Added Memories');
         expect(result.newContent).toContain('- Test fact');
       }
     });
@@ -307,7 +307,7 @@ describe('MemoryTool', () => {
       const params = { fact: 'Test fact' };
       const memoryFilePath = path.join(
         os.homedir(),
-        '.gemini',
+        '.solar',
         getCurrentGeminiMdFilename(),
       );
 
@@ -328,7 +328,7 @@ describe('MemoryTool', () => {
       const params = { fact: 'Test fact' };
       const memoryFilePath = path.join(
         os.homedir(),
-        '.gemini',
+        '.solar',
         getCurrentGeminiMdFilename(),
       );
 
@@ -357,7 +357,7 @@ describe('MemoryTool', () => {
       const params = { fact: 'Test fact' };
       const memoryFilePath = path.join(
         os.homedir(),
-        '.gemini',
+        '.solar',
         getCurrentGeminiMdFilename(),
       );
 
@@ -390,7 +390,7 @@ describe('MemoryTool', () => {
     it('should handle existing memory file with content', async () => {
       const params = { fact: 'New fact' };
       const existingContent =
-        'Some existing content.\n\n## Gemini Added Memories\n- Old fact\n';
+        'Some existing content.\n\n## Solar Added Memories\n- Old fact\n';
 
       // Mock fs.readFile to return existing content
       vi.mocked(fs.readFile).mockResolvedValue(existingContent);
@@ -404,9 +404,9 @@ describe('MemoryTool', () => {
       expect(result).not.toBe(false);
 
       if (result && result.type === 'edit') {
-        const expectedPath = path.join('~', '.gemini', 'GEMINI.md');
+        const expectedPath = path.join('~', '.solar', 'SOLAR.md');
         expect(result.title).toBe(`Confirm Memory Save: ${expectedPath}`);
-        expect(result.fileDiff).toContain('Index: GEMINI.md');
+        expect(result.fileDiff).toContain('Index: SOLAR.md');
         expect(result.fileDiff).toContain('+- New fact');
         expect(result.originalContent).toBe(existingContent);
         expect(result.newContent).toContain('- Old fact');

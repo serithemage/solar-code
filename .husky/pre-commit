@@ -1,0 +1,21 @@
+echo "🔍 Running pre-commit checks..."
+
+# Lint check
+echo "🧹 Running ESLint..."
+npm run lint:ci --silent
+if [ $? -ne 0 ]; then
+  echo "❌ Linting failed. Please fix ESLint errors and warnings."
+  echo "💡 Try running 'npm run lint:fix' to auto-fix some issues."
+  exit 1
+fi
+
+# TypeScript type check
+echo "🔧 Running TypeScript type check..."
+npm run typecheck --silent
+if [ $? -ne 0 ]; then
+  echo "❌ TypeScript type check failed. Please fix type errors."
+  exit 1
+fi
+
+echo "✅ Pre-commit checks passed! (Code quality: lint + typecheck)"
+echo "💡 Run 'npm test' separately to check unit tests"

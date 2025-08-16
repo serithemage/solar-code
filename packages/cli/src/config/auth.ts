@@ -9,30 +9,16 @@ import { loadEnvironment } from './settings.js';
 
 export const validateAuthMethod = (authMethod: string): string | null => {
   loadEnvironment();
-  if (
-    authMethod === AuthType.LOGIN_WITH_GOOGLE ||
-    authMethod === AuthType.CLOUD_SHELL
-  ) {
-    return null;
-  }
 
-  if (authMethod === AuthType.USE_GEMINI) {
-    if (!process.env.GEMINI_API_KEY) {
-      return 'GEMINI_API_KEY environment variable not found. Add that to your environment and try again (no reload needed if using .env)!';
-    }
-    return null;
-  }
-
-  if (authMethod === AuthType.USE_VERTEX_AI) {
-    const hasVertexProjectLocationConfig =
-      !!process.env.GOOGLE_CLOUD_PROJECT && !!process.env.GOOGLE_CLOUD_LOCATION;
-    const hasGoogleApiKey = !!process.env.GOOGLE_API_KEY;
-    if (!hasVertexProjectLocationConfig && !hasGoogleApiKey) {
+  if (authMethod === AuthType.USE_SOLAR) {
+    if (!process.env.UPSTAGE_API_KEY) {
       return (
-        'When using Vertex AI, you must specify either:\n' +
-        '• GOOGLE_CLOUD_PROJECT and GOOGLE_CLOUD_LOCATION environment variables.\n' +
-        '• GOOGLE_API_KEY environment variable (if using express mode).\n' +
-        'Update your environment and try again (no reload needed if using .env)!'
+        'UPSTAGE_API_KEY environment variable not found.\n\n' +
+        'To use Solar Pro2:\n' +
+        '1. Get your API key from: https://console.upstage.ai/\n' +
+        '2. Set environment variable: export UPSTAGE_API_KEY="your_key_here"\n' +
+        '3. Or create a .env file with: UPSTAGE_API_KEY=your_key_here\n\n' +
+        'No reload needed if using .env file!'
       );
     }
     return null;

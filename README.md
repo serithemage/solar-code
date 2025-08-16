@@ -19,6 +19,27 @@ With Solar Code you can:
 
 ## Quickstart
 
+### Quick Install & Run
+
+If you have [Node.js 20+](https://nodejs.org/) and an [Upstage API key](https://console.upstage.ai/):
+
+```bash
+# Clone and setup
+git clone https://github.com/solar-code/solar-code
+cd solar-code
+npm install && npm run build && npm run bundle && npm link
+
+# Set your API key
+export UPSTAGE_API_KEY="your_api_key_here"
+
+# Run Solar Code
+solar
+
+# In Solar CLI: /auth → Select "Solar API Key"
+```
+
+### Detailed Installation
+
 Solar Code can be installed from source or as a packaged distribution.
 
 ### With Node (Development)
@@ -33,16 +54,23 @@ Solar Code can be installed from source or as a packaged distribution.
    npm run build
    ```
 
-3. **Run the CLI:**
+3. **Install globally:**
+
+   ```bash
+   npm run bundle
+   npm link
+   ```
+
+4. **Run the CLI:**
+
+   ```bash
+   solar
+   ```
+
+   Or for development:
 
    ```bash
    npm start
-   ```
-
-   Or use the development script:
-
-   ```bash
-   ./scripts/start.js
    ```
 
 ### Distribution Package (Coming Soon)
@@ -55,14 +83,14 @@ Solar Code distribution packages will be available soon for easier installation.
 2. **Set Environment Variable:** Configure your Solar Pro2 API key:
 
    ```bash
-   export SOLAR_API_KEY="your_solar_pro2_api_key_here"
+   export UPSTAGE_API_KEY="your_solar_pro2_api_key_here"
    ```
 
 3. **Optional Configuration:** Set additional environment variables if needed:
 
    ```bash
-   export SOLAR_MODEL="solar-pro2"
-   export SOLAR_BASE_URL="https://api.upstage.ai/v1"
+   export UPSTAGE_MODEL="solar-pro2"
+   export UPSTAGE_BASE_URL="https://api.upstage.ai/v1/solar"
    ```
 
 4. **Pick a Color Theme:** Choose from available themes including the new Solar themes.
@@ -78,12 +106,20 @@ Solar Code uses Upstage's Solar Pro2 API for AI-powered code assistance:
 3. **Set Environment Variables:** Configure your API credentials:
 
    ```bash
-   export SOLAR_API_KEY="your_solar_pro2_api_key"
-   export SOLAR_MODEL="solar-pro2"  # Optional: default model
-   export SOLAR_BASE_URL="https://api.upstage.ai/v1"  # Optional: custom endpoint
+   export UPSTAGE_API_KEY="your_solar_pro2_api_key"
+   export UPSTAGE_MODEL="solar-pro2"  # Optional: default model
+   export UPSTAGE_BASE_URL="https://api.upstage.ai/v1/solar"  # Optional: custom endpoint
    ```
 
-4. **Verify Configuration:** Test your setup by running Solar Code
+4. **Configure Authentication:** Run Solar Code and set up authentication:
+
+   ```bash
+   solar
+   # In Solar CLI, type: /auth
+   # Select "Solar API Key" from the authentication options
+   ```
+
+5. **Verify Configuration:** Test your setup - you should now see "solar-pro2" in the status line
 
 For troubleshooting and advanced configuration, see the [authentication guide](./docs/cli/authentication.md).
 
@@ -95,7 +131,7 @@ You can start a project from a new directory:
 
 ```sh
 cd new-project/
-npm start  # or your Solar Code launcher
+solar
 > Write me a Discord bot that answers questions using a FAQ.md file I will provide
 ```
 
@@ -104,7 +140,7 @@ Or work with an existing project:
 ```sh
 git clone https://github.com/your-org/your-project
 cd your-project
-npm start  # Launch Solar Code
+solar
 > Give me a summary of all of the changes that went in yesterday
 ```
 
@@ -139,7 +175,7 @@ Solar Code is designed to integrate with GitHub workflows, with GitHub Actions s
 - **Korean Language Support**: Native Korean language support for Korean development teams.
 - **Custom Workflows**: Extensible workflow automation with Solar Pro2 intelligence.
 
-*GitHub Actions integration is coming soon. Stay tuned for updates!*
+_GitHub Actions integration is coming soon. Stay tuned for updates!_
 
 ## Popular tasks
 
@@ -225,8 +261,9 @@ Head over to the [Uninstall](docs/Uninstall.md) guide for uninstallation instruc
 Solar Code is currently in active development. This project is based on the Gemini CLI architecture and is being adapted to work with Upstage's Solar Pro2 model.
 
 ### Current Status
+
 - ✅ Architecture analysis complete
-- ✅ Development roadmap defined  
+- ✅ Development roadmap defined
 - 🔄 Phase 1: Model integration in progress
 - ⏳ Phase 2-5: Coming soon
 
@@ -237,7 +274,7 @@ For detailed development progress, see [Development Tasks](./solar-code/DEVELOPM
 We welcome contributions to Solar Code! Please see our [Contributing Guide](./CONTRIBUTING.md) for details on:
 
 - Setting up the development environment
-- Understanding the codebase architecture  
+- Understanding the codebase architecture
 - Submitting pull requests
 - Development workflow and testing
 

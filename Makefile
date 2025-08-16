@@ -1,6 +1,6 @@
 # Makefile for gemini-cli
 
-.PHONY: help install build build-sandbox build-all test lint format preflight clean start debug release run-npx create-alias
+.PHONY: help install build build-sandbox build-all test lint format preflight clean start debug release run-npx create-alias solar-retro
 
 help:
 	@echo "Makefile for gemini-cli"
@@ -16,6 +16,8 @@ help:
 	@echo "  make clean            - Remove generated files"
 	@echo "  make start            - Start the Gemini CLI"
 	@echo "  make debug            - Start the Gemini CLI in debug mode"
+	@echo ""
+	@echo "  make solar-retro      - Display Solar Code retro logo with gradient effect"
 	@echo ""
 	@echo "  make run-npx          - Run the CLI using npx (for testing the published package)"
 	@echo "  make create-alias     - Create a 'gemini' alias for your shell"
@@ -35,6 +37,9 @@ test:
 
 lint:
 	npm run lint
+
+lint-fix:
+	npm run lint:fix
 
 format:
 	npm run format
@@ -57,3 +62,8 @@ run-npx:
 
 create-alias:
 	scripts/create_alias.sh
+
+solar-retro:
+	@echo "🌞 Solar Code - Retro Terminal Experience"
+	@echo "========================================="
+	@node solar-code/solar-retro.js
