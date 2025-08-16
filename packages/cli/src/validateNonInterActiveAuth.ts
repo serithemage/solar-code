@@ -24,10 +24,10 @@ export async function validateNonInteractiveAuth(
   if (!effectiveAuthType) {
     console.error(
       `Please set UPSTAGE_API_KEY environment variable before running Solar Code CLI.\n\n` +
-      `To get your API key:\n` +
-      `1. Visit: https://console.upstage.ai/\n` +
-      `2. Set environment variable: export UPSTAGE_API_KEY="your_key_here"\n` +
-      `3. Or create a .env file with: UPSTAGE_API_KEY=your_key_here`,
+        `To get your API key:\n` +
+        `1. Visit: https://console.upstage.ai/\n` +
+        `2. Set environment variable: export UPSTAGE_API_KEY="your_key_here"\n` +
+        `3. Or create a .env file with: UPSTAGE_API_KEY=your_key_here`,
     );
     process.exit(1);
   }

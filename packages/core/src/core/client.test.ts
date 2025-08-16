@@ -1199,7 +1199,9 @@ Here are some files the user has open, with the most recent at the top:
       const contents = [{ role: 'user', parts: [{ text: 'test' }] }];
       const currentModel = initialModel + '-changed';
 
-      vi.spyOn(client['config'], 'getEffectiveModel').mockReturnValueOnce(currentModel);
+      vi.spyOn(client['config'], 'getEffectiveModel').mockReturnValueOnce(
+        currentModel,
+      );
 
       const mockGenerator: Partial<ContentGenerator> = {
         countTokens: vi.fn().mockResolvedValue({ totalTokens: 1 }),

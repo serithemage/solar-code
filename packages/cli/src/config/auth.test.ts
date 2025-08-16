@@ -37,7 +37,7 @@ describe('validateAuthMethod', () => {
           '1. Get your API key from: https://console.upstage.ai/\n' +
           '2. Set environment variable: export UPSTAGE_API_KEY="your_key_here"\n' +
           '3. Or create a .env file with: UPSTAGE_API_KEY=your_key_here\n\n' +
-          'No reload needed if using .env file!'
+          'No reload needed if using .env file!',
       );
     });
   });

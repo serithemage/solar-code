@@ -54,7 +54,9 @@ describe('validateNonInterActiveAuth', () => {
       expect((e as Error).message).toContain('process.exit(1) called');
     }
     expect(consoleErrorSpy).toHaveBeenCalledWith(
-      expect.stringContaining('Please set UPSTAGE_API_KEY environment variable'),
+      expect.stringContaining(
+        'Please set UPSTAGE_API_KEY environment variable',
+      ),
     );
     expect(processExitSpy).toHaveBeenCalledWith(1);
   });

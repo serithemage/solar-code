@@ -106,7 +106,7 @@ describe('getEnvironmentContext', () => {
     expect(parts.length).toBe(1);
     const context = parts[0].text;
 
-    expect(context).toContain("This is the Solar Code CLI");
+    expect(context).toContain('This is the Solar Code CLI');
     expect(context).toContain("Today's date is 2025년 8월 5일 화요일");
     expect(context).toContain(`My operating system is: ${process.platform}`);
     expect(context).toContain(
