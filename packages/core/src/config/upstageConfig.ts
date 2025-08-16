@@ -5,13 +5,14 @@
  */
 
 import { DEFAULT_SOLAR_MODEL, SOLAR_MAX_TOKENS } from './models.js';
+import { SupportedSolarModel } from '../types/solarTypes.js';
 
 /**
  * Upstage API configuration interface
  */
 export interface UpstageConfig {
   apiKey: string;
-  model: string;
+  model: SupportedSolarModel;
   baseUrl: string;
   maxTokens: number;
   timeout: number;
@@ -96,10 +97,10 @@ export function validateUpstageConfig(): UpstageConfig {
   );
 
   // Validate model name
-  const model = process.env.UPSTAGE_MODEL || DEFAULT_SOLAR_MODEL;
-  if (!isValidSolarModel(model)) {
+  const modelString = process.env.UPSTAGE_MODEL || DEFAULT_SOLAR_MODEL;
+  if (!isValidSolarModel(modelString)) {
     throw new UpstageConfigError(
-      `Invalid UPSTAGE_MODEL: "${model}"\n` +
+      `Invalid UPSTAGE_MODEL: "${modelString}"\n` +
         '\n' +
         'Supported models:\n' +
         '- solar-pro2 (recommended, latest)\n' +
@@ -110,6 +111,7 @@ export function validateUpstageConfig(): UpstageConfig {
         '- solar-1-mini (deprecated)',
     );
   }
+  const model: SupportedSolarModel = modelString; // Type assertion is safe after validation
 
   // Validate base URL
   const baseUrl = process.env.UPSTAGE_BASE_URL || UPSTAGE_DEFAULTS.baseUrl;
@@ -143,8 +145,8 @@ function isValidApiKeyFormat(apiKey: string): boolean {
 /**
  * Validates if the model name is supported
  */
-function isValidSolarModel(model: string): boolean {
-  const supportedModels = [
+function isValidSolarModel(model: string): model is SupportedSolarModel {
+  const supportedModels: SupportedSolarModel[] = [
     'solar-pro2',
     'solar-mini',
     'solar-pro-2',
@@ -152,7 +154,7 @@ function isValidSolarModel(model: string): boolean {
     'solar-1-mini-chat',
     'solar-1-mini',
   ];
-  return supportedModels.includes(model);
+  return supportedModels.includes(model as SupportedSolarModel);
 }
 
 /**
