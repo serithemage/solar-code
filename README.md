@@ -1,6 +1,6 @@
 # Solar Code
 
-![Solar Code Screenshot](./solar-code/assets/soalr-code-screenshopt.png)
+![Solar Code Screenshot](./solar-code/assets/soalr-code-screenshot.png)
 
 This repository contains Solar Code, a command-line AI workflow tool powered by **Upstage Solar Pro2** that connects to your tools, understands your code and accelerates your workflows.
 
