@@ -180,7 +180,7 @@ export class SolarContentGenerator implements ContentGenerator {
     request: SolarRequestParams,
   ): Promise<SolarResponse> {
     const requestStart = Date.now();
-    
+
     // Enhanced debug logging with more detailed information
     console.log('🌞 Solar API Request:', {
       url: `${this.baseUrl}/chat/completions`,
@@ -190,9 +190,13 @@ export class SolarContentGenerator implements ContentGenerator {
       temperature: request.temperature ?? 'default',
       stream: request.stream ? 'enabled' : 'disabled',
       timestamp: new Date().toISOString(),
-      lastUserMessage: request.messages?.length > 0 
-        ? request.messages[request.messages.length - 1]?.content?.slice(0, 100) + '...'
-        : 'none',
+      lastUserMessage:
+        request.messages?.length > 0
+          ? request.messages[request.messages.length - 1]?.content?.slice(
+              0,
+              100,
+            ) + '...'
+          : 'none',
     });
 
     const response = await fetch(`${this.baseUrl}/chat/completions`, {
@@ -234,9 +238,9 @@ export class SolarContentGenerator implements ContentGenerator {
       );
     }
 
-    const solarResponse = await response.json() as SolarResponse;
+    const solarResponse = (await response.json()) as SolarResponse;
     const requestDuration = Date.now() - requestStart;
-    
+
     // Enhanced response logging
     console.log('🌞 Solar API Response:', {
       status: response.status,
@@ -245,7 +249,9 @@ export class SolarContentGenerator implements ContentGenerator {
       usage: solarResponse.usage,
       finishReason: solarResponse.choices?.[0]?.finish_reason,
       responseLength: solarResponse.choices?.[0]?.message?.content?.length || 0,
-      firstChars: solarResponse.choices?.[0]?.message?.content?.slice(0, 100) + '...' || 'none',
+      firstChars:
+        solarResponse.choices?.[0]?.message?.content?.slice(0, 100) + '...' ||
+        'none',
       timestamp: new Date().toISOString(),
     });
 
@@ -256,7 +262,7 @@ export class SolarContentGenerator implements ContentGenerator {
     request: SolarRequestParams,
   ): Promise<ReadableStream> {
     const requestStart = Date.now();
-    
+
     // Enhanced debug logging for streaming requests
     console.log('🌊 Solar API Streaming Request:', {
       url: `${this.baseUrl}/chat/completions`,
@@ -266,9 +272,13 @@ export class SolarContentGenerator implements ContentGenerator {
       temperature: request.temperature ?? 'default',
       stream: 'enabled',
       timestamp: new Date().toISOString(),
-      lastUserMessage: request.messages?.length > 0 
-        ? request.messages[request.messages.length - 1]?.content?.slice(0, 100) + '...'
-        : 'none',
+      lastUserMessage:
+        request.messages?.length > 0
+          ? request.messages[request.messages.length - 1]?.content?.slice(
+              0,
+              100,
+            ) + '...'
+          : 'none',
     });
 
     const response = await fetch(`${this.baseUrl}/chat/completions`, {
@@ -311,7 +321,7 @@ export class SolarContentGenerator implements ContentGenerator {
     }
 
     const requestDuration = Date.now() - requestStart;
-    
+
     // Enhanced response logging for streaming
     console.log('🌊 Solar API Streaming Response:', {
       status: response.status,
