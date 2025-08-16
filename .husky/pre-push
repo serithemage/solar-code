@@ -1,0 +1,52 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🚀 Running pre-push checks (CI equivalent)..."
+
+# 1. Formatter check (like CI)
+echo "📝 Checking code formatting with Prettier..."
+npx prettier --check .
+if [ $? -ne 0 ]; then
+  echo "❌ Formatting check failed. Push aborted."
+  echo "💡 Run 'npm run format' to fix formatting issues."
+  exit 1
+fi
+
+# 2. Linter check
+echo "🧹 Running ESLint..."
+npm run lint:ci --silent
+if [ $? -ne 0 ]; then
+  echo "❌ Linting failed. Push aborted."
+  echo "💡 Run 'npm run lint:fix' to auto-fix some issues."
+  exit 1
+fi
+
+# 3. Build project
+echo "🔨 Building project..."
+npm run build --silent
+if [ $? -ne 0 ]; then
+  echo "❌ Build failed. Push aborted."
+  echo "💡 Please fix build errors before pushing."
+  exit 1
+fi
+
+# 4. TypeScript type check
+echo "🔧 Running TypeScript type check..."
+npm run typecheck --silent
+if [ $? -ne 0 ]; then
+  echo "❌ TypeScript type check failed. Push aborted."
+  echo "💡 Please fix type errors before pushing."
+  exit 1
+fi
+
+# 5. Run tests (with CI mode for consistency)
+echo "🧪 Running all tests..."
+npm run test:ci --silent
+if [ $? -ne 0 ]; then
+  echo "❌ Tests failed. Push aborted."
+  echo "💡 Please fix failing tests before pushing."
+  exit 1
+fi
+
+echo "✅ All checks passed! (format + lint + build + typecheck + tests)"
+echo "🚀 Proceeding with push..."
