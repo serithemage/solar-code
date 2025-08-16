@@ -20,7 +20,7 @@ export function tokenLimit(model: Model): TokenCount {
     case 'solar-mini':
     case 'solar-1-mini':
       return 4_096; // Solar mini models token limit
-      
+
     // Gemini Models (legacy support)
     case 'gemini-1.5-pro':
       return 2_097_152;

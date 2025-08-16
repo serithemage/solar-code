@@ -231,7 +231,13 @@ export async function parseArguments(): Promise<CliArgs> {
         })
         .option('auth-type', {
           type: 'string',
-          choices: ['oauth-personal', 'gemini-api-key', 'vertex-ai', 'cloud-shell', 'solar-api-key'],
+          choices: [
+            'oauth-personal',
+            'gemini-api-key',
+            'vertex-ai',
+            'cloud-shell',
+            'solar-api-key',
+          ],
           description: 'Authentication method to use (defaults to auto-detect)',
         })
         .check((argv) => {
@@ -322,14 +328,18 @@ export async function loadCliConfig(
 ): Promise<Config> {
   // Early validation for Upstage configuration if needed
   const requestedModel = argv.model || settings.model;
-  const isSolarModel = requestedModel && ['solar-pro2', 'solar-mini', 'solar-1-mini'].includes(requestedModel);
+  const isSolarModel =
+    requestedModel &&
+    ['solar-pro2', 'solar-mini', 'solar-1-mini'].includes(requestedModel);
   const explicitAuthType = argv.authType;
   const isSolarAuth = explicitAuthType === 'solar-api-key';
-  
+
   // If user explicitly requests solar model or auth, validate Upstage config
   if (isSolarModel || isSolarAuth) {
     try {
-      const _upstageConfig = await import('@google/gemini-cli-core').then(m => m.validateUpstageConfig());
+      const _upstageConfig = await import('@google/gemini-cli-core').then((m) =>
+        m.validateUpstageConfig(),
+      );
       logger.debug('Upstage configuration validated successfully');
     } catch (error) {
       if (error instanceof UpstageConfigError) {
@@ -509,7 +519,12 @@ export async function loadCliConfig(
     cwd: process.cwd(),
     fileDiscoveryService: fileService,
     bugCommand: settings.bugCommand,
-    model: argv.model || settings.model || (isSolarModel || isSolarAuth ? DEFAULT_SOLAR_MODEL : DEFAULT_GEMINI_MODEL),
+    model:
+      argv.model ||
+      settings.model ||
+      (isSolarModel || isSolarAuth
+        ? DEFAULT_SOLAR_MODEL
+        : DEFAULT_GEMINI_MODEL),
     extensionContextFilePaths,
     maxSessionTurns: settings.maxSessionTurns ?? -1,
     experimentalAcp: argv.experimentalAcp || false,

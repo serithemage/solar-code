@@ -19,6 +19,7 @@ This guide explains how to configure Solar Code to work with both Gemini and Sol
 ### Auto Setup Guide
 
 For detailed setup instructions, run:
+
 ```bash
 solar --solar-setup
 ```
@@ -27,28 +28,28 @@ solar --solar-setup
 
 ### Solar Pro2 (Required)
 
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `UPSTAGE_API_KEY` | **Yes** | - | Your Upstage API key from console.upstage.ai |
+| Variable          | Required | Default | Description                                  |
+| ----------------- | -------- | ------- | -------------------------------------------- |
+| `UPSTAGE_API_KEY` | **Yes**  | -       | Your Upstage API key from console.upstage.ai |
 
 ### Solar Pro2 (Optional)
 
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `UPSTAGE_MODEL` | No | `solar-pro2` | Model to use (`solar-pro2`, `solar-mini`, `solar-1-mini`) |
-| `UPSTAGE_BASE_URL` | No | `https://api.upstage.ai/v1/solar` | API base URL |
-| `UPSTAGE_MAX_TOKENS` | No | `4096` | Maximum tokens per response (1-8192) |
-| `UPSTAGE_TIMEOUT` | No | `120000` | Request timeout in milliseconds (1000-300000) |
-| `UPSTAGE_RETRY_COUNT` | No | `3` | Number of retry attempts on failure (0-10) |
+| Variable              | Required | Default                           | Description                                               |
+| --------------------- | -------- | --------------------------------- | --------------------------------------------------------- |
+| `UPSTAGE_MODEL`       | No       | `solar-pro2`                      | Model to use (`solar-pro2`, `solar-mini`, `solar-1-mini`) |
+| `UPSTAGE_BASE_URL`    | No       | `https://api.upstage.ai/v1/solar` | API base URL                                              |
+| `UPSTAGE_MAX_TOKENS`  | No       | `4096`                            | Maximum tokens per response (1-8192)                      |
+| `UPSTAGE_TIMEOUT`     | No       | `120000`                          | Request timeout in milliseconds (1000-300000)             |
+| `UPSTAGE_RETRY_COUNT` | No       | `3`                               | Number of retry attempts on failure (0-10)                |
 
 ### Gemini (Legacy Support)
 
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `GEMINI_API_KEY` | No | - | Google Gemini API key |
-| `GOOGLE_API_KEY` | No | - | Google API key for Vertex AI |
-| `GOOGLE_CLOUD_PROJECT` | No | - | Google Cloud project ID |
-| `GOOGLE_CLOUD_LOCATION` | No | - | Google Cloud location |
+| Variable                | Required | Default | Description                  |
+| ----------------------- | -------- | ------- | ---------------------------- |
+| `GEMINI_API_KEY`        | No       | -       | Google Gemini API key        |
+| `GOOGLE_API_KEY`        | No       | -       | Google API key for Vertex AI |
+| `GOOGLE_CLOUD_PROJECT`  | No       | -       | Google Cloud project ID      |
+| `GOOGLE_CLOUD_LOCATION` | No       | -       | Google Cloud location        |
 
 ## Configuration Methods
 
@@ -92,26 +93,31 @@ solar --model gemini-2.0-flash --auth-type gemini-api-key
 Solar Code supports multiple authentication methods:
 
 ### `--auth-type solar-api-key`
+
 - Uses Upstage API with UPSTAGE_API_KEY
 - Supports all Solar models (solar-pro2, solar-mini, solar-1-mini)
 - Best for Solar Pro2 usage
 
 ### `--auth-type gemini-api-key`
+
 - Uses Google Gemini API with GEMINI_API_KEY
 - Supports all Gemini models
 - Direct API access
 
 ### `--auth-type oauth-personal`
+
 - Uses OAuth2 authentication with Google
 - Interactive login flow
 - Default for authenticated usage
 
 ### `--auth-type vertex-ai`
+
 - Uses Google Cloud Vertex AI
 - Requires GOOGLE_CLOUD_PROJECT and GOOGLE_CLOUD_LOCATION
 - Enterprise usage
 
 ### `--auth-type cloud-shell`
+
 - Uses Google Cloud Shell authentication
 - Automatic in Cloud Shell environments
 - No setup required
@@ -120,19 +126,19 @@ Solar Code supports multiple authentication methods:
 
 ### Solar Models
 
-| Model | Context Length | Best For |
-|-------|----------------|----------|
-| `solar-pro2` | 4,096 tokens | General purpose, high quality |
-| `solar-mini` | 4,096 tokens | Faster responses, lighter tasks |
-| `solar-1-mini` | 4,096 tokens | Legacy support |
+| Model          | Context Length | Best For                        |
+| -------------- | -------------- | ------------------------------- |
+| `solar-pro2`   | 4,096 tokens   | General purpose, high quality   |
+| `solar-mini`   | 4,096 tokens   | Faster responses, lighter tasks |
+| `solar-1-mini` | 4,096 tokens   | Legacy support                  |
 
 ### Gemini Models
 
-| Model | Context Length | Best For |
-|-------|----------------|----------|
+| Model              | Context Length   | Best For                      |
+| ------------------ | ---------------- | ----------------------------- |
 | `gemini-2.0-flash` | 1,048,576 tokens | Large contexts, complex tasks |
-| `gemini-1.5-pro` | 2,097,152 tokens | Maximum context length |
-| `gemini-1.5-flash` | 1,048,576 tokens | Balanced performance |
+| `gemini-1.5-pro`   | 2,097,152 tokens | Maximum context length        |
+| `gemini-1.5-flash` | 1,048,576 tokens | Balanced performance          |
 
 ## Usage Examples
 
@@ -179,6 +185,7 @@ solar --model gemini-2.0-flash --auth-type gemini-api-key
 ### Common Issues
 
 #### "UPSTAGE_API_KEY is required"
+
 ```bash
 # Solution: Set your API key
 export UPSTAGE_API_KEY="up-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
@@ -188,10 +195,12 @@ solar --solar-setup
 ```
 
 #### "Invalid UPSTAGE_API_KEY format"
+
 - API keys should start with "up-" followed by 30+ alphanumeric characters
 - Verify your key at https://console.upstage.ai/
 
 #### "Model not supported"
+
 ```bash
 # Check available models
 solar --help
@@ -201,6 +210,7 @@ solar --help
 ```
 
 #### Connection timeout
+
 ```bash
 # Increase timeout for slow networks
 export UPSTAGE_TIMEOUT=300000  # 5 minutes
@@ -210,6 +220,7 @@ export UPSTAGE_TIMEOUT=30000   # 30 seconds
 ```
 
 #### Rate limiting
+
 ```bash
 # Increase retry count
 export UPSTAGE_RETRY_COUNT=5
@@ -226,6 +237,7 @@ solar --debug --model solar-pro2 --prompt "Test prompt"
 ```
 
 This shows:
+
 - API endpoint URLs
 - Request/response details
 - Token usage statistics
@@ -258,16 +270,19 @@ Configuration values are resolved in this order (highest to lowest priority):
 ## Security Considerations
 
 ### API Key Storage
+
 - **Never commit API keys** to version control
 - Use environment variables or secure secret management
 - Consider using `.env` files with `.gitignore`
 
 ### Network Security
+
 - All API calls use HTTPS
 - API keys are sent securely via Authorization headers
 - No API keys are logged (even in debug mode)
 
 ### Local Storage
+
 - No API keys are stored locally by default
 - Session data is stored in temporary directories
 - Clear sensitive data with `rm -rf ~/.gemini/`
@@ -321,4 +336,4 @@ solar --debug --model solar-pro2 --prompt "Debug test"
 
 ---
 
-*This documentation is for Solar Code version 0.1.18+. For earlier versions, some features may not be available.*
+_This documentation is for Solar Code version 0.1.18+. For earlier versions, some features may not be available._

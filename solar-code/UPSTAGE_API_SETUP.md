@@ -9,9 +9,11 @@ Solar Code에서 Upstage Solar Pro2 모델을 사용하기 위한 API 키 설정
 Solar Code는 다음 환경 변수를 사용합니다:
 
 ### 필수 환경 변수
+
 - `UPSTAGE_API_KEY`: Upstage API 키 (필수)
 
-### 선택적 환경 변수  
+### 선택적 환경 변수
+
 - `UPSTAGE_MODEL`: 사용할 Solar 모델명 (기본값: `solar-pro2`)
 - `UPSTAGE_BASE_URL`: API 엔드포인트 URL (기본값: `https://api.upstage.ai/v1/solar`)
 - `UPSTAGE_MAX_TOKENS`: 최대 토큰 수 (기본값: `4096`)
@@ -23,11 +25,13 @@ Solar Code는 다음 환경 변수를 사용합니다:
 **Upstage 공식 가이드**: https://console.upstage.ai/docs/getting-started
 
 ### 1단계: 계정 생성
+
 1. **Upstage 콘솔 접속**
    - https://console.upstage.ai/ 방문
    - 계정 생성 (신규 가입 시 **$10 무료 크레딧** 제공)
 
 ### 2단계: API 키 생성
+
 1. **API Keys 페이지 이동**
    - 콘솔 로그인 후 `/api-keys` 페이지 이동
    - 또는 메뉴에서 "API Keys" 선택
@@ -39,7 +43,9 @@ Solar Code는 다음 환경 변수를 사용합니다:
    - ⚠️ **중요**: API 키는 생성 시 한 번만 표시됩니다
 
 ### 3단계: API 기능 확인
+
 Upstage API는 다음 기능들을 제공합니다:
+
 - **Chat**: 대화형 AI (Solar Pro2)
 - **Document parsing**: 문서 파싱
 - **Information extraction**: 정보 추출
@@ -68,6 +74,7 @@ export UPSTAGE_RETRY_COUNT="3"
 #### macOS / Linux (bash/zsh)
 
 **~/.bashrc 또는 ~/.zshrc에 추가:**
+
 ```bash
 # Solar Code 환경 변수 설정
 export UPSTAGE_API_KEY="your_upstage_api_key_here"
@@ -79,6 +86,7 @@ source ~/.bashrc  # 또는 source ~/.zshrc
 ```
 
 **명령어로 한 번에 추가:**
+
 ```bash
 # bash 사용자
 echo 'export UPSTAGE_API_KEY="your_upstage_api_key_here"' >> ~/.bashrc
@@ -94,6 +102,7 @@ source ~/.zshrc
 #### Windows
 
 **PowerShell:**
+
 ```powershell
 # 임시 설정
 $env:UPSTAGE_API_KEY="your_upstage_api_key_here"
@@ -105,6 +114,7 @@ $env:UPSTAGE_MODEL="solar-pro2"
 ```
 
 **Command Prompt:**
+
 ```cmd
 # 임시 설정
 set UPSTAGE_API_KEY=your_upstage_api_key_here
@@ -118,6 +128,7 @@ setx UPSTAGE_MODEL "solar-pro2"
 ### 3. .env 파일을 이용한 설정 (권장)
 
 **프로젝트별 설정:**
+
 ```bash
 # 프로젝트 루트 디렉터리에 .solar/.env 파일 생성
 mkdir -p .solar
@@ -132,6 +143,7 @@ EOF
 ```
 
 **사용자 전체 설정:**
+
 ```bash
 # 홈 디렉터리에 .solar/.env 파일 생성
 mkdir -p ~/.solar
@@ -183,11 +195,13 @@ npm start  # 또는 solar (패키지 설치 후)
 ### API 키 관련 오류
 
 **오류 메시지:**
+
 ```
 ❌ UPSTAGE_API_KEY is required
 ```
 
 **해결 방법:**
+
 1. API 키가 올바르게 설정되었는지 확인
 2. 터미널 재시작 후 다시 시도
 3. `.env` 파일 위치 및 내용 확인
@@ -195,11 +209,13 @@ npm start  # 또는 solar (패키지 설치 후)
 ### API 호출 실패
 
 **오류 메시지:**
+
 ```
 ❌ API call failed: 401 Unauthorized
 ```
 
 **해결 방법:**
+
 1. API 키의 유효성 확인
 2. Upstage 콘솔에서 API 키 상태 확인
 3. 새로운 API 키 생성 후 재설정
@@ -207,11 +223,13 @@ npm start  # 또는 solar (패키지 설치 후)
 ### 네트워크 연결 오류
 
 **오류 메시지:**
+
 ```
 ❌ Network error: timeout
 ```
 
 **해결 방법:**
+
 1. 인터넷 연결 상태 확인
 2. `UPSTAGE_TIMEOUT` 값 증가
 3. 방화벽/프록시 설정 확인
@@ -221,11 +239,13 @@ npm start  # 또는 solar (패키지 설치 후)
 Upstage에서 제공하는 유용한 리소스들:
 
 ### 공식 문서 및 예제
+
 - **[GitHub Cookbook](https://github.com/UpstageAI/cookbook)**: 종합적인 사용 예제
 - **[Solar Prompt Cookbook](https://console.upstage.ai/docs/solar-prompt-cookbook)**: Solar 모델 프롬프트 가이드
 - **[Solar Pro 2 Prompt Handbook](https://console.upstage.ai/docs/solar-pro2-handbook)**: Solar Pro2 전용 가이드
 
 ### API 테스트
+
 API 키 설정 후 간단한 테스트:
 
 ```bash
@@ -237,7 +257,7 @@ curl -X POST "https://api.upstage.ai/v1/solar/chat/completions" \
     "model": "solar-pro2",
     "messages": [
       {
-        "role": "user", 
+        "role": "user",
         "content": "안녕하세요! Solar Pro2입니다. 한국어로 답변해주세요."
       }
     ],
@@ -265,6 +285,7 @@ curl -X POST "https://api.upstage.ai/v1/solar/chat/completions" \
 ## 📞 지원
 
 설정 관련 문제가 지속되면:
+
 - **[Upstage 공식 문서](https://console.upstage.ai/docs/getting-started)**
 - **[Upstage GitHub Cookbook](https://github.com/UpstageAI/cookbook)**
 - **[Solar Code GitHub Issues](https://github.com/solar-code/solar-code/issues)**

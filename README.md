@@ -175,7 +175,7 @@ Solar Code is designed to integrate with GitHub workflows, with GitHub Actions s
 - **Korean Language Support**: Native Korean language support for Korean development teams.
 - **Custom Workflows**: Extensible workflow automation with Solar Pro2 intelligence.
 
-*GitHub Actions integration is coming soon. Stay tuned for updates!*
+_GitHub Actions integration is coming soon. Stay tuned for updates!_
 
 ## Popular tasks
 
@@ -261,8 +261,9 @@ Head over to the [Uninstall](docs/Uninstall.md) guide for uninstallation instruc
 Solar Code is currently in active development. This project is based on the Gemini CLI architecture and is being adapted to work with Upstage's Solar Pro2 model.
 
 ### Current Status
+
 - ✅ Architecture analysis complete
-- ✅ Development roadmap defined  
+- ✅ Development roadmap defined
 - 🔄 Phase 1: Model integration in progress
 - ⏳ Phase 2-5: Coming soon
 
@@ -273,7 +274,7 @@ For detailed development progress, see [Development Tasks](./solar-code/DEVELOPM
 We welcome contributions to Solar Code! Please see our [Contributing Guide](./CONTRIBUTING.md) for details on:
 
 - Setting up the development environment
-- Understanding the codebase architecture  
+- Understanding the codebase architecture
 - Submitting pull requests
 - Development workflow and testing
 

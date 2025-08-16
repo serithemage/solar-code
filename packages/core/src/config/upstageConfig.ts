@@ -40,24 +40,24 @@ export const UPSTAGE_DEFAULTS = {
 
 /**
  * Validates and creates Upstage configuration from environment variables
- * 
+ *
  * @returns {UpstageConfig} Validated Upstage configuration
  * @throws {UpstageConfigError} When required configuration is missing or invalid
  */
 export function validateUpstageConfig(): UpstageConfig {
   const apiKey = process.env.UPSTAGE_API_KEY;
-  
+
   if (!apiKey) {
     throw new UpstageConfigError(
       'UPSTAGE_API_KEY is required for Solar Pro2.\n' +
-      '\n' +
-      'Setup instructions:\n' +
-      '1. Get your API key from: https://console.upstage.ai/\n' +
-      '2. Set the environment variable:\n' +
-      '   export UPSTAGE_API_KEY="your_key_here"\n' +
-      '\n' +
-      'Or create a .env file in your project root:\n' +
-      '   UPSTAGE_API_KEY=your_key_here'
+        '\n' +
+        'Setup instructions:\n' +
+        '1. Get your API key from: https://console.upstage.ai/\n' +
+        '2. Set the environment variable:\n' +
+        '   export UPSTAGE_API_KEY="your_key_here"\n' +
+        '\n' +
+        'Or create a .env file in your project root:\n' +
+        '   UPSTAGE_API_KEY=your_key_here',
     );
   }
 
@@ -65,32 +65,49 @@ export function validateUpstageConfig(): UpstageConfig {
   if (!isValidApiKeyFormat(apiKey)) {
     throw new UpstageConfigError(
       'UPSTAGE_API_KEY format appears invalid.\n' +
-      '\n' +
-      'Expected format: up_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n' +
-      'Current value: ' + apiKey.substring(0, 8) + '...\n' +
-      '\n' +
-      'Please verify your API key at: https://console.upstage.ai/'
+        '\n' +
+        'Expected format: up_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n' +
+        'Current value: ' +
+        apiKey.substring(0, 8) +
+        '...\n' +
+        '\n' +
+        'Please verify your API key at: https://console.upstage.ai/',
     );
   }
 
   // Parse and validate optional numeric values
-  const maxTokens = parseEnvNumber('UPSTAGE_MAX_TOKENS', UPSTAGE_DEFAULTS.maxTokens, 1, 8192);
-  const timeout = parseEnvNumber('UPSTAGE_TIMEOUT', UPSTAGE_DEFAULTS.timeout, 1000, 300000);
-  const retryCount = parseEnvNumber('UPSTAGE_RETRY_COUNT', UPSTAGE_DEFAULTS.retryCount, 0, 10);
+  const maxTokens = parseEnvNumber(
+    'UPSTAGE_MAX_TOKENS',
+    UPSTAGE_DEFAULTS.maxTokens,
+    1,
+    8192,
+  );
+  const timeout = parseEnvNumber(
+    'UPSTAGE_TIMEOUT',
+    UPSTAGE_DEFAULTS.timeout,
+    1000,
+    300000,
+  );
+  const retryCount = parseEnvNumber(
+    'UPSTAGE_RETRY_COUNT',
+    UPSTAGE_DEFAULTS.retryCount,
+    0,
+    10,
+  );
 
   // Validate model name
   const model = process.env.UPSTAGE_MODEL || DEFAULT_SOLAR_MODEL;
   if (!isValidSolarModel(model)) {
     throw new UpstageConfigError(
       `Invalid UPSTAGE_MODEL: "${model}"\n` +
-      '\n' +
-      'Supported models:\n' +
-      '- solar-pro2 (recommended, latest)\n' +
-      '- solar-mini\n' +
-      '- solar-pro-2 (deprecated)\n' +
-      '- solar-pro (deprecated)\n' +
-      '- solar-1-mini-chat (deprecated)\n' +
-      '- solar-1-mini (deprecated)'
+        '\n' +
+        'Supported models:\n' +
+        '- solar-pro2 (recommended, latest)\n' +
+        '- solar-mini\n' +
+        '- solar-pro-2 (deprecated)\n' +
+        '- solar-pro (deprecated)\n' +
+        '- solar-1-mini-chat (deprecated)\n' +
+        '- solar-1-mini (deprecated)',
     );
   }
 
@@ -99,9 +116,9 @@ export function validateUpstageConfig(): UpstageConfig {
   if (!isValidUrl(baseUrl)) {
     throw new UpstageConfigError(
       `Invalid UPSTAGE_BASE_URL: "${baseUrl}"\n` +
-      '\n' +
-      'Expected format: https://api.upstage.ai/v1/solar\n' +
-      'Or your custom endpoint URL'
+        '\n' +
+        'Expected format: https://api.upstage.ai/v1/solar\n' +
+        'Or your custom endpoint URL',
     );
   }
 
@@ -127,7 +144,14 @@ function isValidApiKeyFormat(apiKey: string): boolean {
  * Validates if the model name is supported
  */
 function isValidSolarModel(model: string): boolean {
-  const supportedModels = ['solar-pro2', 'solar-mini', 'solar-pro-2', 'solar-pro', 'solar-1-mini-chat', 'solar-1-mini'];
+  const supportedModels = [
+    'solar-pro2',
+    'solar-mini',
+    'solar-pro-2',
+    'solar-pro',
+    'solar-1-mini-chat',
+    'solar-1-mini',
+  ];
   return supportedModels.includes(model);
 }
 
@@ -150,7 +174,7 @@ function parseEnvNumber(
   envVar: string,
   defaultValue: number,
   min: number,
-  max: number
+  max: number,
 ): number {
   const value = process.env[envVar];
   if (!value) {
@@ -161,14 +185,14 @@ function parseEnvNumber(
   if (isNaN(parsed)) {
     throw new UpstageConfigError(
       `Invalid ${envVar}: "${value}"\n` +
-      `Expected a number between ${min} and ${max}`
+        `Expected a number between ${min} and ${max}`,
     );
   }
 
   if (parsed < min || parsed > max) {
     throw new UpstageConfigError(
       `${envVar} out of range: ${parsed}\n` +
-      `Expected a number between ${min} and ${max}`
+        `Expected a number between ${min} and ${max}`,
     );
   }
 
@@ -197,26 +221,38 @@ export function getUpstageConfigSafely(): UpstageConfig | null {
 export function printUpstageSetupGuide(): void {
   console.log('Solar Code - Upstage API Setup Guide');
   console.log('=====================================\n');
-  
+
   console.log('Required environment variables:');
-  console.log('  UPSTAGE_API_KEY       Your Upstage API key (get from https://console.upstage.ai/)\n');
-  
+  console.log(
+    '  UPSTAGE_API_KEY       Your Upstage API key (get from https://console.upstage.ai/)\n',
+  );
+
   console.log('Optional environment variables:');
-  console.log(`  UPSTAGE_MODEL         Model to use (default: ${DEFAULT_SOLAR_MODEL})`);
-  console.log(`  UPSTAGE_BASE_URL      API endpoint (default: ${UPSTAGE_DEFAULTS.baseUrl})`);
-  console.log(`  UPSTAGE_MAX_TOKENS    Max tokens per response (default: ${UPSTAGE_DEFAULTS.maxTokens})`);
-  console.log(`  UPSTAGE_TIMEOUT       Request timeout in ms (default: ${UPSTAGE_DEFAULTS.timeout})`);
-  console.log(`  UPSTAGE_RETRY_COUNT   Number of retries (default: ${UPSTAGE_DEFAULTS.retryCount})\n`);
-  
+  console.log(
+    `  UPSTAGE_MODEL         Model to use (default: ${DEFAULT_SOLAR_MODEL})`,
+  );
+  console.log(
+    `  UPSTAGE_BASE_URL      API endpoint (default: ${UPSTAGE_DEFAULTS.baseUrl})`,
+  );
+  console.log(
+    `  UPSTAGE_MAX_TOKENS    Max tokens per response (default: ${UPSTAGE_DEFAULTS.maxTokens})`,
+  );
+  console.log(
+    `  UPSTAGE_TIMEOUT       Request timeout in ms (default: ${UPSTAGE_DEFAULTS.timeout})`,
+  );
+  console.log(
+    `  UPSTAGE_RETRY_COUNT   Number of retries (default: ${UPSTAGE_DEFAULTS.retryCount})\n`,
+  );
+
   console.log('Example .env file:');
   console.log('  UPSTAGE_API_KEY=up_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
   console.log(`  UPSTAGE_MODEL=${DEFAULT_SOLAR_MODEL}`);
   console.log('  # Other variables use defaults if not specified\n');
-  
+
   console.log('Export directly (Linux/macOS):');
   console.log('  export UPSTAGE_API_KEY="up_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"');
   console.log('  export UPSTAGE_MODEL="solar-pro2"\n');
-  
+
   console.log('Set temporarily (Windows):');
   console.log('  set UPSTAGE_API_KEY=up_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
   console.log('  set UPSTAGE_MODEL=solar-pro2');

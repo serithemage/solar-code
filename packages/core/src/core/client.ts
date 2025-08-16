@@ -429,7 +429,7 @@ export class GeminiClient {
       // Clean up JSON response - handle various formats that Solar API might return
       const jsonPrefixes = ['```json', '```JSON', '```'];
       const jsonSuffix = '```';
-      
+
       let foundPrefix = '';
       for (const prefix of jsonPrefixes) {
         if (text.startsWith(prefix)) {
@@ -437,7 +437,7 @@ export class GeminiClient {
           break;
         }
       }
-      
+
       if (foundPrefix && text.endsWith(jsonSuffix)) {
         ClearcutLogger.getInstance(this.config)?.logMalformedJsonResponseEvent(
           new MalformedJsonResponseEvent(modelToUse),
@@ -446,9 +446,13 @@ export class GeminiClient {
           .substring(foundPrefix.length, text.length - jsonSuffix.length)
           .trim();
       }
-      
+
       // Additional cleanup for Solar API responses
-      if (text.includes('\n') && !text.trim().startsWith('{') && !text.trim().startsWith('[')) {
+      if (
+        text.includes('\n') &&
+        !text.trim().startsWith('{') &&
+        !text.trim().startsWith('[')
+      ) {
         // Try to extract JSON from multi-line response
         const lines = text.split('\n');
         for (let i = 0; i < lines.length; i++) {

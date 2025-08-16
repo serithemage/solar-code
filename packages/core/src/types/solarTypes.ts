@@ -7,7 +7,13 @@
 /**
  * Supported Solar model types (based on actual Upstage API 2025)
  */
-export type SupportedSolarModel = 'solar-pro2' | 'solar-mini' | 'solar-pro-2' | 'solar-pro' | 'solar-1-mini-chat' | 'solar-1-mini';
+export type SupportedSolarModel =
+  | 'solar-pro2'
+  | 'solar-mini'
+  | 'solar-pro-2'
+  | 'solar-pro'
+  | 'solar-1-mini-chat'
+  | 'solar-1-mini';
 
 /**
  * Solar API configuration interface

@@ -57,7 +57,7 @@ export function AuthDialog({
     ) {
       return 'Existing Solar API key detected (UPSTAGE_API_KEY). Select "Solar API Key" option to use it.';
     }
-    
+
     return null;
   });
   const items = [
@@ -143,9 +143,7 @@ export function AuthDialog({
         <Text>Get your API key from Upstage Console:</Text>
       </Box>
       <Box marginTop={1}>
-        <Text color={Colors.AccentBlue}>
-          https://console.upstage.ai/
-        </Text>
+        <Text color={Colors.AccentBlue}>https://console.upstage.ai/</Text>
       </Box>
     </Box>
   );
