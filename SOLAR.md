@@ -33,7 +33,7 @@ This project uses **Vitest** as its primary testing framework. When writing test
 ### Commonly Mocked Modules
 
 - **Node.js built-ins**: `fs`, `fs/promises`, `os` (especially `os.homedir()`), `path`, `child_process` (`execSync`, `spawn`).
-- **External SDKs**: `@google/genai`, `@modelcontextprotocol/sdk`.
+- **External SDKs**: `@upstage/solar-sdk`, `@modelcontextprotocol/sdk`.
 - **Internal Project Modules**: Dependencies from other project packages are often mocked.
 
 ### React Component Testing (CLI UI - Ink)
@@ -127,11 +127,11 @@ Using these operators:
 
 By consistently applying these principles, we can maintain a codebase that is not only efficient and performant but also a joy to work with, both now and in the future.
 
-## React (mirrored and adjusted from [react-mcp-server](https://github.com/facebook/react/blob/4448b18760d867f9e009e810571e7a3b8930bb19/compiler/packages/react-mcp-server/src/index.ts#L376C1-L441C94))
+## React (adapted for Solar Code CLI)
 
 ### Role
 
-You are a React assistant that helps users write more efficient and optimizable React code. You specialize in identifying patterns that enable React Compiler to automatically apply optimizations, reducing unnecessary re-renders and improving application performance.
+You are a Solar Code React assistant that helps users write more efficient and optimizable React code for CLI interfaces using Ink. You specialize in identifying patterns that enable React Compiler to automatically apply optimizations, reducing unnecessary re-renders and improving CLI application performance.
 
 ### Follow these guidelines in all code you produce and suggest
 
@@ -151,13 +151,13 @@ Use refs only when necessary: Avoid using useRef unless the task genuinely requi
 
 Prefer composition and small components: Break down UI into small, reusable components rather than writing large monolithic components. The code you generate should promote clarity and reusability by composing components together. Similarly, abstract repetitive logic into custom Hooks when appropriate to avoid duplicating code.
 
-Optimize for concurrency: Assume React may render your components multiple times for scheduling purposes (especially in development with Strict Mode). Write code that remains correct even if the component function runs more than once. For instance, avoid side effects in the component body and use functional state updates (e.g., setCount(c => c + 1)) when updating state based on previous state to prevent race conditions. Always include cleanup functions in effects that subscribe to external resources. Don't write useEffects for "do this when this changes" side effects. This ensures your generated code will work with React's concurrent rendering features without issues.
+Optimize for CLI performance: Assume React may render your CLI components multiple times. Write code that remains correct even if the component function runs more than once. For instance, avoid side effects in the component body and use functional state updates (e.g., setCount(c => c + 1)) when updating state based on previous state to prevent race conditions. Always include cleanup functions in effects that subscribe to external resources.
 
-Optimize to reduce network waterfalls - Use parallel data fetching wherever possible (e.g., start multiple requests at once rather than one after another). Leverage Suspense for data loading and keep requests co-located with the component that needs the data. In a server-centric approach, fetch related data together in a single request on the server side (using Server Components, for example) to reduce round trips. Also, consider using caching layers or global fetch management to avoid repeating identical requests.
+Optimize to reduce Solar API waterfalls - Use parallel data fetching wherever possible when making requests to Solar Pro2 API. Leverage React patterns for data loading and keep requests co-located with the component that needs the data. Consider using caching layers to avoid repeating identical requests to Solar API.
 
-Rely on React Compiler - useMemo, useCallback, and React.memo can be omitted if React Compiler is enabled. Avoid premature optimization with manual memoization. Instead, focus on writing clear, simple components with direct data flow and side-effect-free render functions. Let the React Compiler handle tree-shaking, inlining, and other performance enhancements to keep your code base simpler and more maintainable.
+Rely on React Compiler - useMemo, useCallback, and React.memo can be omitted if React Compiler is enabled. Avoid premature optimization with manual memoization. Instead, focus on writing clear, simple components with direct data flow and side-effect-free render functions. Let the React Compiler handle optimizations to keep your code base simpler and more maintainable.
 
-Design for a good user experience - Provide clear, minimal, and non-blocking UI states. When data is loading, show lightweight placeholders (e.g., skeleton screens) rather than intrusive spinners everywhere. Handle errors gracefully with a dedicated error boundary or a friendly inline message. Where possible, render partial data as it becomes available rather than making the user wait for everything. Suspense allows you to declare the loading states in your component tree in a natural way, preventing “flash” states and improving perceived performance.
+Design for a good CLI user experience - Provide clear, minimal, and non-blocking CLI states. When Solar API data is loading, show appropriate loading indicators. Handle errors gracefully with user-friendly messages. Where possible, render partial data as it becomes available rather than making the user wait for everything.
 
 ### Process
 
@@ -175,6 +175,7 @@ Design for a good user experience - Provide clear, minimal, and non-blocking UI 
 
 - State updates should be structured to enable granular updates
 - Side effects should be isolated and dependencies clearly defined
+- CLI components should be responsive and performant
 
 ## Comments policy
 

@@ -1,5 +1,5 @@
 {
-  "name": "@google/gemini-cli",
+  "name": "@upstage/solar-cli",
   "version": "0.1.18",
   "engines": {
     "node": ">=20.0.0"
@@ -50,7 +50,7 @@
     "clean": "node scripts/clean.js"
   },
   "bin": {
-    "gemini": "bundle/gemini.js"
+    "solar": "bundle/solar.js"
   },
   "files": [
     "bundle/",

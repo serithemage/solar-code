@@ -54,6 +54,7 @@ import { IdeConnectionEvent, IdeConnectionType } from '../telemetry/types.js';
 // Re-export OAuth config type
 export type { MCPOAuthConfig };
 import { WorkspaceContext } from '../utils/workspaceContext.js';
+import { UpstageConfig, validateUpstageConfig, getUpstageConfigSafely, UpstageConfigError } from './upstageConfig.js';
 
 export enum ApprovalMode {
   DEFAULT = 'default',
@@ -706,6 +707,44 @@ export class Config {
       await this.gitService.initialize();
     }
     return this.gitService;
+  }
+
+  /**
+   * Gets Upstage configuration if available
+   * @returns UpstageConfig if properly configured, null otherwise
+   */
+  getUpstageConfig(): UpstageConfig | null {
+    return getUpstageConfigSafely();
+  }
+
+  /**
+   * Validates and gets Upstage configuration
+   * @throws UpstageConfigError if configuration is invalid or missing
+   */
+  validateUpstageConfig(): UpstageConfig {
+    return validateUpstageConfig();
+  }
+
+  /**
+   * Checks if Upstage API is configured
+   */
+  isUpstageConfigured(): boolean {
+    return this.getUpstageConfig() !== null;
+  }
+
+  /**
+   * Gets the appropriate model based on auth type and configuration
+   * Prioritizes Solar models when using Solar authentication
+   */
+  getEffectiveModel(): string {
+    const config = this.getContentGeneratorConfig();
+    if (config?.authType === AuthType.USE_SOLAR) {
+      const upstageConfig = this.getUpstageConfig();
+      if (upstageConfig) {
+        return upstageConfig.model;
+      }
+    }
+    return this.getModel();
   }
 
   async createToolRegistry(): Promise<ToolRegistry> {

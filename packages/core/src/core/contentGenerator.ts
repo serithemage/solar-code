@@ -19,6 +19,9 @@ import { Config } from '../config/config.js';
 import { getEffectiveModel } from './modelCheck.js';
 import { UserTierId } from '../code_assist/types.js';
 import { LoggingContentGenerator } from './loggingContentGenerator.js';
+import { SolarContentGenerator } from './solarContentGenerator.js';
+import { SolarConfig } from '../types/solarTypes.js';
+import { validateUpstageConfig, UpstageConfigError } from '../config/upstageConfig.js';
 
 /**
  * Interface abstracting the core functionalities for generating content and counting tokens.
@@ -68,11 +71,9 @@ export function createContentGeneratorConfig(
   const upstageApiKey = process.env.UPSTAGE_API_KEY || undefined; // Solar API key
 
   // Use runtime model from config if available; otherwise, fall back to parameter or default
-  let defaultModel = DEFAULT_GEMINI_MODEL;
-  if (authType === AuthType.USE_SOLAR) {
-    defaultModel = DEFAULT_SOLAR_MODEL;
-  }
-  const effectiveModel = config.getModel() || defaultModel;
+  // For Solar auth type, always use Solar models
+  let defaultModel = DEFAULT_SOLAR_MODEL;
+  const effectiveModel = (authType === AuthType.USE_SOLAR) ? defaultModel : (config.getModel() || defaultModel);
 
   const contentGeneratorConfig: ContentGeneratorConfig = {
     model: effectiveModel,
@@ -158,6 +159,33 @@ export async function createContentGenerator(
     });
     return new LoggingContentGenerator(googleGenAI.models, gcConfig);
   }
+
+  if (config.authType === AuthType.USE_SOLAR) {
+    try {
+      const upstageConfig = validateUpstageConfig();
+      const solarConfig: SolarConfig = {
+        apiKey: upstageConfig.apiKey,
+        model: upstageConfig.model as any, // Use the validated Solar model from upstageConfig
+        baseUrl: upstageConfig.baseUrl,
+        maxTokens: upstageConfig.maxTokens,
+        timeout: upstageConfig.timeout,
+        retryCount: upstageConfig.retryCount,
+      };
+      return new LoggingContentGenerator(new SolarContentGenerator(solarConfig), gcConfig);
+    } catch (error) {
+      if (error instanceof UpstageConfigError) {
+        throw new Error(
+          `Solar Pro2 configuration error: ${error.message}\n\n` +
+          `To configure Solar Pro2:\n` +
+          `1. Get your API key from: https://console.upstage.ai/\n` +
+          `2. Set: export UPSTAGE_API_KEY="your_key_here"\n` +
+          `3. Run: solar --solar-setup for detailed setup guide`
+        );
+      }
+      throw error;
+    }
+  }
+
   throw new Error(
     `Error creating contentGenerator: Unsupported authType: ${config.authType}`,
   );

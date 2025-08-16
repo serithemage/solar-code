@@ -10,14 +10,13 @@ const colors = {
 export const solarLogo = `
 > solar-code
 
-  ********   *******   **           **     *******           ******    *******   *******   ********
- **//////   **/////** /**          ****   /**////**         **////**  **/////** /**////** /**///// 
-/**        **     //**/**         **//**  /**   /**        **    //  **     //**/**    /**/**      
-/*********/**      /**/**        **  //** /*******   *****/**       /**      /**/**    /**/******* 
-////////**/**      /**/**       **********/**///**  ///// /**       /**      /**/**    /**/**////  
-       /**//**     ** /**      /**//////**/**  //**       //**    **//**     ** /**    ** /**      
- ********  //*******  /********/**     /**/**   //**       //******  //*******  /*******  /********
-////////    ///////   //////// //      // //     //         //////    ///////   ///////   //////// 
+ ███         ███████   ███████  ██       █████  ███████ 
+░░░███      ██░░░░░░  ██░░░░░██░██      ██░░░██░██░░░░██
+  ░░░███    ░██████  ░██    ░██░██     ░███████░███████ 
+    ░░░███  ░░░░░░██ ░██    ░██░██     ░██░░░██░██░░░██ 
+    ███░         ░██ ░██    ░██░██     ░██  ░██░██  ░░██
+  ███░      ███████  ░░███████ ░███████░██  ░██░██   ░██
+ ░░░░       ░░░░░░░   ░░░░░░░  ░░░░░░░░░░░   ░░ ░░    ░░ 
 `;
 
 function applySolarGradient(asciiArt) {
@@ -27,41 +26,62 @@ function applySolarGradient(asciiArt) {
   // Ultra-smooth Solar gradient array with 100 steps
   const gradient = [];
   
-  // Generate 100 color steps from yellow to red using RGB interpolation
+  // Generate smooth 100 color steps with better interpolation
   for (let i = 0; i < 100; i++) {
     const progress = i / 99; // 0 to 1
     
     let r, g, b;
     
-    if (progress <= 0.5) {
-      // Yellow to Orange (first half)
-      const localProgress = progress * 2; // 0 to 1
-      r = Math.round(255); // Keep red at max
-      g = Math.round(255 - (localProgress * 100)); // Yellow to orange
-      b = Math.round(0); // Keep blue at 0
-    } else {
-      // Orange to Red (second half)
-      const localProgress = (progress - 0.5) * 2; // 0 to 1
-      r = Math.round(255); // Keep red at max
-      g = Math.round(155 - (localProgress * 155)); // Orange to red
-      b = Math.round(0); // Keep blue at 0
-    }
+    // Use gentler progression for ultra-smooth yellow to orange transition
+    const easeProgress = progress; // Use linear progression for smoother control
     
-    // Convert RGB to closest ANSI 256 color
-    const ansiColor = 16 + (36 * Math.floor(r / 51)) + (6 * Math.floor(g / 51)) + Math.floor(b / 51);
-    gradient.push(`\x1b[38;5;${Math.min(255, Math.max(16, ansiColor))}m`);
+    // Yellow to Red gradient
+    // Use smooth progression from bright yellow (255,255,0) to red (255,0,0)
+    const smoothProgress = easeProgress * easeProgress * (3 - 2 * easeProgress); // Smooth S-curve
+    
+    r = 255; // Keep red at maximum for both yellow and red
+    g = Math.round(255 - (smoothProgress * 255)); // 255 to 0 (yellow to red)
+    b = 0; // Keep blue at 0 for pure yellow/red colors
+    
+    // Use more precise RGB to ANSI conversion with dithering
+    const ansiR = Math.max(0, Math.min(5, Math.round(r / 51)));
+    const ansiG = Math.max(0, Math.min(5, Math.round(g / 51)));
+    const ansiB = Math.max(0, Math.min(5, Math.round(b / 51)));
+    const ansiColor = 16 + (36 * ansiR) + (6 * ansiG) + ansiB;
+    
+    gradient.push(`\x1b[38;5;${ansiColor}m`);
   }
   
-  lines.forEach((line) => {
+  lines.forEach((line, lineIndex) => {
     let coloredLine = '';
+    
+    // Calculate effective line length excluding leading/trailing spaces
+    const trimmedLine = line.trim();
+    const leadingSpaces = line.indexOf(trimmedLine);
+    const effectiveLength = trimmedLine.length;
     
     for (let i = 0; i < line.length; i++) {
       const char = line[i];
       
-      if (char === '*' || char === '/') {
-        // Apply smooth gradient based on horizontal position  
-        const gradientIndex = Math.floor((i / line.length) * gradient.length);
+      // Apply gradient to block characters and letters
+      if (char === '█' || char === '░' || (char !== ' ' && char !== '>' && char !== '-' && char !== '\n')) {
+        // Calculate smooth gradient position with interpolation
+        const relativePos = Math.max(0, i - leadingSpaces);
+        const normalizedPos = effectiveLength > 0 ? relativePos / effectiveLength : 0;
+        
+        // Add slight vertical offset for more natural gradient feel
+        const verticalOffset = lineIndex * 0.02; // Subtle vertical gradient component
+        const adjustedPos = Math.min(1, Math.max(0, normalizedPos + verticalOffset));
+        
+        // Use floating-point index for smoother interpolation
+        const floatIndex = adjustedPos * (gradient.length - 1);
+        const lowerIndex = Math.floor(floatIndex);
+        const upperIndex = Math.min(lowerIndex + 1, gradient.length - 1);
+        
+        // For now, use simple selection (could add interpolation later)
+        const gradientIndex = Math.round(floatIndex);
         const color = gradient[Math.min(gradientIndex, gradient.length - 1)];
+        
         coloredLine += color + char + colors.reset;
       } else {
         coloredLine += char;

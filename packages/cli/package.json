@@ -1,7 +1,7 @@
 {
-  "name": "@google/gemini-cli",
+  "name": "@upstage/solar-cli",
   "version": "0.1.18",
-  "description": "Gemini CLI",
+  "description": "Solar CLI",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/google-gemini/gemini-cli.git"
@@ -9,7 +9,7 @@
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "gemini": "dist/index.js"
+    "solar": "dist/index.js"
   },
   "scripts": {
     "build": "node ../../scripts/build_package.js",

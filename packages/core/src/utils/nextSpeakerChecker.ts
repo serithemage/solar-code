@@ -5,7 +5,7 @@
  */
 
 import { Content, SchemaUnion, Type } from '@google/genai';
-import { DEFAULT_GEMINI_FLASH_MODEL } from '../config/models.js';
+import { DEFAULT_SOLAR_MODEL } from '../config/models.js';
 import { GeminiClient } from '../core/client.js';
 import { GeminiChat } from '../core/geminiChat.js';
 import { isFunctionResponse } from './messageInspectors.js';
@@ -112,7 +112,7 @@ export async function checkNextSpeaker(
       contents,
       RESPONSE_SCHEMA,
       abortSignal,
-      DEFAULT_GEMINI_FLASH_MODEL,
+      DEFAULT_SOLAR_MODEL,
     )) as unknown as NextSpeakerResponse;
 
     if (
@@ -125,7 +125,7 @@ export async function checkNextSpeaker(
     return null;
   } catch (error) {
     console.warn(
-      'Failed to talk to Gemini endpoint when seeing if conversation should continue.',
+      'Failed to talk to Solar endpoint when seeing if conversation should continue.',
       error,
     );
     return null;

@@ -52,31 +52,19 @@ export function AuthDialog({
     }
 
     if (
-      process.env.GEMINI_API_KEY &&
-      (!defaultAuthType || defaultAuthType === AuthType.USE_GEMINI)
+      process.env.UPSTAGE_API_KEY &&
+      (!defaultAuthType || defaultAuthType === AuthType.USE_SOLAR)
     ) {
-      return 'Existing API key detected (GEMINI_API_KEY). Select "Gemini API Key" option to use it.';
+      return 'Existing Solar API key detected (UPSTAGE_API_KEY). Select "Solar API Key" option to use it.';
     }
+    
     return null;
   });
   const items = [
     {
-      label: 'Login with Google',
-      value: AuthType.LOGIN_WITH_GOOGLE,
+      label: 'Use Solar API Key (Solar Pro2)',
+      value: AuthType.USE_SOLAR,
     },
-    ...(process.env.CLOUD_SHELL === 'true'
-      ? [
-          {
-            label: 'Use Cloud Shell user credentials',
-            value: AuthType.CLOUD_SHELL,
-          },
-        ]
-      : []),
-    {
-      label: 'Use Gemini API Key',
-      value: AuthType.USE_GEMINI,
-    },
-    { label: 'Vertex AI', value: AuthType.USE_VERTEX_AI },
   ];
 
   const initialAuthIndex = items.findIndex((item) => {
@@ -91,11 +79,8 @@ export function AuthDialog({
       return item.value === defaultAuthType;
     }
 
-    if (process.env.GEMINI_API_KEY) {
-      return item.value === AuthType.USE_GEMINI;
-    }
-
-    return item.value === AuthType.LOGIN_WITH_GOOGLE;
+    // Default to Solar API Key (the only option)
+    return item.value === AuthType.USE_SOLAR;
   });
 
   const handleAuthSelect = (authMethod: AuthType) => {
@@ -134,9 +119,9 @@ export function AuthDialog({
       padding={1}
       width="100%"
     >
-      <Text bold>Get started</Text>
+      <Text bold>Solar Code Setup</Text>
       <Box marginTop={1}>
-        <Text>How would you like to authenticate for this project?</Text>
+        <Text>Set up your Solar Pro2 API key to get started:</Text>
       </Box>
       <Box marginTop={1}>
         <RadioButtonSelect
@@ -155,13 +140,11 @@ export function AuthDialog({
         <Text color={Colors.Gray}>(Use Enter to select)</Text>
       </Box>
       <Box marginTop={1}>
-        <Text>Terms of Services and Privacy Notice for Gemini CLI</Text>
+        <Text>Get your API key from Upstage Console:</Text>
       </Box>
       <Box marginTop={1}>
         <Text color={Colors.AccentBlue}>
-          {
-            'https://github.com/google-gemini/gemini-cli/blob/main/docs/tos-privacy.md'
-          }
+          https://console.upstage.ai/
         </Text>
       </Box>
     </Box>

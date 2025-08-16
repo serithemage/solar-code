@@ -208,7 +208,7 @@ export class GeminiClient {
       const userMemory = this.config.getUserMemory();
       const systemInstruction = getCoreSystemPrompt(userMemory);
       const generateContentConfigWithThinking = isThinkingSupported(
-        this.config.getModel(),
+        this.config.getEffectiveModel(),
       )
         ? {
             ...this.generateContentConfig,
@@ -264,7 +264,7 @@ export class GeminiClient {
     }
 
     // Track the original model from the first call to detect model switching
-    const initialModel = originalModel || this.config.getModel();
+    const initialModel = originalModel || this.config.getEffectiveModel();
 
     const compressed = await this.tryCompressChat(prompt_id);
 
@@ -336,7 +336,7 @@ export class GeminiClient {
     }
     if (!turn.pendingToolCalls.length && signal && !signal.aborted) {
       // Check if model was switched during the call (likely due to quota error)
-      const currentModel = this.config.getModel();
+      const currentModel = this.config.getEffectiveModel();
       if (currentModel !== initialModel) {
         // Model was switched (likely due to quota error fallback)
         // Don't continue with recursive call to prevent unwanted Flash execution
@@ -379,9 +379,9 @@ export class GeminiClient {
     model?: string,
     config: GenerateContentConfig = {},
   ): Promise<Record<string, unknown>> {
-    // Use current model from config instead of hardcoded Flash model
+    // Use effective model (considers auth type) instead of base model
     const modelToUse =
-      model || this.config.getModel() || DEFAULT_GEMINI_FLASH_MODEL;
+      model || this.config.getEffectiveModel() || DEFAULT_GEMINI_FLASH_MODEL;
     try {
       const userMemory = this.config.getUserMemory();
       const systemInstruction = getCoreSystemPrompt(userMemory);
@@ -426,15 +426,42 @@ export class GeminiClient {
         throw error;
       }
 
-      const prefix = '```json';
-      const suffix = '```';
-      if (text.startsWith(prefix) && text.endsWith(suffix)) {
+      // Clean up JSON response - handle various formats that Solar API might return
+      const jsonPrefixes = ['```json', '```JSON', '```'];
+      const jsonSuffix = '```';
+      
+      let foundPrefix = '';
+      for (const prefix of jsonPrefixes) {
+        if (text.startsWith(prefix)) {
+          foundPrefix = prefix;
+          break;
+        }
+      }
+      
+      if (foundPrefix && text.endsWith(jsonSuffix)) {
         ClearcutLogger.getInstance(this.config)?.logMalformedJsonResponseEvent(
           new MalformedJsonResponseEvent(modelToUse),
         );
         text = text
-          .substring(prefix.length, text.length - suffix.length)
+          .substring(foundPrefix.length, text.length - jsonSuffix.length)
           .trim();
+      }
+      
+      // Additional cleanup for Solar API responses
+      if (text.includes('\n') && !text.trim().startsWith('{') && !text.trim().startsWith('[')) {
+        // Try to extract JSON from multi-line response
+        const lines = text.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i].trim();
+          if (line.startsWith('{') || line.startsWith('[')) {
+            // Found potential JSON start, extract from here to end
+            const jsonStart = lines.slice(i).join('\n').trim();
+            if (jsonStart.endsWith('}') || jsonStart.endsWith(']')) {
+              text = jsonStart;
+              break;
+            }
+          }
+        }
       }
 
       try {
@@ -470,7 +497,7 @@ export class GeminiClient {
 
       await reportError(
         error,
-        'Error generating JSON content via API.',
+        'Error generating JSON content via Solar API.',
         contents,
         'generateJson-api',
       );
@@ -486,7 +513,7 @@ export class GeminiClient {
     abortSignal: AbortSignal,
     model?: string,
   ): Promise<GenerateContentResponse> {
-    const modelToUse = model ?? this.config.getModel();
+    const modelToUse = model ?? this.config.getEffectiveModel();
     const configToUse: GenerateContentConfig = {
       ...this.generateContentConfig,
       ...generationConfig,
@@ -525,7 +552,7 @@ export class GeminiClient {
 
       await reportError(
         error,
-        `Error generating content via API with model ${modelToUse}.`,
+        `Error generating content via Solar API with model ${modelToUse}.`,
         {
           requestContents: contents,
           requestConfig: configToUse,
@@ -584,7 +611,7 @@ export class GeminiClient {
       return null;
     }
 
-    const model = this.config.getModel();
+    const model = this.config.getEffectiveModel();
 
     const { totalTokens: originalTokenCount } =
       await this.getContentGenerator().countTokens({
@@ -651,8 +678,8 @@ export class GeminiClient {
 
     const { totalTokens: newTokenCount } =
       await this.getContentGenerator().countTokens({
-        // model might change after calling `sendMessage`, so we get the newest value from config
-        model: this.config.getModel(),
+        // model might change after calling `sendMessage`, so we get the newest effective value from config
+        model: this.config.getEffectiveModel(),
         contents: this.getChat().getHistory(),
       });
     if (newTokenCount === undefined) {
@@ -679,7 +706,7 @@ export class GeminiClient {
       return null;
     }
 
-    const currentModel = this.config.getModel();
+    const currentModel = this.config.getEffectiveModel();
     const fallbackModel = DEFAULT_GEMINI_FLASH_MODEL;
 
     // Don't fallback if already using Flash model
@@ -702,7 +729,7 @@ export class GeminiClient {
           return fallbackModel;
         }
         // Check if the model was switched manually in the handler
-        if (this.config.getModel() === fallbackModel) {
+        if (this.config.getEffectiveModel() === fallbackModel) {
           return null; // Model was switched but don't continue with current prompt
         }
       } catch (error) {

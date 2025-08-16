@@ -175,13 +175,12 @@ export async function main() {
 
   // Set a default auth type if one isn't set.
   if (!settings.merged.selectedAuthType) {
-    if (process.env.CLOUD_SHELL === 'true') {
-      settings.setValue(
-        SettingScope.User,
-        'selectedAuthType',
-        AuthType.CLOUD_SHELL,
-      );
-    }
+    // Default to Solar Pro2 authentication
+    settings.setValue(
+      SettingScope.User,
+      'selectedAuthType',
+      AuthType.USE_SOLAR,
+    );
   }
 
   setMaxSizedBoxDebugging(config.getDebugMode());

@@ -6,6 +6,8 @@
 
 // Export config
 export * from './config/config.js';
+export * from './config/models.js';
+export * from './config/upstageConfig.js';
 
 // Export Core Logic
 export * from './core/client.js';
@@ -23,6 +25,7 @@ export * from './code_assist/codeAssist.js';
 export * from './code_assist/oauth2.js';
 export * from './code_assist/server.js';
 export * from './code_assist/types.js';
+export * from './types/solarTypes.js';
 
 // Export utilities
 export * from './utils/paths.js';

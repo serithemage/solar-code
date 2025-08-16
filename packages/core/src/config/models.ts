@@ -4,11 +4,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// Solar Pro2 Model Constants
+// Solar Model Constants (based on actual Upstage API 2025)
 export const DEFAULT_SOLAR_MODEL = 'solar-pro2';
-export const SOLAR_PRO2_MODEL = 'solar-pro2';
 export const SOLAR_MINI_MODEL = 'solar-mini';
-export const SOLAR_1_MINI_MODEL = 'solar-1-mini';
+export const SOLAR_PRO_2_MODEL = 'solar-pro-2'; // Deprecated - kept for backward compatibility
+export const SOLAR_PRO_MODEL = 'solar-pro'; // Deprecated - kept for backward compatibility
+export const SOLAR_1_MINI_CHAT_MODEL = 'solar-1-mini-chat'; // Deprecated - kept for backward compatibility
+export const SOLAR_1_MINI_MODEL = 'solar-1-mini'; // Deprecated - kept for backward compatibility
 export const SOLAR_API_VERSION = 'v1';
 export const SOLAR_MAX_TOKENS = 4096; // Solar Pro2 token limit
 
