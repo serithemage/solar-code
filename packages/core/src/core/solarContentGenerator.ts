@@ -179,12 +179,20 @@ export class SolarContentGenerator implements ContentGenerator {
   private async makeApiCall(
     request: SolarRequestParams,
   ): Promise<SolarResponse> {
-    // Debug: Log the request for troubleshooting
-    console.log('Solar API Request:', {
+    const requestStart = Date.now();
+    
+    // Enhanced debug logging with more detailed information
+    console.log('🌞 Solar API Request:', {
       url: `${this.baseUrl}/chat/completions`,
       model: request.model,
       messagesCount: request.messages?.length || 0,
       maxTokens: request.max_tokens,
+      temperature: request.temperature ?? 'default',
+      stream: request.stream ? 'enabled' : 'disabled',
+      timestamp: new Date().toISOString(),
+      lastUserMessage: request.messages?.length > 0 
+        ? request.messages[request.messages.length - 1]?.content?.slice(0, 100) + '...'
+        : 'none',
     });
 
     const response = await fetch(`${this.baseUrl}/chat/completions`, {
@@ -226,12 +234,43 @@ export class SolarContentGenerator implements ContentGenerator {
       );
     }
 
-    return response.json() as Promise<SolarResponse>;
+    const solarResponse = await response.json() as SolarResponse;
+    const requestDuration = Date.now() - requestStart;
+    
+    // Enhanced response logging
+    console.log('🌞 Solar API Response:', {
+      status: response.status,
+      duration: `${requestDuration}ms`,
+      model: solarResponse.model,
+      usage: solarResponse.usage,
+      finishReason: solarResponse.choices?.[0]?.finish_reason,
+      responseLength: solarResponse.choices?.[0]?.message?.content?.length || 0,
+      firstChars: solarResponse.choices?.[0]?.message?.content?.slice(0, 100) + '...' || 'none',
+      timestamp: new Date().toISOString(),
+    });
+
+    return solarResponse;
   }
 
   private async makeStreamingApiCall(
     request: SolarRequestParams,
   ): Promise<ReadableStream> {
+    const requestStart = Date.now();
+    
+    // Enhanced debug logging for streaming requests
+    console.log('🌊 Solar API Streaming Request:', {
+      url: `${this.baseUrl}/chat/completions`,
+      model: request.model,
+      messagesCount: request.messages?.length || 0,
+      maxTokens: request.max_tokens,
+      temperature: request.temperature ?? 'default',
+      stream: 'enabled',
+      timestamp: new Date().toISOString(),
+      lastUserMessage: request.messages?.length > 0 
+        ? request.messages[request.messages.length - 1]?.content?.slice(0, 100) + '...'
+        : 'none',
+    });
+
     const response = await fetch(`${this.baseUrl}/chat/completions`, {
       method: 'POST',
       headers: {
@@ -270,6 +309,20 @@ export class SolarContentGenerator implements ContentGenerator {
         `Solar streaming API request failed: ${response.status} ${response.statusText} - ${errorText}`,
       );
     }
+
+    const requestDuration = Date.now() - requestStart;
+    
+    // Enhanced response logging for streaming
+    console.log('🌊 Solar API Streaming Response:', {
+      status: response.status,
+      duration: `${requestDuration}ms`,
+      headers: {
+        contentType: response.headers.get('content-type'),
+        transferEncoding: response.headers.get('transfer-encoding'),
+      },
+      timestamp: new Date().toISOString(),
+      note: 'Stream initiated successfully',
+    });
 
     return response.body!;
   }

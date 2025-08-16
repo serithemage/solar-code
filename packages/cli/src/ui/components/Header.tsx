@@ -12,7 +12,7 @@ import {
   shortAsciiLogo,
   longAsciiLogo,
   tinyAsciiLogo,
-} from './SolarAsciiArt.js';
+} from './AsciiArt.js';
 import { getAsciiArtWidth } from '../utils/textUtils.js';
 import { useTerminalSize } from '../hooks/useTerminalSize.js';
 

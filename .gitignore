@@ -44,3 +44,4 @@ packages/vscode-ide-companion/*.vsix
 # Git hooks cache directory
 .git/.cache/
 .eslintcache
+*.log

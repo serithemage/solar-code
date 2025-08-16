@@ -39,7 +39,16 @@ export const useAuthCommand = (
       try {
         setIsAuthenticating(true);
         await config.refreshAuth(authType);
-        console.log(`Authenticated via "${authType}".`);
+        
+        // Enhanced authentication success logging
+        const model = config.getEffectiveModel();
+        console.log(`🔐 Authentication Success:`, {
+          authType,
+          model,
+          apiEndpoint: authType === AuthType.USE_SOLAR ? 'https://api.upstage.ai' : 'N/A',
+          timestamp: new Date().toISOString(),
+          status: 'Ready for Solar Pro2 AI assistance',
+        });
       } catch (e) {
         setAuthError(`Failed to login. Message: ${getErrorMessage(e)}`);
         openAuthDialog();
