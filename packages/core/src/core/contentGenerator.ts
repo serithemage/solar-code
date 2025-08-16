@@ -14,7 +14,7 @@ import {
   GoogleGenAI,
 } from '@google/genai';
 import { createCodeAssistContentGenerator } from '../code_assist/codeAssist.js';
-import { DEFAULT_GEMINI_MODEL, DEFAULT_SOLAR_MODEL } from '../config/models.js';
+import { DEFAULT_SOLAR_MODEL } from '../config/models.js';
 import { Config } from '../config/config.js';
 import { getEffectiveModel } from './modelCheck.js';
 import { UserTierId } from '../code_assist/types.js';
@@ -72,7 +72,7 @@ export function createContentGeneratorConfig(
 
   // Use runtime model from config if available; otherwise, fall back to parameter or default
   // For Solar auth type, always use Solar models
-  let defaultModel = DEFAULT_SOLAR_MODEL;
+  const defaultModel = DEFAULT_SOLAR_MODEL;
   const effectiveModel = (authType === AuthType.USE_SOLAR) ? defaultModel : (config.getModel() || defaultModel);
 
   const contentGeneratorConfig: ContentGeneratorConfig = {
@@ -165,7 +165,7 @@ export async function createContentGenerator(
       const upstageConfig = validateUpstageConfig();
       const solarConfig: SolarConfig = {
         apiKey: upstageConfig.apiKey,
-        model: upstageConfig.model as any, // Use the validated Solar model from upstageConfig
+        model: upstageConfig.model, // Use the validated Solar model from upstageConfig
         baseUrl: upstageConfig.baseUrl,
         maxTokens: upstageConfig.maxTokens,
         timeout: upstageConfig.timeout,

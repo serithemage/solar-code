@@ -29,7 +29,7 @@ import {
   MCPServerConfig,
   UpstageConfigError,
   printUpstageSetupGuide,
-  AuthType,
+  // AuthType,
   DEFAULT_SOLAR_MODEL,
 } from '@google/gemini-cli-core';
 import { Settings } from './settings.js';
@@ -329,7 +329,7 @@ export async function loadCliConfig(
   // If user explicitly requests solar model or auth, validate Upstage config
   if (isSolarModel || isSolarAuth) {
     try {
-      const upstageConfig = await import('@google/gemini-cli-core').then(m => m.validateUpstageConfig());
+      const _upstageConfig = await import('@google/gemini-cli-core').then(m => m.validateUpstageConfig());
       logger.debug('Upstage configuration validated successfully');
     } catch (error) {
       if (error instanceof UpstageConfigError) {

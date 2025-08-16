@@ -33,7 +33,7 @@ export interface SolarRequestParams {
   max_tokens?: number;
   temperature?: number;
   stream?: boolean;
-  tools?: any[]; // Function calling support (TBD)
+  tools?: Array<Record<string, unknown>>; // Function calling support (TBD)
 }
 
 /**

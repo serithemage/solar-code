@@ -54,7 +54,7 @@ import { IdeConnectionEvent, IdeConnectionType } from '../telemetry/types.js';
 // Re-export OAuth config type
 export type { MCPOAuthConfig };
 import { WorkspaceContext } from '../utils/workspaceContext.js';
-import { UpstageConfig, validateUpstageConfig, getUpstageConfigSafely, UpstageConfigError } from './upstageConfig.js';
+import { UpstageConfig, validateUpstageConfig, getUpstageConfigSafely } from './upstageConfig.js';
 
 export enum ApprovalMode {
   DEFAULT = 'default',

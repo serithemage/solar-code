@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+/**
+ * @license
+ * Copyright 2025 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 // ANSI color codes for smooth Solar gradient
 const colors = {
   reset: '\x1b[0m',

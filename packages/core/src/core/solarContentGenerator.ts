@@ -17,7 +17,7 @@ import {
   ContentListUnion,
 } from '@google/genai';
 import { ContentGenerator } from './contentGenerator.js';
-import { SolarConfig, SolarRequestParams, SolarResponse, SupportedSolarModel } from '../types/solarTypes.js';
+import { SolarConfig, SolarRequestParams, SolarResponse } from '../types/solarTypes.js';
 
 /**
  * ContentGenerator implementation for Solar Pro2 API
@@ -34,7 +34,7 @@ export class SolarContentGenerator implements ContentGenerator {
 
   async generateContent(
     req: GenerateContentParameters,
-    userPromptId: string,
+    _userPromptId: string,
   ): Promise<GenerateContentResponse> {
     const solarRequest = this.convertToSolarRequest(req, false);
     
@@ -48,7 +48,7 @@ export class SolarContentGenerator implements ContentGenerator {
 
   async generateContentStream(
     req: GenerateContentParameters,
-    userPromptId: string,
+    _userPromptId: string,
   ): Promise<AsyncGenerator<GenerateContentResponse>> {
     const solarRequest = this.convertToSolarRequest(req, true);
     
@@ -71,13 +71,13 @@ export class SolarContentGenerator implements ContentGenerator {
   }
 
   async embedContent(
-    req: EmbedContentParameters,
+    _req: EmbedContentParameters,
   ): Promise<EmbedContentResponse> {
     throw new Error('Solar API does not support embedContent operation');
   }
 
   private convertToSolarRequest(req: GenerateContentParameters, stream: boolean): SolarRequestParams {
-    let messages = this.convertContentsToMessages(req.contents);
+    const messages = this.convertContentsToMessages(req.contents);
     
     // Handle JSON schema requests - Solar API doesn't support responseSchema directly
     // So we need to modify the prompt to request JSON format
@@ -183,7 +183,7 @@ export class SolarContentGenerator implements ContentGenerator {
             `3. Solar Code CLI 재시작\n\n` +
             `상세 오류: ${errorData?.error?.message || errorText}`);
         }
-      } catch (parseError) {
+      } catch (_parseError) {
         // If JSON parsing fails, continue with original error
       }
       
@@ -220,7 +220,7 @@ export class SolarContentGenerator implements ContentGenerator {
             `3. Solar Code CLI 재시작\n\n` +
             `상세 오류: ${errorData?.error?.message || errorText}`);
         }
-      } catch (parseError) {
+      } catch (_parseError) {
         // If JSON parsing fails, continue with original error
       }
       
@@ -275,7 +275,7 @@ export class SolarContentGenerator implements ContentGenerator {
             try {
               const parsed: SolarResponse = JSON.parse(data);
               yield this.convertFromSolarResponse(parsed);
-            } catch (parseError) {
+            } catch (_parseError) {
               // Skip malformed JSON chunks
               continue;
             }
