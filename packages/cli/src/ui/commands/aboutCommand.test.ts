@@ -25,6 +25,7 @@ describe('aboutCommand', () => {
       services: {
         config: {
           getModel: vi.fn(),
+          getEffectiveModel: vi.fn(),
         },
         settings: {
           merged: {
@@ -39,6 +40,9 @@ describe('aboutCommand', () => {
 
     vi.mocked(versionUtils.getCliVersion).mockResolvedValue('test-version');
     vi.spyOn(mockContext.services.config!, 'getModel').mockReturnValue(
+      'test-model',
+    );
+    vi.spyOn(mockContext.services.config!, 'getEffectiveModel').mockReturnValue(
       'test-model',
     );
     process.env.GOOGLE_CLOUD_PROJECT = 'test-gcp-project';

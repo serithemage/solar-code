@@ -184,6 +184,7 @@ describe('Gemini Client (client.ts)', () => {
         .mockReturnValue(contentGeneratorConfig),
       getToolRegistry: vi.fn().mockResolvedValue(mockToolRegistry),
       getModel: vi.fn().mockReturnValue('test-model'),
+      getEffectiveModel: vi.fn().mockReturnValue('test-model'),
       getEmbeddingModel: vi.fn().mockReturnValue('test-embedding-model'),
       getApiKey: vi.fn().mockReturnValue('test-key'),
       getVertexAI: vi.fn().mockReturnValue(false),
@@ -1194,11 +1195,13 @@ Here are some files the user has open, with the most recent at the top:
 
   describe('generateContent', () => {
     it('should use current model from config for content generation', async () => {
-      const initialModel = client['config'].getModel();
+      const initialModel = client['config'].getEffectiveModel();
       const contents = [{ role: 'user', parts: [{ text: 'test' }] }];
       const currentModel = initialModel + '-changed';
 
-      vi.spyOn(client['config'], 'getModel').mockReturnValueOnce(currentModel);
+      vi.spyOn(client['config'], 'getEffectiveModel').mockReturnValueOnce(
+        currentModel,
+      );
 
       const mockGenerator: Partial<ContentGenerator> = {
         countTokens: vi.fn().mockResolvedValue({ totalTokens: 1 }),
@@ -1226,7 +1229,7 @@ Here are some files the user has open, with the most recent at the top:
 
   describe('tryCompressChat', () => {
     it('should use current model from config for token counting after sendMessage', async () => {
-      const initialModel = client['config'].getModel();
+      const initialModel = client['config'].getEffectiveModel();
 
       const mockCountTokens = vi
         .fn()
@@ -1253,7 +1256,7 @@ Here are some files the user has open, with the most recent at the top:
       // mock the model has been changed between calls of `countTokens`
       const firstCurrentModel = initialModel + '-changed-1';
       const secondCurrentModel = initialModel + '-changed-2';
-      vi.spyOn(client['config'], 'getModel')
+      vi.spyOn(client['config'], 'getEffectiveModel')
         .mockReturnValueOnce(firstCurrentModel)
         .mockReturnValueOnce(secondCurrentModel);
 
@@ -1282,12 +1285,12 @@ Here are some files the user has open, with the most recent at the top:
 
   describe('handleFlashFallback', () => {
     it('should use current model from config when checking for fallback', async () => {
-      const initialModel = client['config'].getModel();
+      const initialModel = client['config'].getEffectiveModel();
       const fallbackModel = DEFAULT_GEMINI_FLASH_MODEL;
 
       // mock config been changed
       const currentModel = initialModel + '-changed';
-      const getModelSpy = vi.spyOn(client['config'], 'getModel');
+      const getModelSpy = vi.spyOn(client['config'], 'getEffectiveModel');
       getModelSpy.mockReturnValue(currentModel);
 
       const mockFallbackHandler = vi.fn().mockResolvedValue(true);
