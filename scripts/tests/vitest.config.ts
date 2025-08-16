@@ -7,15 +7,13 @@
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  // Use Vite's cacheDir for test caching
+  cacheDir: '.git/.cache/vitest',
   test: {
     globals: true,
     environment: 'node',
     include: ['scripts/tests/**/*.test.js'],
     setupFiles: ['scripts/tests/test-setup.ts'],
-    // Enable caching for faster test runs
-    cache: {
-      dir: '../../.git/.cache/vitest',
-    },
     coverage: {
       provider: 'v8',
       reporter: ['text', 'lcov'],
