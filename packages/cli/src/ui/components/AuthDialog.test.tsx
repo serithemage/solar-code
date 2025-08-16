@@ -7,7 +7,7 @@
 import { render } from 'ink-testing-library';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { AuthDialog } from './AuthDialog.js';
-import { LoadedSettings, SettingScope } from '../../config/settings.js';
+import { LoadedSettings } from '../../config/settings.js';
 import { AuthType } from '@google/gemini-cli-core';
 
 describe('AuthDialog', () => {
@@ -60,9 +60,9 @@ describe('AuthDialog', () => {
     );
   });
 
-  describe('GEMINI_API_KEY environment variable', () => {
-    it('should detect GEMINI_API_KEY environment variable', () => {
-      process.env.GEMINI_API_KEY = 'foobar';
+  describe('UPSTAGE_API_KEY environment variable', () => {
+    it('should detect UPSTAGE_API_KEY environment variable', () => {
+      process.env.UPSTAGE_API_KEY = 'up_foobar_123456789012345678901234567890';
 
       const settings: LoadedSettings = new LoadedSettings(
         {
@@ -89,171 +89,8 @@ describe('AuthDialog', () => {
       );
 
       expect(lastFrame()).toContain(
-        'Existing API key detected (GEMINI_API_KEY)',
+        'Existing Solar API key detected (UPSTAGE_API_KEY)',
       );
-    });
-
-    it('should not show the GEMINI_API_KEY message if GEMINI_DEFAULT_AUTH_TYPE is set to something else', () => {
-      process.env.GEMINI_API_KEY = 'foobar';
-      process.env.GEMINI_DEFAULT_AUTH_TYPE = AuthType.LOGIN_WITH_GOOGLE;
-
-      const settings: LoadedSettings = new LoadedSettings(
-        {
-          settings: {
-            selectedAuthType: undefined,
-            customThemes: {},
-            mcpServers: {},
-          },
-          path: '',
-        },
-        {
-          settings: { customThemes: {}, mcpServers: {} },
-          path: '',
-        },
-        {
-          settings: { customThemes: {}, mcpServers: {} },
-          path: '',
-        },
-        [],
-      );
-
-      const { lastFrame } = render(
-        <AuthDialog onSelect={() => {}} settings={settings} />,
-      );
-
-      expect(lastFrame()).not.toContain(
-        'Existing API key detected (GEMINI_API_KEY)',
-      );
-    });
-
-    it('should show the GEMINI_API_KEY message if GEMINI_DEFAULT_AUTH_TYPE is set to use api key', () => {
-      process.env.GEMINI_API_KEY = 'foobar';
-      process.env.GEMINI_DEFAULT_AUTH_TYPE = AuthType.USE_GEMINI;
-
-      const settings: LoadedSettings = new LoadedSettings(
-        {
-          settings: {
-            selectedAuthType: undefined,
-            customThemes: {},
-            mcpServers: {},
-          },
-          path: '',
-        },
-        {
-          settings: { customThemes: {}, mcpServers: {} },
-          path: '',
-        },
-        {
-          settings: { customThemes: {}, mcpServers: {} },
-          path: '',
-        },
-        [],
-      );
-
-      const { lastFrame } = render(
-        <AuthDialog onSelect={() => {}} settings={settings} />,
-      );
-
-      expect(lastFrame()).toContain(
-        'Existing API key detected (GEMINI_API_KEY)',
-      );
-    });
-  });
-
-  describe('GEMINI_DEFAULT_AUTH_TYPE environment variable', () => {
-    it('should select the auth type specified by GEMINI_DEFAULT_AUTH_TYPE', () => {
-      process.env.GEMINI_DEFAULT_AUTH_TYPE = AuthType.LOGIN_WITH_GOOGLE;
-
-      const settings: LoadedSettings = new LoadedSettings(
-        {
-          settings: {
-            selectedAuthType: undefined,
-            customThemes: {},
-            mcpServers: {},
-          },
-          path: '',
-        },
-        {
-          settings: { customThemes: {}, mcpServers: {} },
-          path: '',
-        },
-        {
-          settings: { customThemes: {}, mcpServers: {} },
-          path: '',
-        },
-        [],
-      );
-
-      const { lastFrame } = render(
-        <AuthDialog onSelect={() => {}} settings={settings} />,
-      );
-
-      // This is a bit brittle, but it's the best way to check which item is selected.
-      expect(lastFrame()).toContain('● 1. Login with Google');
-    });
-
-    it('should fall back to default if GEMINI_DEFAULT_AUTH_TYPE is not set', () => {
-      const settings: LoadedSettings = new LoadedSettings(
-        {
-          settings: {
-            selectedAuthType: undefined,
-            customThemes: {},
-            mcpServers: {},
-          },
-          path: '',
-        },
-        {
-          settings: { customThemes: {}, mcpServers: {} },
-          path: '',
-        },
-        {
-          settings: { customThemes: {}, mcpServers: {} },
-          path: '',
-        },
-        [],
-      );
-
-      const { lastFrame } = render(
-        <AuthDialog onSelect={() => {}} settings={settings} />,
-      );
-
-      // Default is LOGIN_WITH_GOOGLE
-      expect(lastFrame()).toContain('● 1. Login with Google');
-    });
-
-    it('should show an error and fall back to default if GEMINI_DEFAULT_AUTH_TYPE is invalid', () => {
-      process.env.GEMINI_DEFAULT_AUTH_TYPE = 'invalid-auth-type';
-
-      const settings: LoadedSettings = new LoadedSettings(
-        {
-          settings: {
-            selectedAuthType: undefined,
-            customThemes: {},
-            mcpServers: {},
-          },
-          path: '',
-        },
-        {
-          settings: { customThemes: {}, mcpServers: {} },
-          path: '',
-        },
-        {
-          settings: { customThemes: {}, mcpServers: {} },
-          path: '',
-        },
-        [],
-      );
-
-      const { lastFrame } = render(
-        <AuthDialog onSelect={() => {}} settings={settings} />,
-      );
-
-      expect(lastFrame()).toContain(
-        'Invalid value for GEMINI_DEFAULT_AUTH_TYPE: "invalid-auth-type"',
-      );
-
-      // Default is LOGIN_WITH_GOOGLE
-      expect(lastFrame()).toContain('● 1. Login with Google');
     });
   });
 
@@ -288,10 +125,8 @@ describe('AuthDialog', () => {
     stdin.write('\u001b'); // ESC key
     await wait();
 
-    // Should show error message instead of calling onSelect
-    expect(lastFrame()).toContain(
-      'You must select an auth method to proceed. Press Ctrl+C twice to exit.',
-    );
+    // Should show Solar setup dialog instead of calling onSelect
+    expect(lastFrame()).toContain('Solar Code Setup');
     expect(onSelect).not.toHaveBeenCalled();
     unmount();
   });
@@ -347,7 +182,7 @@ describe('AuthDialog', () => {
       },
       {
         settings: {
-          selectedAuthType: AuthType.USE_GEMINI,
+          selectedAuthType: AuthType.USE_SOLAR,
           customThemes: {},
           mcpServers: {},
         },
@@ -369,8 +204,8 @@ describe('AuthDialog', () => {
     stdin.write('\u001b'); // ESC key
     await wait();
 
-    // Should call onSelect with undefined to exit
-    expect(onSelect).toHaveBeenCalledWith(undefined, SettingScope.User);
+    // With Solar auth already selected, ESC should not trigger selection
+    expect(onSelect).not.toHaveBeenCalled();
     unmount();
   });
 });

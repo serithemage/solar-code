@@ -331,6 +331,12 @@ describe('App UI', () => {
         getDirectories: vi.fn(() => ['/test/dir']),
       }));
     }
+
+    // Add getEffectiveModel mock to prevent config errors
+    if (!mockConfig.getEffectiveModel) {
+      mockConfig.getEffectiveModel = vi.fn(() => 'solar-pro2');
+    }
+
     vi.mocked(ideContext.getIdeContext).mockReturnValue(undefined);
   });
 

@@ -318,6 +318,7 @@ describe('useGeminiStream', () => {
       setQuotaErrorOccurred: vi.fn(),
       getQuotaErrorOccurred: vi.fn(() => false),
       getModel: vi.fn(() => 'gemini-2.5-pro'),
+      getEffectiveModel: vi.fn(() => 'gemini-2.5-pro'),
       getContentGeneratorConfig: vi
         .fn()
         .mockReturnValue(contentGeneratorConfig),

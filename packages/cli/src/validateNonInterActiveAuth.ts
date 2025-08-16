@@ -5,18 +5,11 @@
  */
 
 import { AuthType, Config } from '@google/gemini-cli-core';
-import { USER_SETTINGS_PATH } from './config/settings.js';
 import { validateAuthMethod } from './config/auth.js';
 
 function getAuthTypeFromEnv(): AuthType | undefined {
-  if (process.env.GOOGLE_GENAI_USE_GCA === 'true') {
-    return AuthType.LOGIN_WITH_GOOGLE;
-  }
-  if (process.env.GOOGLE_GENAI_USE_VERTEXAI === 'true') {
-    return AuthType.USE_VERTEX_AI;
-  }
-  if (process.env.GEMINI_API_KEY) {
-    return AuthType.USE_GEMINI;
+  if (process.env.UPSTAGE_API_KEY) {
+    return AuthType.USE_SOLAR;
   }
   return undefined;
 }
@@ -30,7 +23,11 @@ export async function validateNonInteractiveAuth(
 
   if (!effectiveAuthType) {
     console.error(
-      `Please set an Auth method in your ${USER_SETTINGS_PATH} or specify one of the following environment variables before running: GEMINI_API_KEY, GOOGLE_GENAI_USE_VERTEXAI, GOOGLE_GENAI_USE_GCA`,
+      `Please set UPSTAGE_API_KEY environment variable before running Solar Code CLI.\n\n` +
+      `To get your API key:\n` +
+      `1. Visit: https://console.upstage.ai/\n` +
+      `2. Set environment variable: export UPSTAGE_API_KEY="your_key_here"\n` +
+      `3. Or create a .env file with: UPSTAGE_API_KEY=your_key_here`,
     );
     process.exit(1);
   }
