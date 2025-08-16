@@ -70,6 +70,8 @@ npm install -g .
 
 ## 🔧 Configuration
 
+### API Key Setup
+
 Set your Upstage API key:
 
 ```bash
@@ -79,6 +81,31 @@ export UPSTAGE_API_KEY="your_api_key_here"
 # Option 2: .env file
 echo "UPSTAGE_API_KEY=your_api_key_here" > .env
 ```
+
+### Debug Logging
+
+Solar Code provides enhanced debug logging for troubleshooting and development:
+
+```bash
+# Enable debug mode
+solar --debug
+
+# Save debug output to file
+DEBUG=true solar --debug 2>&1 | tee solar-debug.log
+
+# Filter only Solar API logs
+DEBUG=true solar --debug 2>&1 | grep -E '(🌞|🌊|🔐)' | tee solar-api-debug.log
+
+# Auto-timestamped logs
+DEBUG=true solar --debug 2>&1 | tee "solar-debug-$(date '+%Y%m%d-%H%M%S').log"
+```
+
+Debug logs include:
+
+- 🌞 Solar API requests/responses with timing
+- 🌊 Streaming API operations
+- 🔐 Authentication and configuration details
+- Performance metrics and usage statistics
 
 ## ✨ Features
 
@@ -207,8 +234,17 @@ You can also ask in Korean:
 
 ### Troubleshooting
 
-Head over to the [troubleshooting guide](docs/troubleshooting.md) if you're
-having issues.
+Head over to the [troubleshooting guide](docs/troubleshooting.md) if you're having issues.
+
+**Common Issues:**
+
+- **API Key Issues**: Ensure your `UPSTAGE_API_KEY` is set correctly
+- **Authentication Problems**: Run `/auth` command and select "Solar API Key"
+- **Debug Information**: Use `solar --debug` for detailed logging
+- **Credit Issues**: Check your Upstage console at https://console.upstage.ai/billing
+
+**Debug Log Analysis:**
+Solar Code provides comprehensive debug logs to help diagnose issues. See the [Debug Logging Guide](./packages/cli/debug-logging-guide.md) for detailed instructions on collecting and analyzing logs.
 
 ## GitHub Integration
 
@@ -308,8 +344,18 @@ Solar Code is currently in active development. This project is based on the Gemi
 
 - ✅ Architecture analysis complete
 - ✅ Development roadmap defined
-- 🔄 Phase 1: Model integration in progress
-- ⏳ Phase 2-5: Coming soon
+- ✅ Phase 1: Model integration and authentication (Complete)
+- ✅ Enhanced debug logging and monitoring
+- ✅ ASCII art display and branding
+- 🔄 Testing and quality improvements in progress
+- ⏳ Phase 2-5: Advanced features coming soon
+
+### Recent Updates
+
+- **Enhanced Debug Logging**: Comprehensive API request/response monitoring with performance metrics
+- **Authentication Integration**: Full Solar Pro2 API authentication with Korean error messages
+- **Improved Troubleshooting**: Advanced debug log collection and analysis tools
+- **ASCII Art Fixes**: Consistent branding and display across all terminal sizes
 
 For detailed development progress, see [Development Tasks](./solar-code/DEVELOPMENT_TASKS.md).
 

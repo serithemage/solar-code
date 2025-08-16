@@ -8,7 +8,7 @@ import { render } from 'ink-testing-library';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Header } from './Header.js';
 import * as useTerminalSize from '../hooks/useTerminalSize.js';
-import { longAsciiLogo } from './SolarAsciiArt.js';
+import { longAsciiLogo } from './AsciiArt.js';
 
 vi.mock('../hooks/useTerminalSize.js');
 
