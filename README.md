@@ -101,6 +101,7 @@ DEBUG=true solar --debug 2>&1 | tee "solar-debug-$(date '+%Y%m%d-%H%M%S').log"
 ```
 
 Debug logs include:
+
 - 🌞 Solar API requests/responses with timing
 - 🌊 Streaming API operations
 - 🔐 Authentication and configuration details
