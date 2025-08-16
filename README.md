@@ -29,6 +29,7 @@ solar --help
 ## 💻 Installation Options
 
 ### Global Installation (Recommended)
+
 ```bash
 # Clone the repository
 git clone https://github.com/serithemage/solar-code.git
@@ -42,6 +43,7 @@ solar --version
 ```
 
 ### Development Installation
+
 ```bash
 # Clone and setup for development
 git clone https://github.com/serithemage/solar-code.git
@@ -55,6 +57,7 @@ make install-dev
 ```
 
 ### Manual Installation
+
 ```bash
 # Install dependencies and build
 npm ci
@@ -113,6 +116,7 @@ Verify configuration - you should see "solar-pro2" in the status line.
 Solar Code includes a comprehensive Makefile for easy development and deployment:
 
 ### Installation Commands
+
 ```bash
 make install        # Build and install Solar Code globally
 make uninstall      # Remove Solar Code from system
@@ -121,6 +125,7 @@ make uninstall-dev  # Remove development symlink
 ```
 
 ### Development Commands
+
 ```bash
 make dev           # Setup development environment
 make deps          # Install npm dependencies
@@ -131,6 +136,7 @@ make debug         # Start in debug mode
 ```
 
 ### Quality Assurance
+
 ```bash
 make test          # Run all tests
 make lint          # Run ESLint checks
@@ -140,6 +146,7 @@ make preflight     # Run complete quality check pipeline
 ```
 
 ### Utilities
+
 ```bash
 make clean         # Remove build artifacts and caches
 make check         # Verify Solar Code installation
@@ -148,6 +155,7 @@ make solar-retro   # Display Solar Code retro logo
 ```
 
 ### Quick Workflows
+
 ```bash
 # Fresh install
 make clean && make install
