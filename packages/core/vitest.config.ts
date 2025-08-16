@@ -14,6 +14,10 @@ export default defineConfig({
     outputFile: {
       junit: 'junit.xml',
     },
+    // Enable caching for faster test runs
+    cache: {
+      dir: '../../.git/.cache/vitest',
+    },
     coverage: {
       enabled: true,
       provider: 'v8',

@@ -1,28 +1,51 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+#!/usr/bin/env sh
+echo "🚀 Running pre-push checks (CI equivalent with caching)..."
 
-echo "🚀 Running pre-push checks (CI equivalent)..."
+# Cache directory
+CACHE_DIR=".git/.cache"
+mkdir -p "$CACHE_DIR"
 
-# 1. Formatter check (like CI)
+# Get current commit hash and check if we already validated this state
+CURRENT_HASH=$(git rev-parse HEAD)
+LAST_VALIDATED_HASH=""
+if [ -f "$CACHE_DIR/.last-validated-hash" ]; then
+  LAST_VALIDATED_HASH=$(cat "$CACHE_DIR/.last-validated-hash")
+fi
+
+# Check if we can skip some checks based on cache
+SKIP_LINT=false
+SKIP_TYPECHECK=false
+
+if [ "$CURRENT_HASH" = "$LAST_VALIDATED_HASH" ] && [ -f "$CACHE_DIR/.pre-commit-success" ]; then
+  echo "ℹ️  Using cached pre-commit results (lint + typecheck already validated)"
+  SKIP_LINT=true
+  SKIP_TYPECHECK=true
+fi
+
+# 1. Formatter check (like CI) - always run as it's fast
 echo "📝 Checking code formatting with Prettier..."
-npx prettier --check .
+npx prettier --check . --cache --cache-location "$CACHE_DIR/.prettiercache"
 if [ $? -ne 0 ]; then
   echo "❌ Formatting check failed. Push aborted."
   echo "💡 Run 'npm run format' to fix formatting issues."
   exit 1
 fi
 
-# 2. Linter check
-echo "🧹 Running ESLint..."
-npm run lint:ci --silent
-if [ $? -ne 0 ]; then
-  echo "❌ Linting failed. Push aborted."
-  echo "💡 Run 'npm run lint:fix' to auto-fix some issues."
-  exit 1
+# 2. Linter check - use cache from pre-commit if available
+if [ "$SKIP_LINT" = "true" ]; then
+  echo "🧹 Skipping ESLint (using cached results)..."
+else
+  echo "🧹 Running ESLint with cache..."
+  npm run lint:ci > /dev/null 2>&1
+  if [ $? -ne 0 ]; then
+    echo "❌ Linting failed. Push aborted."
+    echo "💡 Run 'npm run lint:fix' to auto-fix some issues."
+    exit 1
+  fi
 fi
 
-# 3. Build project
-echo "🔨 Building project..."
+# 3. Build project - check if build cache exists
+echo "🔨 Building project with cache..."
 npm run build --silent
 if [ $? -ne 0 ]; then
   echo "❌ Build failed. Push aborted."
@@ -30,16 +53,20 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-# 4. TypeScript type check
-echo "🔧 Running TypeScript type check..."
-npm run typecheck --silent
-if [ $? -ne 0 ]; then
-  echo "❌ TypeScript type check failed. Push aborted."
-  echo "💡 Please fix type errors before pushing."
-  exit 1
+# 4. TypeScript type check - use cache from pre-commit if available
+if [ "$SKIP_TYPECHECK" = "true" ]; then
+  echo "🔧 Skipping TypeScript check (using cached results)..."
+else
+  echo "🔧 Running TypeScript type check..."
+  npm run typecheck --silent
+  if [ $? -ne 0 ]; then
+    echo "❌ TypeScript type check failed. Push aborted."
+    echo "💡 Please fix type errors before pushing."
+    exit 1
+  fi
 fi
 
-# 5. Run tests (with CI mode for consistency)
+# 5. Run tests (always run as they're the most important check)
 echo "🧪 Running all tests..."
 npm run test:ci --silent
 if [ $? -ne 0 ]; then
@@ -48,5 +75,12 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# Update cache with successful validation
+echo "$CURRENT_HASH" > "$CACHE_DIR/.last-validated-hash"
+echo "$(date +%s)" > "$CACHE_DIR/.pre-push-success"
+
 echo "✅ All checks passed! (format + lint + build + typecheck + tests)"
+if [ "$SKIP_LINT" = "true" ] || [ "$SKIP_TYPECHECK" = "true" ]; then
+  echo "⚡ Used cached results where possible for faster execution"
+fi
 echo "🚀 Proceeding with push..."
