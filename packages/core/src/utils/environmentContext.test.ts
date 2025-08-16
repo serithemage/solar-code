@@ -80,7 +80,9 @@ describe('getEnvironmentContext', () => {
     vi.setSystemTime(new Date('2025-08-05T12:00:00Z'));
 
     // Mock toLocaleDateString to return consistent English format
-    vi.spyOn(Date.prototype, 'toLocaleDateString').mockReturnValue('Tuesday, August 5, 2025');
+    vi.spyOn(Date.prototype, 'toLocaleDateString').mockReturnValue(
+      'Tuesday, August 5, 2025',
+    );
 
     mockToolRegistry = {
       getTool: vi.fn(),
