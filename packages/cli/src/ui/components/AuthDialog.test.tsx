@@ -174,6 +174,10 @@ describe('AuthDialog', () => {
   });
 
   it('should allow exiting when auth method is already selected', async () => {
+    // Remove UPSTAGE_API_KEY to prevent error message
+    const originalApiKey = process.env.UPSTAGE_API_KEY;
+    delete process.env.UPSTAGE_API_KEY;
+
     const onSelect = vi.fn();
     const settings: LoadedSettings = new LoadedSettings(
       {
@@ -204,8 +208,13 @@ describe('AuthDialog', () => {
     stdin.write('\u001b'); // ESC key
     await wait();
 
-    // With Solar auth already selected, ESC should not trigger selection
-    expect(onSelect).not.toHaveBeenCalled();
+    // With Solar auth already selected, ESC should trigger exit with undefined
+    expect(onSelect).toHaveBeenCalledWith(undefined, 'User');
     unmount();
+
+    // Restore environment variable
+    if (originalApiKey) {
+      process.env.UPSTAGE_API_KEY = originalApiKey;
+    }
   });
 });
