@@ -8,6 +8,8 @@
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  // Use Vite's cacheDir for test caching
+  cacheDir: '../../.git/.cache/vitest',
   test: {
     include: ['**/*.{test,spec}.?(c|m)[jt]s?(x)', 'config.test.ts'],
     exclude: ['**/node_modules/**', '**/dist/**', '**/cypress/**'],
@@ -19,10 +21,6 @@ export default defineConfig({
       junit: 'junit.xml',
     },
     setupFiles: ['./test-setup.ts'],
-    // Enable caching for faster test runs
-    cache: {
-      dir: '../../.git/.cache/vitest',
-    },
     coverage: {
       enabled: true,
       provider: 'v8',

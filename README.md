@@ -6,6 +6,82 @@ This repository contains Solar Code, a command-line AI workflow tool powered by 
 
 Solar Code is based on the excellent Gemini CLI architecture, enhanced to work with Upstage's Solar Pro2 model for Korean developers and organizations.
 
+## 🚀 Quick Installation
+
+Install Solar Code globally with a single command:
+
+```bash
+make install
+```
+
+Verify the installation:
+
+```bash
+solar --help
+```
+
+## 📋 Prerequisites
+
+- **Node.js** 20 or higher
+- **npm** (comes with Node.js)
+- **Upstage API Key** ([Get yours here](https://console.upstage.ai/))
+
+## 💻 Installation Options
+
+### Global Installation (Recommended)
+
+```bash
+# Clone the repository
+git clone https://github.com/serithemage/solar-code.git
+cd solar-code
+
+# Install globally
+make install
+
+# Verify installation
+solar --version
+```
+
+### Development Installation
+
+```bash
+# Clone and setup for development
+git clone https://github.com/serithemage/solar-code.git
+cd solar-code
+
+# Setup development environment
+make dev
+
+# Install with symlink for development
+make install-dev
+```
+
+### Manual Installation
+
+```bash
+# Install dependencies and build
+npm ci
+npm run build
+npm run bundle
+
+# Install globally
+npm install -g .
+```
+
+## 🔧 Configuration
+
+Set your Upstage API key:
+
+```bash
+# Option 1: Environment variable
+export UPSTAGE_API_KEY="your_api_key_here"
+
+# Option 2: .env file
+echo "UPSTAGE_API_KEY=your_api_key_here" > .env
+```
+
+## ✨ Features
+
 With Solar Code you can:
 
 - Query and edit large codebases with Solar Pro2's advanced language understanding.
@@ -15,113 +91,83 @@ With Solar Code you can:
 - Use tools and MCP servers to connect new capabilities and extend functionality.
 - Leverage Solar Pro2's multilingual support for Korean and English development contexts.
 
-## Quickstart
+## 🎯 Usage
 
-### Quick Install & Run
-
-If you have [Node.js 20+](https://nodejs.org/) and an [Upstage API key](https://console.upstage.ai/):
+Once installed, start Solar Code:
 
 ```bash
-# Clone and setup
-git clone https://github.com/solar-code/solar-code
-cd solar-code
-npm install && npm run build && npm run bundle && npm link
-
-# Set your API key
-export UPSTAGE_API_KEY="your_api_key_here"
-
-# Run Solar Code
 solar
-
-# In Solar CLI: /auth → Select "Solar API Key"
 ```
 
-### Detailed Installation
+On first run, set up authentication:
 
-Solar Code can be installed from source or as a packaged distribution.
+```bash
+# In Solar CLI, type:
+/auth
 
-### With Node (Development)
+# Select "Solar API Key" from the authentication options
+# Your UPSTAGE_API_KEY will be automatically detected
+```
 
-1. **Prerequisites:** Ensure you have [Node.js version 20](https://nodejs.org/en/download) or higher installed.
-2. **Clone and install:** Execute the following commands in your terminal:
+Verify configuration - you should see "solar-pro2" in the status line.
 
-   ```bash
-   git clone https://github.com/solar-code/solar-code
-   cd solar-code
-   npm install
-   npm run build
-   ```
+## 🛠️ Make Commands
 
-3. **Install globally:**
+Solar Code includes a comprehensive Makefile for easy development and deployment:
 
-   ```bash
-   npm run bundle
-   npm link
-   ```
+### Installation Commands
 
-4. **Run the CLI:**
+```bash
+make install        # Build and install Solar Code globally
+make uninstall      # Remove Solar Code from system
+make install-dev    # Install with symlink for development
+make uninstall-dev  # Remove development symlink
+```
 
-   ```bash
-   solar
-   ```
+### Development Commands
 
-   Or for development:
+```bash
+make dev           # Setup development environment
+make deps          # Install npm dependencies
+make build         # Build the Solar Code CLI
+make build-all     # Build with sandbox support
+make start         # Start in development mode
+make debug         # Start in debug mode
+```
 
-   ```bash
-   npm start
-   ```
+### Quality Assurance
 
-### Distribution Package (Coming Soon)
+```bash
+make test          # Run all tests
+make lint          # Run ESLint checks
+make lint-fix      # Fix linting issues automatically
+make format        # Format code with Prettier
+make preflight     # Run complete quality check pipeline
+```
 
-Solar Code distribution packages will be available soon for easier installation.
+### Utilities
 
-### Authentication Setup
+```bash
+make clean         # Remove build artifacts and caches
+make check         # Verify Solar Code installation
+make help          # Show all available commands
+make solar-retro   # Display Solar Code retro logo
+```
 
-1. **Get Solar Pro2 API Key:** Obtain your API key from [Upstage Console](https://console.upstage.ai/).
-2. **Set Environment Variable:** Configure your Solar Pro2 API key:
+### Quick Workflows
 
-   ```bash
-   export UPSTAGE_API_KEY="your_solar_pro2_api_key_here"
-   ```
+```bash
+# Fresh install
+make clean && make install
 
-3. **Optional Configuration:** Set additional environment variables if needed:
+# Development setup
+make dev && make install-dev
 
-   ```bash
-   export UPSTAGE_MODEL="solar-pro2"
-   export UPSTAGE_BASE_URL="https://api.upstage.ai/v1/solar"
-   ```
+# Quality check before commit
+make preflight
+```
 
-4. **Pick a Color Theme:** Choose from available themes including the new Solar themes.
-
-You are now ready to use Solar Code!
-
-### Solar Pro2 API Configuration
-
-Solar Code uses Upstage's Solar Pro2 API for AI-powered code assistance:
-
-1. **Create an Upstage Account:** Sign up at [Upstage Console](https://console.upstage.ai/)
-2. **Generate API Key:** Create a new API key in your Upstage dashboard
-3. **Set Environment Variables:** Configure your API credentials:
-
-   ```bash
-   export UPSTAGE_API_KEY="your_solar_pro2_api_key"
-   export UPSTAGE_MODEL="solar-pro2"  # Optional: default model
-   export UPSTAGE_BASE_URL="https://api.upstage.ai/v1/solar"  # Optional: custom endpoint
-   ```
-
-4. **Configure Authentication:** Run Solar Code and set up authentication:
-
-   ```bash
-   solar
-   # In Solar CLI, type: /auth
-   # Select "Solar API Key" from the authentication options
-   ```
-
-5. **Verify Configuration:** Test your setup - you should now see "solar-pro2" in the status line
-
-For troubleshooting and advanced configuration, see the [authentication guide](./docs/cli/authentication.md).
-
-## Examples
+## 📖 Examples
 
 Once Solar Code is running, you can start interacting with Solar Pro2 from your shell.
 

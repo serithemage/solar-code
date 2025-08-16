@@ -7,16 +7,14 @@
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  // Use Vite's cacheDir for test caching
+  cacheDir: '../../.git/.cache/vitest',
   test: {
     reporters: ['default', 'junit'],
     silent: true,
     setupFiles: ['./test-setup.ts'],
     outputFile: {
       junit: 'junit.xml',
-    },
-    // Enable caching for faster test runs
-    cache: {
-      dir: '../../.git/.cache/vitest',
     },
     coverage: {
       enabled: true,

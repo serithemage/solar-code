@@ -79,6 +79,11 @@ describe('getEnvironmentContext', () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date('2025-08-05T12:00:00Z'));
 
+    // Mock toLocaleDateString to return consistent English format
+    vi.spyOn(Date.prototype, 'toLocaleDateString').mockReturnValue(
+      'Tuesday, August 5, 2025',
+    );
+
     mockToolRegistry = {
       getTool: vi.fn(),
     };
@@ -107,7 +112,7 @@ describe('getEnvironmentContext', () => {
     const context = parts[0].text;
 
     expect(context).toContain('This is the Solar Code CLI');
-    expect(context).toContain("Today's date is 2025년 8월 5일 화요일");
+    expect(context).toContain("Today's date is Tuesday, August 5, 2025");
     expect(context).toContain(`My operating system is: ${process.platform}`);
     expect(context).toContain(
       "I'm currently working in the directory: /test/dir",
