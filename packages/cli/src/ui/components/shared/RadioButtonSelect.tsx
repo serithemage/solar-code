@@ -59,7 +59,12 @@ export function RadioButtonSelect<T>({
   maxItemsToShow = 10,
   showNumbers = true,
 }: RadioButtonSelectProps<T>): React.JSX.Element {
-  const [activeIndex, setActiveIndex] = useState(initialIndex);
+  // Ensure initialIndex is within bounds
+  const safeInitialIndex =
+    items.length > 0
+      ? Math.min(Math.max(0, initialIndex), items.length - 1)
+      : 0;
+  const [activeIndex, setActiveIndex] = useState(safeInitialIndex);
   const [scrollOffset, setScrollOffset] = useState(0);
   const [numberInput, setNumberInput] = useState('');
   const numberInputTimer = useRef<NodeJS.Timeout | null>(null);
@@ -110,7 +115,13 @@ export function RadioButtonSelect<T>({
       }
 
       if (key.return) {
-        onSelect(items[activeIndex]!.value);
+        if (
+          items.length > 0 &&
+          activeIndex >= 0 &&
+          activeIndex < items.length
+        ) {
+          onSelect(items[activeIndex]!.value);
+        }
         return;
       }
 
@@ -158,6 +169,15 @@ export function RadioButtonSelect<T>({
   );
 
   const visibleItems = items.slice(scrollOffset, scrollOffset + maxItemsToShow);
+
+  // Handle empty items case
+  if (items.length === 0) {
+    return (
+      <Box flexDirection="column">
+        <Text color={Colors.Gray}>No options available</Text>
+      </Box>
+    );
+  }
 
   return (
     <Box flexDirection="column">

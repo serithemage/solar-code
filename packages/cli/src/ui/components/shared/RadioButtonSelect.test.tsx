@@ -106,10 +106,10 @@ describe('<RadioButtonSelect />', () => {
     expect(lastFrame()).toMatchSnapshot();
   });
 
-  it('renders nothing when no items are provided', () => {
+  it('renders helpful message when no items are provided', () => {
     const { lastFrame } = render(
       <RadioButtonSelect items={[]} onSelect={() => {}} isFocused={true} />,
     );
-    expect(lastFrame()).toBe('');
+    expect(lastFrame()).toContain('No options available');
   });
 });
