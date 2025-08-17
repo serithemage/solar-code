@@ -43,7 +43,7 @@ export interface SolarRequestParams {
 }
 
 /**
- * Solar API response structure
+ * Solar API response structure (non-streaming)
  */
 export interface SolarResponse {
   id: string;
@@ -59,6 +59,31 @@ export interface SolarResponse {
     finish_reason: string;
   }>;
   usage: {
+    prompt_tokens: number;
+    completion_tokens: number;
+    total_tokens: number;
+  };
+}
+
+/**
+ * Solar API streaming response structure
+ */
+export interface SolarStreamingResponse {
+  id: string;
+  object: 'chat.completion.chunk';
+  created: number;
+  model: string;
+  system_fingerprint?: string | null;
+  choices: Array<{
+    index: number;
+    delta: {
+      role?: string;
+      content?: string;
+    };
+    logprobs?: unknown;
+    finish_reason?: string | null;
+  }>;
+  usage?: {
     prompt_tokens: number;
     completion_tokens: number;
     total_tokens: number;

@@ -93,6 +93,7 @@ export class LoggingContentGenerator implements ContentGenerator {
     req: GenerateContentParameters,
     userPromptId: string,
   ): Promise<GenerateContentResponse> {
+    console.log('🔷 LoggingContentGenerator: generateContent called');
     const startTime = Date.now();
     this.logApiRequest(toContents(req.contents), req.model, userPromptId);
     try {
@@ -116,6 +117,7 @@ export class LoggingContentGenerator implements ContentGenerator {
     req: GenerateContentParameters,
     userPromptId: string,
   ): Promise<AsyncGenerator<GenerateContentResponse>> {
+    console.log('🌐 LoggingContentGenerator: generateContentStream called');
     const startTime = Date.now();
     this.logApiRequest(toContents(req.contents), req.model, userPromptId);
 
@@ -138,12 +140,25 @@ export class LoggingContentGenerator implements ContentGenerator {
   ): AsyncGenerator<GenerateContentResponse> {
     let lastResponse: GenerateContentResponse | undefined;
     let lastUsageMetadata: GenerateContentResponseUsageMetadata | undefined;
+    let streamCompleted = false;
+
     try {
       for await (const response of stream) {
         lastResponse = response;
         if (response.usageMetadata) {
           lastUsageMetadata = response.usageMetadata;
         }
+
+        // Enhanced: Check for completion signals
+        if (response.candidates?.[0]?.finishReason === 'STOP') {
+          streamCompleted = true;
+          if (this.config.getDebugMode()) {
+            console.log(
+              '🌞 Solar API Stream: STOP finish reason detected in logging wrapper',
+            );
+          }
+        }
+
         yield response;
       }
     } catch (error) {
@@ -151,8 +166,16 @@ export class LoggingContentGenerator implements ContentGenerator {
       this._logApiError(durationMs, error, userPromptId);
       throw error;
     }
+
     const durationMs = Date.now() - startTime;
     if (lastResponse) {
+      // Enhanced: Log stream completion status
+      if (this.config.getDebugMode() && streamCompleted) {
+        console.log(
+          '🌞 Solar API Stream: Completed successfully with STOP signal',
+        );
+      }
+
       this._logApiResponse(
         durationMs,
         userPromptId,

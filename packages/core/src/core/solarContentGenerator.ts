@@ -21,6 +21,7 @@ import {
   SolarConfig,
   SolarRequestParams,
   SolarResponse,
+  SolarStreamingResponse,
 } from '../types/solarTypes.js';
 
 /**
@@ -179,12 +180,24 @@ export class SolarContentGenerator implements ContentGenerator {
   private async makeApiCall(
     request: SolarRequestParams,
   ): Promise<SolarResponse> {
-    // Debug: Log the request for troubleshooting
-    console.log('Solar API Request:', {
+    const requestStart = Date.now();
+
+    // Enhanced debug logging with more detailed information
+    console.log('🌞 Solar API Request:', {
       url: `${this.baseUrl}/chat/completions`,
       model: request.model,
       messagesCount: request.messages?.length || 0,
       maxTokens: request.max_tokens,
+      temperature: request.temperature ?? 'default',
+      stream: request.stream ? 'enabled' : 'disabled',
+      timestamp: new Date().toISOString(),
+      lastUserMessage:
+        request.messages?.length > 0
+          ? request.messages[request.messages.length - 1]?.content?.slice(
+              0,
+              100,
+            ) + '...'
+          : 'none',
     });
 
     const response = await fetch(`${this.baseUrl}/chat/completions`, {
@@ -226,12 +239,49 @@ export class SolarContentGenerator implements ContentGenerator {
       );
     }
 
-    return response.json() as Promise<SolarResponse>;
+    const solarResponse = (await response.json()) as SolarResponse;
+    const requestDuration = Date.now() - requestStart;
+
+    // Enhanced response logging
+    console.log('🌞 Solar API Response:', {
+      status: response.status,
+      duration: `${requestDuration}ms`,
+      model: solarResponse.model,
+      usage: solarResponse.usage,
+      finishReason: solarResponse.choices?.[0]?.finish_reason,
+      responseLength: solarResponse.choices?.[0]?.message?.content?.length || 0,
+      firstChars:
+        solarResponse.choices?.[0]?.message?.content?.slice(0, 100) + '...' ||
+        'none',
+      timestamp: new Date().toISOString(),
+    });
+
+    return solarResponse;
   }
 
   private async makeStreamingApiCall(
     request: SolarRequestParams,
   ): Promise<ReadableStream> {
+    const requestStart = Date.now();
+
+    // Enhanced debug logging for streaming requests
+    console.log('🌊 Solar API Streaming Request:', {
+      url: `${this.baseUrl}/chat/completions`,
+      model: request.model,
+      messagesCount: request.messages?.length || 0,
+      maxTokens: request.max_tokens,
+      temperature: request.temperature ?? 'default',
+      stream: 'enabled',
+      timestamp: new Date().toISOString(),
+      lastUserMessage:
+        request.messages?.length > 0
+          ? request.messages[request.messages.length - 1]?.content?.slice(
+              0,
+              100,
+            ) + '...'
+          : 'none',
+    });
+
     const response = await fetch(`${this.baseUrl}/chat/completions`, {
       method: 'POST',
       headers: {
@@ -271,6 +321,20 @@ export class SolarContentGenerator implements ContentGenerator {
       );
     }
 
+    const requestDuration = Date.now() - requestStart;
+
+    // Enhanced response logging for streaming
+    console.log('🌊 Solar API Streaming Response:', {
+      status: response.status,
+      duration: `${requestDuration}ms`,
+      headers: {
+        contentType: response.headers.get('content-type'),
+        transferEncoding: response.headers.get('transfer-encoding'),
+      },
+      timestamp: new Date().toISOString(),
+      note: 'Stream initiated successfully',
+    });
+
     return response.body!;
   }
 
@@ -299,36 +363,123 @@ export class SolarContentGenerator implements ContentGenerator {
     return response;
   }
 
+  private convertFromSolarStreamingResponse(
+    solarStreamingResponse: SolarStreamingResponse,
+  ): GenerateContentResponse {
+    const choice = solarStreamingResponse.choices[0];
+
+    const response = new GenerateContentResponse();
+
+    // Handle streaming delta content
+    const content = choice.delta.content || '';
+    const role = choice.delta.role || 'model';
+
+    response.candidates = [
+      {
+        content: {
+          parts: content ? [{ text: content }] : [],
+          role,
+        },
+        finishReason: choice.finish_reason
+          ? this.mapFinishReason(choice.finish_reason)
+          : undefined,
+        index: choice.index,
+      },
+    ];
+
+    // Include usage metadata if available (typically only in the last chunk)
+    if (solarStreamingResponse.usage) {
+      response.usageMetadata = {
+        promptTokenCount: solarStreamingResponse.usage.prompt_tokens,
+        candidatesTokenCount: solarStreamingResponse.usage.completion_tokens,
+        totalTokenCount: solarStreamingResponse.usage.total_tokens,
+      };
+    }
+
+    return response;
+  }
+
   private async *convertStreamFromSolarResponse(
     stream: ReadableStream,
   ): AsyncGenerator<GenerateContentResponse> {
+    console.log('🌊 Solar Stream: Starting stream conversion');
     const reader = stream.getReader();
     const decoder = new TextDecoder();
+    let buffer = '';
 
     try {
       while (true) {
         const { done, value } = await reader.read();
-        if (done) break;
+        if (done) {
+          // Enhanced completion detection - ensure stream is properly terminated
+          console.log('🌊 Solar Stream: Reader done, terminating');
+          break;
+        }
 
-        const chunk = decoder.decode(value);
-        const lines = chunk.split('\n');
+        // Decode and append to buffer to handle partial chunks
+        const chunk = decoder.decode(value, { stream: true });
+        console.log(
+          '🌊 Solar Stream Raw Chunk:',
+          JSON.stringify(chunk.slice(0, 200)),
+        );
+        buffer += chunk;
+        const lines = buffer.split('\n');
+
+        // Keep the last incomplete line in the buffer
+        buffer = lines.pop() || '';
 
         for (const line of lines) {
           if (line.startsWith('data: ')) {
             const data = line.slice(6).trim();
             if (data === '[DONE]') {
+              // Enhanced completion detection for [DONE] signal
+              console.log('🌊 Solar Stream: [DONE] signal received');
               return;
             }
 
             try {
-              const parsed: SolarResponse = JSON.parse(data);
-              yield this.convertFromSolarResponse(parsed);
-            } catch (_parseError) {
-              // Skip malformed JSON chunks
+              const parsed: SolarStreamingResponse = JSON.parse(data);
+              const response = this.convertFromSolarStreamingResponse(parsed);
+
+              // Log the parsed content for debugging
+              if (response.candidates?.[0]?.content?.parts?.[0]?.text) {
+                console.log('🌊 Solar Stream Chunk:', {
+                  text: response.candidates[0].content.parts[0].text.slice(
+                    0,
+                    100,
+                  ),
+                  finishReason: response.candidates[0].finishReason,
+                });
+              }
+
+              // Enhanced: Check for stop finish reason
+              if (response.candidates?.[0]?.finishReason === 'STOP') {
+                // Stream completion detected - proper termination will happen
+                console.log('🌊 Solar Stream: STOP finish reason detected');
+              }
+
+              yield response;
+            } catch (parseError) {
+              // Log parsing errors for debugging
+              console.error('🌊 Solar Stream Parse Error:', {
+                line: line.slice(0, 100),
+                error:
+                  parseError instanceof Error
+                    ? parseError.message
+                    : String(parseError),
+              });
               continue;
             }
           }
         }
+      }
+
+      // Process any remaining data in buffer
+      if (buffer.trim()) {
+        console.log(
+          '🌊 Solar Stream: Processing remaining buffer:',
+          buffer.slice(0, 100),
+        );
       }
     } finally {
       reader.releaseLock();

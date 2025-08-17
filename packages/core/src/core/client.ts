@@ -356,7 +356,11 @@ export class GeminiClient {
           nextSpeakerCheck?.next_speaker || '',
         ),
       );
-      if (nextSpeakerCheck?.next_speaker === 'model') {
+      // FIXED: Disable auto-continue to prevent infinite loop (Issue #6420)
+      // Auto-continue feature was causing "Please continue" messages to generate infinitely
+      // Gemini CLI works fine without this feature, so disabling it for stability
+      // eslint-disable-next-line no-constant-condition, no-constant-binary-expression
+      if (false && nextSpeakerCheck?.next_speaker === 'model') {
         const nextRequest = [{ text: 'Please continue.' }];
         // This recursive call's events will be yielded out, but the final
         // turn object will be from the top-level call.
