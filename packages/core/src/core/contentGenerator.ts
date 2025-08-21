@@ -133,6 +133,12 @@ export async function createContentGenerator(
   gcConfig: Config,
   sessionId?: string,
 ): Promise<ContentGenerator> {
+  console.log('🔧 createContentGenerator called with:', {
+    authType: config.authType,
+    model: config.model,
+    hasApiKey: !!config.apiKey,
+  });
+  
   const version = process.env.CLI_VERSION || process.version;
   const httpOptions = {
     headers: {
@@ -143,6 +149,7 @@ export async function createContentGenerator(
     config.authType === AuthType.LOGIN_WITH_GOOGLE ||
     config.authType === AuthType.CLOUD_SHELL
   ) {
+    console.log('🔧 Using CODE_ASSIST path');
     return new LoggingContentGenerator(
       await createCodeAssistContentGenerator(
         httpOptions,
@@ -158,6 +165,7 @@ export async function createContentGenerator(
     config.authType === AuthType.USE_GEMINI ||
     config.authType === AuthType.USE_VERTEX_AI
   ) {
+    console.log('🔧 Using GEMINI/VERTEX path');
     const googleGenAI = new GoogleGenAI({
       apiKey: config.apiKey === '' ? undefined : config.apiKey,
       vertexai: config.vertexai,
@@ -167,6 +175,7 @@ export async function createContentGenerator(
   }
 
   if (config.authType === AuthType.USE_SOLAR) {
+    console.log('🔧 Using SOLAR path');
     try {
       const upstageConfig = validateUpstageConfig();
       const solarConfig: SolarConfig = {
@@ -176,6 +185,7 @@ export async function createContentGenerator(
         maxTokens: upstageConfig.maxTokens,
         timeout: upstageConfig.timeout,
         retryCount: upstageConfig.retryCount,
+        reasoningEffort: upstageConfig.reasoningEffort,
       };
       return new LoggingContentGenerator(
         new SolarContentGenerator(solarConfig),

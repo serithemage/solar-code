@@ -1,0 +1,559 @@
+[DEBUG] CLI: Delegating hierarchical memory load to server for CWD: /Users/dohyunjung/Workspace/opensource/solar-code (memoryImportFormat: tree)
+[DEBUG] [MemoryDiscovery] Loading server hierarchical memory for CWD: /Users/dohyunjung/Workspace/opensource/solar-code (importFormat: tree)
+[DEBUG] [MemoryDiscovery] Searching for SOLAR.md starting from CWD: /Users/dohyunjung/Workspace/opensource/solar-code
+[DEBUG] [MemoryDiscovery] Determined project root: /Users/dohyunjung/Workspace/opensource/solar-code
+[DEBUG] [BfsFileSearch] Scanning [1/200]: batch of 1
+[DEBUG] [BfsFileSearch] Scanning [16/200]: batch of 15
+[DEBUG] [BfsFileSearch] Scanning [31/200]: batch of 15
+[DEBUG] [BfsFileSearch] Scanning [46/200]: batch of 15
+[DEBUG] [BfsFileSearch] Scanning [61/200]: batch of 15
+[DEBUG] [BfsFileSearch] Scanning [76/200]: batch of 15
+[DEBUG] [BfsFileSearch] Scanning [91/200]: batch of 15
+[DEBUG] [BfsFileSearch] Scanning [106/200]: batch of 15
+[DEBUG] [BfsFileSearch] Scanning [121/200]: batch of 15
+[DEBUG] [BfsFileSearch] Scanning [136/200]: batch of 15
+[DEBUG] [BfsFileSearch] Scanning [151/200]: batch of 15
+[DEBUG] [BfsFileSearch] Scanning [166/200]: batch of 15
+[DEBUG] [BfsFileSearch] Scanning [181/200]: batch of 15
+[DEBUG] [BfsFileSearch] Scanning [196/200]: batch of 15
+[DEBUG] [BfsFileSearch] Scanning [200/200]: batch of 4
+[DEBUG] [MemoryDiscovery] Final ordered SOLAR.md paths to read: ["/Users/dohyunjung/Workspace/opensource/solar-code/SOLAR.md"]
+[DEBUG] [MemoryDiscovery] Successfully read and processed imports: /Users/dohyunjung/Workspace/opensource/solar-code/SOLAR.md (Length: 17980)
+[DEBUG] [MemoryDiscovery] Combined instructions length: 18048
+[DEBUG] [MemoryDiscovery] Combined instructions (snippet): --- Context from: SOLAR.md ---
+## Building and running
+
+Before submitting any changes, it is crucial to validate them by running the full preflight check. This command will build the repository, run all tests, check for type errors, and lint the code.
+
+To run the full suite of checks, execute the following command:
+
+```bash
+npm run preflight
+```
+
+This single command ensures that your changes meet all the quality gates of the project. While you can run the individual steps (`build`, `test`, `type...
+Flushing log events to Clearcut.
+🌐 LoggingContentGenerator: generateContentStream called
+🌊 Solar API Streaming Request: {
+  url: 'https://api.upstage.ai/v1/solar/chat/completions',
+  model: 'solar-pro2',
+  messagesCount: 3,
+  maxTokens: 4096,
+  temperature: 0,
+  stream: 'enabled',
+  timestamp: '2025-08-17T09:11:05.592Z',
+  lastUserMessage: "solar.txt파일에 'hello' 문자열을 추가하세요..."
+}
+🌊 Solar API Streaming Response: {
+  status: 200,
+  duration: '617ms',
+  headers: { contentType: 'text/event-stream', transferEncoding: 'chunked' },
+  timestamp: '2025-08-17T09:11:06.209Z',
+  note: 'Stream initiated successfully'
+}
+🌊 Solar Stream: Starting stream conversion
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"as"
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '`s', finishReason: undefined }
+`s🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'olar', finishReason: undefined }
+olar🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '.txt', finishReason: undefined }
+.txt🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '`', finishReason: undefined }
+`🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 파일에', finishReason: undefined }
+ 파일에🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: " `'", finishReason: undefined }
+ `'🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'hello', finishReason: undefined }
+hello🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: "'`", finishReason: undefined }
+'`🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 문자열을', finishReason: undefined }
+ 문자열을🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 추가하는', finishReason: undefined }
+ 추가하는🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 방법은', finishReason: undefined }
+ 방법은🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 다음과', finishReason: undefined }
+ 다음과🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 같습니다', finishReason: undefined }
+ 같습니다🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ':\n\n', finishReason: undefined }
+:
+
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '###', finishReason: undefined }
+###🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' ', finishReason: undefined }
+ 🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '1', finishReason: undefined }
+1🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '.', finishReason: undefined }
+.🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' **', finishReason: undefined }
+ **🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '파일', finishReason: undefined }
+파일🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 생성', finishReason: undefined }
+ 생성🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 및', finishReason: undefined }
+ 및🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 문자열', finishReason: undefined }
+ 문자열🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 추가', finishReason: undefined }
+ 추가🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' (', finishReason: undefined }
+ (🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'mac', finishReason: undefined }
+mac🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'OS', finishReason: undefined }
+OS🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '/L', finishReason: undefined }
+/L🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'inux', finishReason: undefined }
+inux🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ')**\n', finishReason: undefined }
+)**
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '```', finishReason: undefined }
+```🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'bash', finishReason: undefined }
+bash🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '\n', finishReason: undefined }
+
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'echo', finishReason: undefined }
+echo🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: " '", finishReason: undefined }
+ '🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'hello', finishReason: undefined }
+hello🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: "'", finishReason: undefined }
+'🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' >>', finishReason: undefined }
+ >>🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' solar', finishReason: undefined }
+ solar🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '.txt', finishReason: undefined }
+.txt🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '\n', finishReason: undefined }
+
+🌊 Solar Stream Chunk: { text: '```\n\n', finishReason: undefined }
+```
+
+🌊 Solar Stream Chunk: { text: '-', finishReason: undefined }
+-🌊 Solar Stream Chunk: { text: ' `', finishReason: undefined }
+ `🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '>>', finishReason: undefined }
+>>🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '`', finishReason: undefined }
+`🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 연산', finishReason: undefined }
+ 연산🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '자는', finishReason: undefined }
+자는🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 파일에', finishReason: undefined }
+ 파일에🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 내용을', finishReason: undefined }
+ 내용을🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' **', finishReason: undefined }
+ **🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '추가', finishReason: undefined }
+추가🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '**', finishReason: undefined }
+**🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '합니다', finishReason: undefined }
+합니다🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '.', finishReason: undefined }
+.🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 파일이', finishReason: undefined }
+ 파일이🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 없으면', finishReason: undefined }
+ 없으면🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 새로', finishReason: undefined }
+ 새로🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 생성합니다', finishReason: undefined }
+ 생성합니다🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '.\n', finishReason: undefined }
+.
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '-', finishReason: undefined }
+-🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 현재', finishReason: undefined }
+ 현재🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 디렉토리', finishReason: undefined }
+ 디렉토리🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '(`/', finishReason: undefined }
+(`/🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'Users', finishReason: undefined }
+Users🌊 Solar Stream Chunk: { text: '/d', finishReason: undefined }
+/d🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'oh', finishReason: undefined }
+oh🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'y', finishReason: undefined }
+y🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'unj', finishReason: undefined }
+unj🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'ung', finishReason: undefined }
+ung🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '/', finishReason: undefined }
+/🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'Workspace', finishReason: undefined }
+Workspace🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '/', finishReason: undefined }
+/🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'opens', finishReason: undefined }
+opens🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'ource', finishReason: undefined }
+ource🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '/s', finishReason: undefined }
+/s🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'olar', finishReason: undefined }
+olar🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '-code', finishReason: undefined }
+-code🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '`)', finishReason: undefined }
+`)🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '에', finishReason: undefined }
+에🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' `', finishReason: undefined }
+ `🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 's', finishReason: undefined }
+s🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'olar', finishReason: undefined }
+olar🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '.txt', finishReason: undefined }
+.txt🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '`', finishReason: undefined }
+`🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 파일이', finishReason: undefined }
+ 파일이🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 생성됩니다', finishReason: undefined }
+ 생성됩니다🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '.\n\n', finishReason: undefined }
+.
+
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '###', finishReason: undefined }
+###🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' ', finishReason: undefined }
+ 🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '2', finishReason: undefined }
+2🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '.', finishReason: undefined }
+.🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' **', finishReason: undefined }
+ **🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '확인', finishReason: undefined }
+확인🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 방법', finishReason: undefined }
+ 방법🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '**\n', finishReason: undefined }
+**
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '```', finishReason: undefined }
+```🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'bash', finishReason: undefined }
+bash🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '\n', finishReason: undefined }
+
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'cat', finishReason: undefined }
+cat🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' solar', finishReason: undefined }
+ solar🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '.txt', finishReason: undefined }
+.txt🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '\n', finishReason: undefined }
+
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '```\n', finishReason: undefined }
+```
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '출력', finishReason: undefined }
+출력🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 결과', finishReason: undefined }
+ 결과🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ':\n', finishReason: undefined }
+:
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '```\n', finishReason: undefined }
+```
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'hello', finishReason: undefined }
+hello🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '\n', finishReason: undefined }
+
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '```\n\n', finishReason: undefined }
+```
+
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '###', finishReason: undefined }
+###🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' ', finishReason: undefined }
+ 🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '3', finishReason: undefined }
+3🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '.', finishReason: undefined }
+.🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' **', finishReason: undefined }
+ **🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '기존', finishReason: undefined }
+기존🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 내용에', finishReason: undefined }
+ 내용에🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 추가', finishReason: undefined }
+ 추가🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '하', finishReason: undefined }
+하🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '려면', finishReason: undefined }
+려면🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '?', finishReason: undefined }
+?🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '**\n', finishReason: undefined }
+**
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '예를', finishReason: undefined }
+예를🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 들어', finishReason: undefined }
+ 들어🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ',', finishReason: undefined }
+,🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 기존', finishReason: undefined }
+ 기존🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 파일에', finishReason: undefined }
+ 파일에🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: " `'", finishReason: undefined }
+ `'🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'world', finishReason: undefined }
+world🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: "'`", finishReason: undefined }
+'`🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '를', finishReason: undefined }
+를🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 추가', finishReason: undefined }
+ 추가🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '하', finishReason: undefined }
+하🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '려면', finishReason: undefined }
+려면🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ':\n', finishReason: undefined }
+:
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '```', finishReason: undefined }
+```🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'bash', finishReason: undefined }
+bash🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '\n', finishReason: undefined }
+
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'echo', finishReason: undefined }
+echo🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: " '", finishReason: undefined }
+ '🌊 Solar Stream Chunk: { text: 'world', finishReason: undefined }
+world🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: "'", finishReason: undefined }
+'🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' >>', finishReason: undefined }
+ >>🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' solar', finishReason: undefined }
+ solar🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '.txt', finishReason: undefined }
+.txt🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '\n', finishReason: undefined }
+
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '```\n', finishReason: undefined }
+```
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '출력', finishReason: undefined }
+출력🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 결과', finishReason: undefined }
+ 결과🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ':\n', finishReason: undefined }
+:
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '```\n', finishReason: undefined }
+```
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'hello', finishReason: undefined }
+hello🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '\n', finishReason: undefined }
+
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'world', finishReason: undefined }
+world🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '\n', finishReason: undefined }
+
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '```\n\n', finishReason: undefined }
+```
+
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '###', finishReason: undefined }
+###🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' ', finishReason: undefined }
+ 🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '4', finishReason: undefined }
+4🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '.', finishReason: undefined }
+.🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' **', finishReason: undefined }
+ **🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'Windows', finishReason: undefined }
+Windows🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '에서', finishReason: undefined }
+에서🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 실행', finishReason: undefined }
+ 실행🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 시', finishReason: undefined }
+ 시🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '**\n', finishReason: undefined }
+**
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'Power', finishReason: undefined }
+Power🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'Shell', finishReason: undefined }
+Shell🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '에서는', finishReason: undefined }
+에서는🌊 Solar Stream Chunk: { text: ' 다음과', finishReason: undefined }
+ 다음과🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 같이', finishReason: undefined }
+ 같이🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 사용합니다', finishReason: undefined }
+ 사용합니다🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ':\n', finishReason: undefined }
+:
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '```', finishReason: undefined }
+```🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'pow', finishReason: undefined }
+pow🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'ers', finishReason: undefined }
+ers🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'hell', finishReason: undefined }
+hell🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '\n', finishReason: undefined }
+
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'Add', finishReason: undefined }
+Add🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '-', finishReason: undefined }
+-🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'Content', finishReason: undefined }
+Content🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' -', finishReason: undefined }
+ -🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'Path', finishReason: undefined }
+Path🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' "', finishReason: undefined }
+ "🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 's', finishReason: undefined }
+s🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'olar', finishReason: undefined }
+olar🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '.txt', finishReason: undefined }
+.txt🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '"', finishReason: undefined }
+"🌊 Solar Stream Chunk: { text: ' -', finishReason: undefined }
+ -🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'Value', finishReason: undefined }
+Value🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' "', finishReason: undefined }
+ "🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'hello', finishReason: undefined }
+hello🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '"\n', finishReason: undefined }
+"
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '```\n\n', finishReason: undefined }
+```
+
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '###', finishReason: undefined }
+###🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 참고', finishReason: undefined }
+ 참고🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '\n', finishReason: undefined }
+
+🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '-', finishReason: undefined }
+-🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 현재', finishReason: undefined }
+ 현재🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 디렉토리', finishReason: undefined }
+ 디렉토리🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 구조', finishReason: undefined }
+ 구조🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '에는', finishReason: undefined }
+에는🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' `', finishReason: undefined }
+ `🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 's', finishReason: undefined }
+s🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: 'olar', finishReason: undefined }
+olar🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '.txt', finishReason: undefined }
+.txt🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '`', finishReason: undefined }
+`🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 파일이', finishReason: undefined }
+ 파일이🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 없으므로', finishReason: undefined }
+ 없으므로🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 위', finishReason: undefined }
+ 위🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 명령', finishReason: undefined }
+ 명령🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '어로', finishReason: undefined }
+어로🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 새', finishReason: undefined }
+ 새🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 파일이', finishReason: undefined }
+ 파일이🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: ' 생성됩니다', finishReason: undefined }
+ 생성됩니다🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":"
+🌊 Solar Stream Chunk: { text: '.', finishReason: undefined }
+.🌊 Solar Stream Raw Chunk: "data: {\"id\":\"749dbfb1-e753-4e84-a6c4-a79e02ab9a63\",\"object\":\"chat.completion.chunk\",\"created\":1755421866,\"model\":\"solar-pro2-250710\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{},\"logprob"
+🌊 Solar Stream: STOP finish reason detected
+🌞 Solar API Stream: STOP finish reason detected in logging wrapper
+🌊 Solar Stream Raw Chunk: "data: [DONE]"
+🌊 Solar Stream: Reader done, terminating
+🌊 Solar Stream: Processing remaining buffer: data: [DONE]
+🌞 Solar API Stream: Completed successfully with STOP signal
+🔷 LoggingContentGenerator: generateContent called
+🌞 Solar API Request: {
+  url: 'https://api.upstage.ai/v1/solar/chat/completions',
+  model: 'solar-pro2',
+  messagesCount: 5,
+  maxTokens: 4096,
+  temperature: 0,
+  stream: 'disabled',
+  timestamp: '2025-08-17T09:11:10.729Z',
+  lastUserMessage: 'Analyze *only* the content and structure of your immediately preceding response (your last turn in t...'
+}
+🌞 Solar API Response: {
+  status: 200,
+  duration: '1928ms',
+  model: 'solar-pro2-250710',
+  usage: {
+    prompt_tokens: 2383,
+    completion_tokens: 171,
+    total_tokens: 2554,
+    prompt_tokens_details: { cached_tokens: 0, audio_tokens: 0 },
+    completion_tokens_details: {
+      reasoning_tokens: 154,
+      audio_tokens: 0,
+      accepted_prediction_tokens: 0,
+      rejected_prediction_tokens: 0
+    }
+  },
+  finishReason: 'stop',
+  responseLength: 40,
+  firstChars: '```json\n{\n  "next_speaker": "user"\n}\n```...',
+  timestamp: '2025-08-17T09:11:12.657Z'
+}
+

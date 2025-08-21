@@ -124,12 +124,15 @@ export class GeminiClient {
   }
 
   async initialize(contentGeneratorConfig: ContentGeneratorConfig) {
+    console.log('🔧 GeminiClient initialize started');
     this.contentGenerator = await createContentGenerator(
       contentGeneratorConfig,
       this.config,
       this.config.getSessionId(),
     );
+    console.log('🔧 GeminiClient calling startChat...');
     this.chat = await this.startChat();
+    console.log('🔧 GeminiClient initialization completed');
   }
 
   getContentGenerator(): ContentGenerator {
@@ -193,6 +196,16 @@ export class GeminiClient {
     const toolRegistry = await this.config.getToolRegistry();
     const toolDeclarations = toolRegistry.getFunctionDeclarations();
     const tools: Tool[] = [{ functionDeclarations: toolDeclarations }];
+    
+    // Enhanced debug logging for tool initialization
+    console.log('🔧 GeminiClient startChat - Tool Debug:', {
+      toolRegistryExists: !!toolRegistry,
+      toolDeclarationsCount: toolDeclarations.length,
+      toolDeclarationNames: toolDeclarations.map(t => t.name),
+      toolsCount: tools.length,
+      toolsFunctionDeclarationsCount: tools[0]?.functionDeclarations?.length || 0,
+    });
+    
     const history: Content[] = [
       {
         role: 'user',

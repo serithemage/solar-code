@@ -222,11 +222,23 @@ export class GeminiChat {
           );
         }
 
+        // Enhanced debug logging for tools forwarding
+        const mergedConfig = { ...this.generationConfig, ...params.config };
+        console.log('🔧 GeminiChat Tools Debug:', {
+          generationConfigTools: !!this.generationConfig.tools,
+          generationConfigToolsLength: this.generationConfig.tools?.length || 0,
+          paramsConfigTools: !!params.config?.tools,
+          paramsConfigToolsLength: params.config?.tools?.length || 0,
+          mergedConfigTools: !!mergedConfig.tools,
+          mergedConfigToolsLength: mergedConfig.tools?.length || 0,
+          mergedConfigKeys: Object.keys(mergedConfig),
+        });
+
         return this.contentGenerator.generateContent(
           {
             model: modelToUse,
             contents: requestContents,
-            config: { ...this.generationConfig, ...params.config },
+            config: mergedConfig,
           },
           prompt_id,
         );
@@ -322,11 +334,23 @@ export class GeminiChat {
           );
         }
 
+        // Enhanced debug logging for tools forwarding (streaming)
+        const mergedConfig = { ...this.generationConfig, ...params.config };
+        console.log('🔧 GeminiChat Streaming Tools Debug:', {
+          generationConfigTools: !!this.generationConfig.tools,
+          generationConfigToolsLength: this.generationConfig.tools?.length || 0,
+          paramsConfigTools: !!params.config?.tools,
+          paramsConfigToolsLength: params.config?.tools?.length || 0,
+          mergedConfigTools: !!mergedConfig.tools,
+          mergedConfigToolsLength: mergedConfig.tools?.length || 0,
+          mergedConfigKeys: Object.keys(mergedConfig),
+        });
+
         return this.contentGenerator.generateContentStream(
           {
             model: modelToUse,
             contents: requestContents,
-            config: { ...this.generationConfig, ...params.config },
+            config: mergedConfig,
           },
           prompt_id,
         );

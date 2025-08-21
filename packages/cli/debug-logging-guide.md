@@ -18,4 +18,4 @@ UPSTAGE_API_KEY=$UPSTAGE_API_KEY DEBUG=true npx solar --debug --prompt "테스�
 
 ## 5. 날짜별 로그 파일 생성
 
-UPSTAGE_API_KEY=$UPSTAGE_API_KEY DEBUG=true npx solar --debug --prompt "테스트" 2>&1 | tee "solar-debug-$(date '+%Y%m%d-%H%M%S').log"
+UPSTAGE_API_KEY=$UPSTAGE_API_KEY DEBUG=true npx solar --debug --prompt "solar.txt파일에 'hello' 문자열을 추가하세요" 2>&1 | tee "solar-debug-$(date '+%Y%m%d-%H%M%S').log"

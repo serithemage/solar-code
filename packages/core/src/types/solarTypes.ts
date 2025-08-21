@@ -25,6 +25,27 @@ export interface SolarConfig {
   maxTokens?: number;
   timeout?: number;
   retryCount?: number;
+  reasoningEffort?: 'high' | 'medium' | 'low';
+}
+
+/**
+ * Solar API function definition (OpenAI-compatible format)
+ */
+export interface SolarFunction {
+  type: 'function';
+  function: {
+    name: string;
+    description: string;
+    parameters: {
+      type: 'object';
+      properties: Record<string, {
+        type: string;
+        description?: string;
+        enum?: string[];
+      }>;
+      required?: string[];
+    };
+  };
 }
 
 /**
@@ -39,7 +60,17 @@ export interface SolarRequestParams {
   max_tokens?: number;
   temperature?: number;
   stream?: boolean;
-  tools?: Array<Record<string, unknown>>; // Function calling support (TBD)
+  tools?: SolarFunction[]; // Solar API Function Calling support
+  tool_choice?: 'auto' | 'none' | { type: 'function'; function: { name: string } };
+  reasoning_effort?: 'high' | 'medium' | 'low'; // Solar Pro2 reasoning capability
+}
+
+/**
+ * Solar API function call structure
+ */
+export interface SolarFunctionCall {
+  name: string;
+  arguments: string; // JSON string
 }
 
 /**
@@ -54,7 +85,12 @@ export interface SolarResponse {
     index: number;
     message: {
       role: string;
-      content: string;
+      content: string | null;
+      tool_calls?: Array<{
+        id: string;
+        type: 'function';
+        function: SolarFunctionCall;
+      }>;
     };
     finish_reason: string;
   }>;

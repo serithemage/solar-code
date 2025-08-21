@@ -94,6 +94,14 @@ export class LoggingContentGenerator implements ContentGenerator {
     userPromptId: string,
   ): Promise<GenerateContentResponse> {
     console.log('🔷 LoggingContentGenerator: generateContent called');
+    console.log('🔷 LoggingContentGenerator Tools Debug:', {
+      hasReqConfig: !!req.config,
+      hasConfigTools: !!req.config?.tools,
+      toolsLength: Array.isArray(req.config?.tools) ? req.config.tools.length : 0,
+      configKeys: req.config ? Object.keys(req.config) : [],
+      wrappedType: this.wrapped.constructor.name,
+    });
+    
     const startTime = Date.now();
     this.logApiRequest(toContents(req.contents), req.model, userPromptId);
     try {

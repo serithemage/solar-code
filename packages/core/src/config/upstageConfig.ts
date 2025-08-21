@@ -17,6 +17,7 @@ export interface UpstageConfig {
   maxTokens: number;
   timeout: number;
   retryCount: number;
+  reasoningEffort?: 'high' | 'medium' | 'low';
 }
 
 /**
@@ -124,6 +125,22 @@ export function validateUpstageConfig(): UpstageConfig {
     );
   }
 
+  // Parse reasoning effort parameter
+  const reasoningEffortString = process.env.UPSTAGE_REASONING_EFFORT;
+  let reasoningEffort: 'high' | 'medium' | 'low' | undefined;
+  if (reasoningEffortString) {
+    if (['high', 'medium', 'low'].includes(reasoningEffortString)) {
+      reasoningEffort = reasoningEffortString as 'high' | 'medium' | 'low';
+    } else {
+      throw new UpstageConfigError(
+        `Invalid UPSTAGE_REASONING_EFFORT: "${reasoningEffortString}"\n` +
+          '\n' +
+          'Supported values: high, medium, low\n' +
+          'Leave unset to disable reasoning mode',
+      );
+    }
+  }
+
   return {
     apiKey,
     model,
@@ -131,6 +148,7 @@ export function validateUpstageConfig(): UpstageConfig {
     maxTokens,
     timeout,
     retryCount,
+    reasoningEffort,
   };
 }
 
@@ -243,7 +261,10 @@ export function printUpstageSetupGuide(): void {
     `  UPSTAGE_TIMEOUT       Request timeout in ms (default: ${UPSTAGE_DEFAULTS.timeout})`,
   );
   console.log(
-    `  UPSTAGE_RETRY_COUNT   Number of retries (default: ${UPSTAGE_DEFAULTS.retryCount})\n`,
+    `  UPSTAGE_RETRY_COUNT   Number of retries (default: ${UPSTAGE_DEFAULTS.retryCount})`,
+  );
+  console.log(
+    `  UPSTAGE_REASONING_EFFORT  Reasoning mode (high/medium/low, default: disabled)\n`,
   );
 
   console.log('Example .env file:');

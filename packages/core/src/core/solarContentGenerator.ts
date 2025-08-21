@@ -22,6 +22,7 @@ import {
   SolarRequestParams,
   SolarResponse,
   SolarStreamingResponse,
+  SolarFunction,
 } from '../types/solarTypes.js';
 
 /**
@@ -91,6 +92,30 @@ export class SolarContentGenerator implements ContentGenerator {
   ): SolarRequestParams {
     const messages = this.convertContentsToMessages(req.contents);
 
+    // CRITICAL: Enhanced debug logging for tools
+    console.log('🔧 SOLAR TOOLS DEBUG - convertToSolarRequest called:', {
+      hasReqConfig: !!req.config,
+      hasConfigTools: !!req.config?.tools,
+      toolsLength: Array.isArray(req.config?.tools) ? req.config.tools.length : 0,
+      configKeys: req.config ? Object.keys(req.config) : [],
+      reqModel: req.model,
+      reqContents: Array.isArray(req.contents) ? req.contents.length : 1,
+    });
+    
+    if (req.config?.tools) {
+      console.log('🔧 SOLAR TOOLS FOUND:', Array.isArray(req.config.tools) 
+        ? req.config.tools.map(t => ({
+            type: typeof t,
+            keys: Object.keys(t),
+            hasFunctionDeclarations: 'functionDeclarations' in t,
+            functionDeclarationsLength: 'functionDeclarations' in t ? (t as { functionDeclarations?: unknown[] }).functionDeclarations?.length || 0 : 0,
+          }))
+        : [{ type: typeof req.config.tools, keys: Object.keys(req.config.tools) }]
+      );
+    } else {
+      console.log('🔧 SOLAR TOOLS NOT FOUND - req.config?.tools is null/undefined');
+    }
+
     // Handle JSON schema requests - Solar API doesn't support responseSchema directly
     // So we need to modify the prompt to request JSON format
     if (
@@ -106,13 +131,121 @@ export class SolarContentGenerator implements ContentGenerator {
     }
 
     // Use the model from config instead of request to ensure correct Solar model
-    return {
+    const solarRequest: SolarRequestParams = {
       model: this.config.model,
       messages,
       max_tokens: this.config.maxTokens,
       temperature: req.config?.temperature,
       stream,
     };
+
+    // Add reasoning_effort parameter if configured
+    if (this.config.reasoningEffort) {
+      solarRequest.reasoning_effort = this.config.reasoningEffort;
+    }
+
+    // Convert Gemini tools to Solar functions
+    if (req.config?.tools && req.config.tools.length > 0) {
+      console.log('🔧 Converting Gemini tools to Solar functions:', {
+        toolCount: req.config.tools.length,
+        toolTypes: req.config.tools.map(tool => typeof tool),
+      });
+      solarRequest.tools = this.convertGeminiToolsToSolarFunctions(req.config.tools);
+      solarRequest.tool_choice = 'auto'; // Enable automatic function calling
+      console.log('🔧 Solar functions generated:', {
+        functionCount: solarRequest.tools.length,
+        functionNames: solarRequest.tools.map(f => f.function.name),
+      });
+    } else {
+      console.log('🔧 No tools to convert - tools not found in req.config');
+    }
+
+    return solarRequest;
+  }
+
+  /**
+   * Converts Gemini Tools to Solar API Function format
+   */
+  private convertGeminiToolsToSolarFunctions(geminiTools: unknown[]): SolarFunction[] {
+    const solarFunctions: SolarFunction[] = [];
+    
+    for (const tool of geminiTools) {
+      // Handle different tool types
+      if (tool && typeof tool === 'object' && 'functionDeclarations' in tool) {
+        // Standard Gemini Tool with functionDeclarations
+        const declarations = (tool as { functionDeclarations: unknown[] }).functionDeclarations;
+        for (const func of declarations) {
+          if (func && typeof func === 'object' && 'name' in func) {
+            const funcObj = func as { name: string; description?: string; parameters?: unknown };
+            solarFunctions.push({
+              type: 'function' as const,
+              function: {
+                name: funcObj.name,
+                description: funcObj.description || '',
+                parameters: {
+                  type: 'object',
+                  properties: this.convertGeminiParametersToSolar(funcObj.parameters),
+                  required: this.extractRequiredParameters(funcObj.parameters),
+                },
+              },
+            });
+          }
+        }
+      } else if (tool && typeof tool === 'object' && 'name' in tool) {
+        // Direct function-like tool
+        const directTool = tool as { name: string; description?: string; parameters?: unknown };
+        solarFunctions.push({
+          type: 'function' as const,
+          function: {
+            name: directTool.name,
+            description: directTool.description || '',
+            parameters: {
+              type: 'object',
+              properties: this.convertGeminiParametersToSolar(directTool.parameters),
+              required: this.extractRequiredParameters(directTool.parameters),
+            },
+          },
+        });
+      }
+    }
+    
+    return solarFunctions;
+  }
+
+  /**
+   * Converts Gemini parameters schema to Solar format
+   */
+  private convertGeminiParametersToSolar(
+    parameters: unknown,
+  ): Record<string, { type: string; description?: string; enum?: string[] }> {
+    if (!parameters || typeof parameters !== 'object' || !('properties' in parameters)) {
+      return {};
+    }
+
+    const paramObj = parameters as { properties: Record<string, unknown> };
+    const solarProperties: Record<string, { type: string; description?: string; enum?: string[] }> = {};
+    
+    for (const [key, value] of Object.entries(paramObj.properties)) {
+      const prop = value as { type?: string; description?: string; enum?: string[] };
+      solarProperties[key] = {
+        type: prop.type || 'string',
+        description: prop.description,
+        ...(prop.enum && { enum: prop.enum }),
+      };
+    }
+
+    return solarProperties;
+  }
+
+  /**
+   * Extracts required parameters from Gemini schema
+   */
+  private extractRequiredParameters(parameters: unknown): string[] {
+    if (parameters && typeof parameters === 'object' && 'required' in parameters) {
+      const paramObj = parameters as { required: unknown };
+      return Array.isArray(paramObj.required) ? paramObj.required.filter((item): item is string => typeof item === 'string') : [];
+    }
+    return [];
   }
 
   private convertContentsToMessages(
@@ -272,6 +405,9 @@ export class SolarContentGenerator implements ContentGenerator {
       maxTokens: request.max_tokens,
       temperature: request.temperature ?? 'default',
       stream: 'enabled',
+      toolsCount: request.tools?.length || 0,
+      toolChoice: request.tool_choice || 'none',
+      hasReasoningEffort: !!request.reasoning_effort,
       timestamp: new Date().toISOString(),
       lastUserMessage:
         request.messages?.length > 0
@@ -281,6 +417,15 @@ export class SolarContentGenerator implements ContentGenerator {
             ) + '...'
           : 'none',
     });
+
+    // Log function calling details if tools are present
+    if (request.tools && request.tools.length > 0) {
+      console.log('🔧 Solar API Function Calling:', {
+        toolCount: request.tools.length,
+        toolNames: request.tools.map(tool => tool.function.name),
+        toolChoice: request.tool_choice,
+      });
+    }
 
     const response = await fetch(`${this.baseUrl}/chat/completions`, {
       method: 'POST',
@@ -344,16 +489,40 @@ export class SolarContentGenerator implements ContentGenerator {
     const choice = solarResponse.choices[0];
 
     const response = new GenerateContentResponse();
+    
+    // Convert function calls if present
+    const parts: Part[] = [];
+    
+    // Add text content if available
+    if (choice.message.content) {
+      parts.push({ text: choice.message.content });
+    }
+    
+    // Add function calls if present
+    if (choice.message.tool_calls) {
+      for (const toolCall of choice.message.tool_calls) {
+        if (toolCall.type === 'function') {
+          parts.push({
+            functionCall: {
+              name: toolCall.function.name,
+              args: JSON.parse(toolCall.function.arguments),
+            },
+          });
+        }
+      }
+    }
+
     response.candidates = [
       {
         content: {
-          parts: [{ text: choice.message.content }],
+          parts,
           role: 'model',
         },
         finishReason: this.mapFinishReason(choice.finish_reason),
         index: choice.index,
       },
     ];
+    
     response.usageMetadata = {
       promptTokenCount: solarResponse.usage.prompt_tokens,
       candidatesTokenCount: solarResponse.usage.completion_tokens,

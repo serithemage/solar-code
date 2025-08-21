@@ -782,8 +782,19 @@ export class Config {
         isEnabled = false;
       }
 
+      console.log('🔧 Tool Registration Debug:', {
+        className,
+        toolName,
+        isEnabled,
+        coreTools,
+        excludeTools,
+      });
+      
       if (isEnabled) {
         registry.registerTool(new ToolClass(...args));
+        console.log(`🔧 ✅ Registered tool: ${className}/${toolName}`);
+      } else {
+        console.log(`🔧 ❌ Skipped tool: ${className}/${toolName}`);
       }
     };
 

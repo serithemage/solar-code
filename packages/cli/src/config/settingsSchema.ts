@@ -503,6 +503,16 @@ export const SETTINGS_SCHEMA = {
     description: 'Show line numbers in the chat.',
     showInDialog: true,
   },
+  reasoningMode: {
+    type: 'string',
+    label: 'Reasoning Mode',
+    category: 'General',
+    requiresRestart: false,
+    default: undefined as 'high' | 'medium' | 'low' | undefined,
+    description:
+      'Solar Pro2 reasoning effort level for enhanced thinking capabilities.',
+    showInDialog: true,
+  },
 } as const;
 
 type InferSettings<T extends SettingsSchema> = {
