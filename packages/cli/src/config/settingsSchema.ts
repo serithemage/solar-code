@@ -95,6 +95,15 @@ export const SETTINGS_SCHEMA = {
     description: 'Display memory usage information in the UI',
     showInDialog: true,
   },
+  hideFooter: {
+    type: 'boolean',
+    label: 'Hide Footer',
+    category: 'UI',
+    requiresRestart: false,
+    default: false,
+    description: 'Hide the footer from the UI',
+    showInDialog: true,
+  },
 
   usageStatisticsEnabled: {
     type: 'boolean',
@@ -265,6 +274,17 @@ export const SETTINGS_SCHEMA = {
     requiresRestart: false,
     default: false,
     description: 'Disable automatic updates',
+    showInDialog: true,
+  },
+
+  shouldUseNodePtyShell: {
+    type: 'boolean',
+    label: 'Use node-pty for Shell Execution',
+    category: 'Shell',
+    requiresRestart: true,
+    default: false,
+    description:
+      'Use node-pty for shell command execution. Fallback to child_process still applies.',
     showInDialog: true,
   },
 
@@ -511,6 +531,15 @@ export const SETTINGS_SCHEMA = {
     default: undefined as 'high' | 'medium' | 'low' | undefined,
     description:
       'Solar Pro2 reasoning effort level for enhanced thinking capabilities.',
+    showInDialog: true,
+  },
+  skipNextSpeakerCheck: {
+    type: 'boolean',
+    label: 'Skip Next Speaker Check',
+    category: 'General',
+    requiresRestart: false,
+    default: false,
+    description: 'Skip the next speaker check.',
     showInDialog: true,
   },
 } as const;
