@@ -45,3 +45,9 @@ packages/vscode-ide-companion/*.vsix
 .git/.cache/
 .eslintcache
 #*.log
+
+# Debug logs directory
+debug-logs/
+solar-debug*.log
+solar-api*.log
+solar-*.log
