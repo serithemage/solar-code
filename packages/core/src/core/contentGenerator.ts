@@ -138,7 +138,7 @@ export async function createContentGenerator(
     model: config.model,
     hasApiKey: !!config.apiKey,
   });
-  
+
   const version = process.env.CLI_VERSION || process.version;
   const httpOptions = {
     headers: {

@@ -96,24 +96,39 @@ export class SolarContentGenerator implements ContentGenerator {
     console.log('🔧 SOLAR TOOLS DEBUG - convertToSolarRequest called:', {
       hasReqConfig: !!req.config,
       hasConfigTools: !!req.config?.tools,
-      toolsLength: Array.isArray(req.config?.tools) ? req.config.tools.length : 0,
+      toolsLength: Array.isArray(req.config?.tools)
+        ? req.config.tools.length
+        : 0,
       configKeys: req.config ? Object.keys(req.config) : [],
       reqModel: req.model,
       reqContents: Array.isArray(req.contents) ? req.contents.length : 1,
     });
-    
+
     if (req.config?.tools) {
-      console.log('🔧 SOLAR TOOLS FOUND:', Array.isArray(req.config.tools) 
-        ? req.config.tools.map(t => ({
-            type: typeof t,
-            keys: Object.keys(t),
-            hasFunctionDeclarations: 'functionDeclarations' in t,
-            functionDeclarationsLength: 'functionDeclarations' in t ? (t as { functionDeclarations?: unknown[] }).functionDeclarations?.length || 0 : 0,
-          }))
-        : [{ type: typeof req.config.tools, keys: Object.keys(req.config.tools) }]
+      console.log(
+        '🔧 SOLAR TOOLS FOUND:',
+        Array.isArray(req.config.tools)
+          ? req.config.tools.map((t) => ({
+              type: typeof t,
+              keys: Object.keys(t),
+              hasFunctionDeclarations: 'functionDeclarations' in t,
+              functionDeclarationsLength:
+                'functionDeclarations' in t
+                  ? (t as { functionDeclarations?: unknown[] })
+                      .functionDeclarations?.length || 0
+                  : 0,
+            }))
+          : [
+              {
+                type: typeof req.config.tools,
+                keys: Object.keys(req.config.tools),
+              },
+            ],
       );
     } else {
-      console.log('🔧 SOLAR TOOLS NOT FOUND - req.config?.tools is null/undefined');
+      console.log(
+        '🔧 SOLAR TOOLS NOT FOUND - req.config?.tools is null/undefined',
+      );
     }
 
     // Handle JSON schema requests - Solar API doesn't support responseSchema directly
@@ -148,13 +163,15 @@ export class SolarContentGenerator implements ContentGenerator {
     if (req.config?.tools && req.config.tools.length > 0) {
       console.log('🔧 Converting Gemini tools to Solar functions:', {
         toolCount: req.config.tools.length,
-        toolTypes: req.config.tools.map(tool => typeof tool),
+        toolTypes: req.config.tools.map((tool) => typeof tool),
       });
-      solarRequest.tools = this.convertGeminiToolsToSolarFunctions(req.config.tools);
+      solarRequest.tools = this.convertGeminiToolsToSolarFunctions(
+        req.config.tools,
+      );
       solarRequest.tool_choice = 'auto'; // Enable automatic function calling
       console.log('🔧 Solar functions generated:', {
         functionCount: solarRequest.tools.length,
-        functionNames: solarRequest.tools.map(f => f.function.name),
+        functionNames: solarRequest.tools.map((f) => f.function.name),
       });
     } else {
       console.log('🔧 No tools to convert - tools not found in req.config');
@@ -166,17 +183,24 @@ export class SolarContentGenerator implements ContentGenerator {
   /**
    * Converts Gemini Tools to Solar API Function format
    */
-  private convertGeminiToolsToSolarFunctions(geminiTools: unknown[]): SolarFunction[] {
+  private convertGeminiToolsToSolarFunctions(
+    geminiTools: unknown[],
+  ): SolarFunction[] {
     const solarFunctions: SolarFunction[] = [];
-    
+
     for (const tool of geminiTools) {
       // Handle different tool types
       if (tool && typeof tool === 'object' && 'functionDeclarations' in tool) {
         // Standard Gemini Tool with functionDeclarations
-        const declarations = (tool as { functionDeclarations: unknown[] }).functionDeclarations;
+        const declarations = (tool as { functionDeclarations: unknown[] })
+          .functionDeclarations;
         for (const func of declarations) {
           if (func && typeof func === 'object' && 'name' in func) {
-            const funcObj = func as { name: string; description?: string; parameters?: unknown };
+            const funcObj = func as {
+              name: string;
+              description?: string;
+              parameters?: unknown;
+            };
             solarFunctions.push({
               type: 'function' as const,
               function: {
@@ -184,7 +208,9 @@ export class SolarContentGenerator implements ContentGenerator {
                 description: funcObj.description || '',
                 parameters: {
                   type: 'object',
-                  properties: this.convertGeminiParametersToSolar(funcObj.parameters),
+                  properties: this.convertGeminiParametersToSolar(
+                    funcObj.parameters,
+                  ),
                   required: this.extractRequiredParameters(funcObj.parameters),
                 },
               },
@@ -193,7 +219,11 @@ export class SolarContentGenerator implements ContentGenerator {
         }
       } else if (tool && typeof tool === 'object' && 'name' in tool) {
         // Direct function-like tool
-        const directTool = tool as { name: string; description?: string; parameters?: unknown };
+        const directTool = tool as {
+          name: string;
+          description?: string;
+          parameters?: unknown;
+        };
         solarFunctions.push({
           type: 'function' as const,
           function: {
@@ -201,14 +231,16 @@ export class SolarContentGenerator implements ContentGenerator {
             description: directTool.description || '',
             parameters: {
               type: 'object',
-              properties: this.convertGeminiParametersToSolar(directTool.parameters),
+              properties: this.convertGeminiParametersToSolar(
+                directTool.parameters,
+              ),
               required: this.extractRequiredParameters(directTool.parameters),
             },
           },
         });
       }
     }
-    
+
     return solarFunctions;
   }
 
@@ -218,15 +250,26 @@ export class SolarContentGenerator implements ContentGenerator {
   private convertGeminiParametersToSolar(
     parameters: unknown,
   ): Record<string, { type: string; description?: string; enum?: string[] }> {
-    if (!parameters || typeof parameters !== 'object' || !('properties' in parameters)) {
+    if (
+      !parameters ||
+      typeof parameters !== 'object' ||
+      !('properties' in parameters)
+    ) {
       return {};
     }
 
     const paramObj = parameters as { properties: Record<string, unknown> };
-    const solarProperties: Record<string, { type: string; description?: string; enum?: string[] }> = {};
-    
+    const solarProperties: Record<
+      string,
+      { type: string; description?: string; enum?: string[] }
+    > = {};
+
     for (const [key, value] of Object.entries(paramObj.properties)) {
-      const prop = value as { type?: string; description?: string; enum?: string[] };
+      const prop = value as {
+        type?: string;
+        description?: string;
+        enum?: string[];
+      };
       solarProperties[key] = {
         type: prop.type || 'string',
         description: prop.description,
@@ -241,9 +284,17 @@ export class SolarContentGenerator implements ContentGenerator {
    * Extracts required parameters from Gemini schema
    */
   private extractRequiredParameters(parameters: unknown): string[] {
-    if (parameters && typeof parameters === 'object' && 'required' in parameters) {
+    if (
+      parameters &&
+      typeof parameters === 'object' &&
+      'required' in parameters
+    ) {
       const paramObj = parameters as { required: unknown };
-      return Array.isArray(paramObj.required) ? paramObj.required.filter((item): item is string => typeof item === 'string') : [];
+      return Array.isArray(paramObj.required)
+        ? paramObj.required.filter(
+            (item): item is string => typeof item === 'string',
+          )
+        : [];
     }
     return [];
   }
@@ -422,8 +473,17 @@ export class SolarContentGenerator implements ContentGenerator {
     if (request.tools && request.tools.length > 0) {
       console.log('🔧 Solar API Function Calling:', {
         toolCount: request.tools.length,
-        toolNames: request.tools.map(tool => tool.function.name),
-        toolChoice: request.tool_choice,
+        toolNames: request.tools.map((tool) => tool.function.name),
+        toolChoice: JSON.stringify(request.tool_choice),
+        firstToolSchema: request.tools[0]
+          ? {
+              name: request.tools[0].function.name,
+              hasParameters: !!request.tools[0].function.parameters,
+              parameterProps: Object.keys(
+                request.tools[0].function.parameters?.properties || {},
+              ),
+            }
+          : null,
       });
     }
 
@@ -489,15 +549,15 @@ export class SolarContentGenerator implements ContentGenerator {
     const choice = solarResponse.choices[0];
 
     const response = new GenerateContentResponse();
-    
+
     // Convert function calls if present
     const parts: Part[] = [];
-    
+
     // Add text content if available
     if (choice.message.content) {
       parts.push({ text: choice.message.content });
     }
-    
+
     // Add function calls if present
     if (choice.message.tool_calls) {
       for (const toolCall of choice.message.tool_calls) {
@@ -522,7 +582,7 @@ export class SolarContentGenerator implements ContentGenerator {
         index: choice.index,
       },
     ];
-    
+
     response.usageMetadata = {
       promptTokenCount: solarResponse.usage.prompt_tokens,
       candidatesTokenCount: solarResponse.usage.completion_tokens,
@@ -542,11 +602,51 @@ export class SolarContentGenerator implements ContentGenerator {
     // Handle streaming delta content
     const content = choice.delta.content || '';
     const role = choice.delta.role || 'model';
+    const parts: Part[] = [];
+
+    // Add text content if present
+    if (content) {
+      parts.push({ text: content });
+    }
+
+    // Handle streaming tool calls
+    if (choice.delta.tool_calls && choice.delta.tool_calls.length > 0) {
+      for (const toolCall of choice.delta.tool_calls) {
+        if (
+          toolCall.type === 'function' &&
+          toolCall.function?.name &&
+          toolCall.function?.arguments
+        ) {
+          try {
+            const parsedArgs = JSON.parse(
+              toolCall.function.arguments,
+            ) as Record<string, unknown>;
+            parts.push({
+              functionCall: {
+                name: toolCall.function.name,
+                args: parsedArgs,
+              },
+            });
+          } catch (parseError) {
+            console.error(
+              '🌊 Solar Stream: Failed to parse tool call arguments:',
+              {
+                toolCall: toolCall.function,
+                error:
+                  parseError instanceof Error
+                    ? parseError.message
+                    : String(parseError),
+              },
+            );
+          }
+        }
+      }
+    }
 
     response.candidates = [
       {
         content: {
-          parts: content ? [{ text: content }] : [],
+          parts,
           role,
         },
         finishReason: choice.finish_reason
@@ -608,16 +708,50 @@ export class SolarContentGenerator implements ContentGenerator {
 
             try {
               const parsed: SolarStreamingResponse = JSON.parse(data);
+              console.log('🌊 Solar Stream JSON Parsed Successfully:', {
+                hasChoices: !!parsed.choices && parsed.choices.length > 0,
+                hasRole: !!parsed.choices?.[0]?.delta?.role,
+                hasContent: !!parsed.choices?.[0]?.delta?.content,
+                hasToolCalls: !!parsed.choices?.[0]?.delta?.tool_calls,
+                toolCallsLength:
+                  parsed.choices?.[0]?.delta?.tool_calls?.length || 0,
+              });
               const response = this.convertFromSolarStreamingResponse(parsed);
 
               // Log the parsed content for debugging
-              if (response.candidates?.[0]?.content?.parts?.[0]?.text) {
+              const candidate = response.candidates?.[0];
+              if (
+                candidate?.content?.parts &&
+                candidate.content.parts.length > 0
+              ) {
+                const parts = candidate.content.parts;
+                const textParts = parts.filter(
+                  (p): p is { text: string } =>
+                    'text' in p && typeof p.text === 'string',
+                );
+                const functionParts = parts.filter(
+                  (
+                    p,
+                  ): p is {
+                    functionCall: {
+                      name: string;
+                      args?: Record<string, unknown>;
+                    };
+                  } => 'functionCall' in p,
+                );
+
                 console.log('🌊 Solar Stream Chunk:', {
-                  text: response.candidates[0].content.parts[0].text.slice(
-                    0,
-                    100,
-                  ),
-                  finishReason: response.candidates[0].finishReason,
+                  textCount: textParts.length,
+                  text:
+                    textParts.length > 0
+                      ? textParts[0].text.slice(0, 100)
+                      : undefined,
+                  functionCallCount: functionParts.length,
+                  functionCalls: functionParts.map((p) => ({
+                    name: p.functionCall.name,
+                    hasArgs: !!p.functionCall.args,
+                  })),
+                  finishReason: candidate.finishReason,
                 });
               }
 
@@ -629,9 +763,12 @@ export class SolarContentGenerator implements ContentGenerator {
 
               yield response;
             } catch (parseError) {
-              // Log parsing errors for debugging
+              // Log parsing errors for debugging with more detail
               console.error('🌊 Solar Stream Parse Error:', {
-                line: line.slice(0, 100),
+                dataLength: data.length,
+                dataStart: data.slice(0, 150),
+                dataEnd: data.slice(-50),
+                isIncomplete: !data.endsWith('}'),
                 error:
                   parseError instanceof Error
                     ? parseError.message

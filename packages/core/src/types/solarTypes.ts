@@ -38,11 +38,14 @@ export interface SolarFunction {
     description: string;
     parameters: {
       type: 'object';
-      properties: Record<string, {
-        type: string;
-        description?: string;
-        enum?: string[];
-      }>;
+      properties: Record<
+        string,
+        {
+          type: string;
+          description?: string;
+          enum?: string[];
+        }
+      >;
       required?: string[];
     };
   };
@@ -61,7 +64,10 @@ export interface SolarRequestParams {
   temperature?: number;
   stream?: boolean;
   tools?: SolarFunction[]; // Solar API Function Calling support
-  tool_choice?: 'auto' | 'none' | { type: 'function'; function: { name: string } };
+  tool_choice?:
+    | 'auto'
+    | 'none'
+    | { type: 'function'; function: { name: string } };
   reasoning_effort?: 'high' | 'medium' | 'low'; // Solar Pro2 reasoning capability
 }
 
@@ -115,6 +121,15 @@ export interface SolarStreamingResponse {
     delta: {
       role?: string;
       content?: string;
+      tool_calls?: Array<{
+        index?: number;
+        id?: string;
+        type?: 'function';
+        function?: {
+          name?: string;
+          arguments?: string;
+        };
+      }>;
     };
     logprobs?: unknown;
     finish_reason?: string | null;

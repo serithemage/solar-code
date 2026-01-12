@@ -159,7 +159,7 @@ debug-log:
 	@echo "🐛 Starting debug session with logging..."
 	@mkdir -p debug-logs
 	@TIMESTAMP=$$(date '+%Y%m%d-%H%M%S') && \
-	UPSTAGE_API_KEY=$(UPSTAGE_API_KEY) DEBUG=true npx solar --debug --prompt "테스트" 2>&1 | \
+	UPSTAGE_API_KEY=$(UPSTAGE_API_KEY) DEBUG=true npx solar --debug --yolo --prompt "hello.md에 'Hellow World' 문자열을 적어줘" 2>&1 | \
 	while read line; do echo "$$(date '+%Y-%m-%d %H:%M:%S') $$line"; done | \
 	tee "debug-logs/solar-debug-$$TIMESTAMP.log"
 	@echo "✅ Debug log saved to debug-logs/"
@@ -170,7 +170,7 @@ debug-prompt:
 	@read -p "Enter prompt: " prompt; \
 	mkdir -p debug-logs; \
 	TIMESTAMP=$$(date '+%Y%m%d-%H%M%S') && \
-	UPSTAGE_API_KEY=$(UPSTAGE_API_KEY) DEBUG=true npx solar --debug --prompt "$$prompt" 2>&1 | \
+	UPSTAGE_API_KEY=$(UPSTAGE_API_KEY) DEBUG=true npx solar --debug --yolo --prompt "$$prompt" 2>&1 | \
 	while read line; do echo "$$(date '+%Y-%m-%d %H:%M:%S') $$line"; done | \
 	tee "debug-logs/solar-debug-$$TIMESTAMP.log"
 	@echo "✅ Debug log saved to debug-logs/"
@@ -180,7 +180,7 @@ debug-api:
 	@echo "🔌 Logging API calls only..."
 	@mkdir -p debug-logs
 	@TIMESTAMP=$$(date '+%Y%m%d-%H%M%S') && \
-	UPSTAGE_API_KEY=$(UPSTAGE_API_KEY) DEBUG=true npx solar --debug --prompt "테스트" 2>&1 | \
+	UPSTAGE_API_KEY=$(UPSTAGE_API_KEY) DEBUG=true npx solar --debug --yolo --prompt "테스트" 2>&1 | \
 	grep -E '(🌞|🌊|🔐|Solar API|Request|Response)' | \
 	tee "debug-logs/solar-api-$$TIMESTAMP.log"
 	@echo "✅ API log saved to debug-logs/"
@@ -188,7 +188,7 @@ debug-api:
 # Live debug with colorized output
 debug-live:
 	@echo "🔴 Starting live debug session (press Ctrl+C to stop)..."
-	@UPSTAGE_API_KEY=$(UPSTAGE_API_KEY) DEBUG=true npx solar --debug
+	@UPSTAGE_API_KEY=$(UPSTAGE_API_KEY) DEBUG=true npx solar --debug --yolo
 
 # Debug with filtering
 debug-filter:
@@ -196,7 +196,7 @@ debug-filter:
 	@read -p "Enter filter pattern (e.g., 'error|warning'): " filter; \
 	mkdir -p debug-logs; \
 	TIMESTAMP=$$(date '+%Y%m%d-%H%M%S') && \
-	UPSTAGE_API_KEY=$(UPSTAGE_API_KEY) DEBUG=true npx solar --debug --prompt "테스트" 2>&1 | \
+	UPSTAGE_API_KEY=$(UPSTAGE_API_KEY) DEBUG=true npx solar --debug --yolo --prompt "테스트" 2>&1 | \
 	grep -E "$$filter" | \
 	tee "debug-logs/solar-filtered-$$TIMESTAMP.log"
 	@echo "✅ Filtered log saved to debug-logs/"
@@ -213,7 +213,7 @@ debug-perf:
 	@mkdir -p debug-logs
 	@TIMESTAMP=$$(date '+%Y%m%d-%H%M%S') && \
 	LOG_FILE="debug-logs/solar-perf-$$TIMESTAMP.log" && \
-	UPSTAGE_API_KEY=$(UPSTAGE_API_KEY) DEBUG=true time -p npx solar --debug --prompt "테스트" 2>&1 | \
+	UPSTAGE_API_KEY=$(UPSTAGE_API_KEY) DEBUG=true time -p npx solar --debug --yolo --prompt "테스트" 2>&1 | \
 	tee "$$LOG_FILE" && \
 	echo "" >> "$$LOG_FILE" && \
 	echo "=== Performance Summary ===" >> "$$LOG_FILE" && \
@@ -228,7 +228,7 @@ debug-memory:
 	@TIMESTAMP=$$(date '+%Y%m%d-%H%M%S') && \
 	NODE_OPTIONS="--max-old-space-size=4096" \
 	UPSTAGE_API_KEY=$(UPSTAGE_API_KEY) DEBUG=true \
-	npx solar --debug --show-memory-usage --prompt "테스트" 2>&1 | \
+	npx solar --debug --yolo --show-memory-usage --prompt "테스트" 2>&1 | \
 	tee "debug-logs/solar-memory-$$TIMESTAMP.log"
 	@echo "✅ Memory profile log saved to debug-logs/"
 
@@ -238,7 +238,7 @@ debug-verbose:
 	@mkdir -p debug-logs
 	@TIMESTAMP=$$(date '+%Y%m%d-%H%M%S') && \
 	UPSTAGE_API_KEY=$(UPSTAGE_API_KEY) DEBUG=true VERBOSE=true \
-	npx solar --debug --prompt "테스트" 2>&1 | \
+	npx solar --debug --yolo --prompt "테스트" 2>&1 | \
 	tee "debug-logs/solar-verbose-$$TIMESTAMP.log"
 	@echo "✅ Verbose log saved to debug-logs/"
 

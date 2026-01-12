@@ -196,16 +196,17 @@ export class GeminiClient {
     const toolRegistry = await this.config.getToolRegistry();
     const toolDeclarations = toolRegistry.getFunctionDeclarations();
     const tools: Tool[] = [{ functionDeclarations: toolDeclarations }];
-    
+
     // Enhanced debug logging for tool initialization
     console.log('🔧 GeminiClient startChat - Tool Debug:', {
       toolRegistryExists: !!toolRegistry,
       toolDeclarationsCount: toolDeclarations.length,
-      toolDeclarationNames: toolDeclarations.map(t => t.name),
+      toolDeclarationNames: toolDeclarations.map((t) => t.name),
       toolsCount: tools.length,
-      toolsFunctionDeclarationsCount: tools[0]?.functionDeclarations?.length || 0,
+      toolsFunctionDeclarationsCount:
+        tools[0]?.functionDeclarations?.length || 0,
     });
-    
+
     const history: Content[] = [
       {
         role: 'user',

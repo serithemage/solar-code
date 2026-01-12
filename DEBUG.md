@@ -59,6 +59,7 @@ make debug-clean
 ## 📁 Log Storage
 
 All debug logs are saved to the `debug-logs/` directory with timestamps:
+
 - `solar-debug-YYYYMMDD-HHMMSS.log` - Full debug logs
 - `solar-api-YYYYMMDD-HHMMSS.log` - API-only logs
 - `solar-perf-YYYYMMDD-HHMMSS.log` - Performance logs
@@ -83,6 +84,7 @@ export NODE_OPTIONS="--max-old-space-size=4096"
 ## 📊 Performance Analysis
 
 The `make debug-perf` command provides:
+
 - Total API call count
 - Average response time calculation
 - Timing metrics using `time` command
@@ -91,6 +93,7 @@ The `make debug-perf` command provides:
 ## 🔍 Filtering and Analysis
 
 ### API Call Analysis
+
 ```bash
 # Extract only API interactions
 make debug-api
@@ -100,6 +103,7 @@ grep -E '(🌞|🌊|🔐)' debug-logs/solar-debug-*.log
 ```
 
 ### Error Analysis
+
 ```bash
 # Filter for errors and warnings
 make debug-filter
@@ -110,6 +114,7 @@ grep -i error debug-logs/*.log
 ```
 
 ### Performance Metrics
+
 ```bash
 # Extract response times from logs
 grep 'duration:' debug-logs/*.log | grep -o '[0-9]*ms'
@@ -138,6 +143,7 @@ make debug-script PROMPT="your prompt"
 ```
 
 This script creates:
+
 - Full timestamped logs
 - Filtered API logs
 - Performance summary report
@@ -145,18 +151,21 @@ This script creates:
 ## 🚨 Common Issues
 
 ### API Key Not Set
+
 ```bash
 # Set your API key first
 export UPSTAGE_API_KEY="up_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
 
 ### Permission Denied
+
 ```bash
 # Make scripts executable
 chmod +x packages/cli/solar-debug-logger.sh
 ```
 
 ### Out of Memory
+
 ```bash
 # Increase memory limit
 NODE_OPTIONS="--max-old-space-size=8192" make debug-memory
@@ -165,6 +174,7 @@ NODE_OPTIONS="--max-old-space-size=8192" make debug-memory
 ## 📝 Log Format
 
 Debug logs include:
+
 - Timestamps for each line
 - API request/response details
 - Performance metrics
@@ -173,6 +183,7 @@ Debug logs include:
 - Tool execution logs
 
 Example log entry:
+
 ```
 2024-08-17 23:10:40 🌞 Solar API Request
 2024-08-17 23:10:40 Model: solar-pro2

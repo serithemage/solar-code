@@ -47,7 +47,7 @@ packages/vscode-ide-companion/*.vsix
 #*.log
 
 # Debug logs directory
-debug-logs/
-solar-debug*.log
+#debug-logs/
+#solar-debug*.log
 solar-api*.log
-solar-*.log
+#solar-*.log

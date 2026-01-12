@@ -789,7 +789,7 @@ export class Config {
         coreTools,
         excludeTools,
       });
-      
+
       if (isEnabled) {
         registry.registerTool(new ToolClass(...args));
         console.log(`🔧 ✅ Registered tool: ${className}/${toolName}`);
